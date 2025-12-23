@@ -60,6 +60,7 @@ export const courseProgram = pgTable("course__program", {
 		foreignColumns: [program.id],
 		name: "course__program_program_id_fkey"
 	}).onDelete("cascade"),
+	unique("unique_course_program").on(table.courseId, table.programId),
 ]);
 
 export const program = pgTable("program", {

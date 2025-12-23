@@ -48,3 +48,6 @@ You are a Senior Next.js Architect enforcing "Service Layer" architecture and "S
 - code must be minimal, clean, and readable.
 - code must be robust and scalable. 
 - Verify that new logic does not cause downstream issues.
+
+## REVIEW
+ALWAYS ensure the following before writing any code: Separation of Concerns, Abstraction, Orchestration, Reusability, Scalability.
