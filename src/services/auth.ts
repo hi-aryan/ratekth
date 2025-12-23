@@ -25,4 +25,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       from: process.env.GMAIL_USER,
     }),
   ],
+  callbacks: {
+    async signIn({ user }) {
+      return !!user.email?.endsWith("@kth.se");
+    },
+  },
 });

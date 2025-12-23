@@ -1,6 +1,6 @@
 import { getCourseByCode } from "@/services/courses";
 import { auth } from "@/services/auth";
-import { loginAction, logoutAction } from "@/services/actions";
+import { loginAction, logoutAction } from "@/app/(auth)/actions";
 
 export default async function Home() {
   const session = await auth();
