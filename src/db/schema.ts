@@ -1,4 +1,4 @@
-import { pgTable, varchar, uniqueIndex, index, serial, foreignKey, unique, timestamp, integer, text, boolean, primaryKey, pgEnum } from "drizzle-orm/pg-core"
+import { pgTable, varchar, uniqueIndex, index, serial, foreignKey, unique, timestamp, integer, text, boolean, primaryKey, pgEnum, check } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 export const programType = pgEnum("program_type", ['bachelor', 'master'])
@@ -16,7 +16,7 @@ export const course = pgTable("course", {
 
 export const post = pgTable("post", {
 	id: serial("id").primaryKey().notNull(),
-	datePosted: timestamp("date_posted", { mode: 'string' }).notNull(),
+	datePosted: timestamp("date_posted", { mode: 'date' }).notNull(),
 	yearTaken: integer("year_taken").notNull(),
 	ratingProfessor: integer("rating_professor").notNull(),
 	ratingMaterial: integer("rating_material").notNull(),
@@ -29,6 +29,9 @@ export const post = pgTable("post", {
 	index("ix_post_course_id").on(table.courseId),
 	index("ix_post_date_posted").on(table.datePosted),
 	index("ix_post_user_id").on(table.userId),
+	check("rating_professor_check", sql`rating_professor >= 1 AND rating_professor <= 5`),
+	check("rating_material_check", sql`rating_material >= 1 AND rating_material <= 5`),
+	check("rating_peers_check", sql`rating_peers >= 1 AND rating_peers <= 5`),
 	foreignKey({
 		columns: [table.courseId],
 		foreignColumns: [course.id],
@@ -51,12 +54,12 @@ export const courseProgram = pgTable("course__program", {
 		columns: [table.courseId],
 		foreignColumns: [course.id],
 		name: "course__program_course_id_fkey"
-	}),
+	}).onDelete("cascade"),
 	foreignKey({
 		columns: [table.programId],
 		foreignColumns: [program.id],
 		name: "course__program_program_id_fkey"
-	}),
+	}).onDelete("cascade"),
 ]);
 
 export const program = pgTable("program", {
@@ -74,8 +77,8 @@ export const user = pgTable("user", {
 	username: varchar("username", { length: 20 }).notNull(),
 	email: varchar("email", { length: 120 }).notNull(),
 	imageFile: varchar("image_file", { length: 20 }).notNull(),
-	password: varchar("password", { length: 60 }).notNull(),
-	emailVerified: boolean("email_verified").notNull(),
+	password: varchar("password", { length: 60 }),
+	emailVerified: timestamp("email_verified", { mode: 'date' }),
 	programId: integer("program_id").notNull(),
 	mastersDegreeId: integer("masters_degree_id"),
 	specializationId: integer("specialization_id"),
@@ -128,12 +131,12 @@ export const courseSpecialization = pgTable("course__specialization", {
 		columns: [table.courseId],
 		foreignColumns: [course.id],
 		name: "course__specialization_course_id_fkey"
-	}),
+	}).onDelete("cascade"),
 	foreignKey({
 		columns: [table.specializationId],
 		foreignColumns: [specialization.id],
 		name: "course__specialization_specialization_id_fkey"
-	}),
+	}).onDelete("cascade"),
 	unique("unique_course_specialization").on(table.courseId, table.specializationId),
 ]);
 
@@ -145,11 +148,11 @@ export const postTags = pgTable("post_tags", {
 		columns: [table.postId],
 		foreignColumns: [post.id],
 		name: "post_tags_post_id_fkey"
-	}),
+	}).onDelete("cascade"),
 	foreignKey({
 		columns: [table.tagId],
 		foreignColumns: [tag.id],
 		name: "post_tags_tag_id_fkey"
-	}),
+	}).onDelete("cascade"),
 	primaryKey({ columns: [table.postId, table.tagId], name: "post_tags_pkey" }),
 ]);
