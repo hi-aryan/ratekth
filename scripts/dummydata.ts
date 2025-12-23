@@ -52,18 +52,17 @@ async function main() {
 
             if (!existingUser) {
                 const [newUser] = await tx.insert(schema.user).values({
-                    username: 'temp_username', // Placeholder
                     email: email,
-                    imageFile: 'default1.png',
+                    image: 'default1.png',
                     programId: program.id,
                     emailVerified: new Date(),
                 }).returning();
 
                 await tx.update(schema.user)
-                    .set({ username: `${program.code}${newUser.id}` })
+                    .set({ username: `${program.code}${newUser.id.substring(0, 8)}` })
                     .where(eq(schema.user.id, newUser.id));
 
-                console.log(`Created new user: ${program.code}${newUser.id}`);
+                console.log(`Created new user: ${program.code}${newUser.id.substring(0, 8)}`);
             } else {
                 // If user exists, optionally sync the program
                 await tx.update(schema.user)

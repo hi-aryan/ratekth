@@ -22,7 +22,7 @@ export const post = pgTable("post", {
 	ratingMaterial: integer("rating_material").notNull(),
 	ratingPeers: integer("rating_peers").notNull(),
 	content: text("content"),
-	userId: integer("user_id").notNull(),
+	userId: text("user_id").notNull(),
 	courseId: integer("course_id").notNull(),
 	ratingWorkload: workloadLevel("rating_workload").notNull(),
 }, (table) => [
@@ -74,13 +74,14 @@ export const program = pgTable("program", {
 ]);
 
 export const user = pgTable("user", {
-	id: serial("id").primaryKey().notNull(),
-	username: varchar("username", { length: 20 }).notNull(),
+	id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+	name: text("name"),
+	username: varchar("username", { length: 20 }),
 	email: varchar("email", { length: 120 }).notNull(),
-	imageFile: varchar("image_file", { length: 20 }).notNull(),
-	password: varchar("password", { length: 60 }),
 	emailVerified: timestamp("email_verified", { mode: 'date' }),
-	programId: integer("program_id").notNull(),
+	image: text("image"),
+	password: varchar("password", { length: 60 }),
+	programId: integer("program_id"),
 	mastersDegreeId: integer("masters_degree_id"),
 	specializationId: integer("specialization_id"),
 }, (table) => [
@@ -101,6 +102,36 @@ export const user = pgTable("user", {
 	}),
 	unique("user_username_key").on(table.username),
 	unique("user_email_key").on(table.email),
+]);
+
+export const accounts = pgTable("account", {
+	userId: text("userId").notNull().references(() => user.id, { onDelete: "cascade" }),
+	type: text("type").notNull(),
+	provider: text("provider").notNull(),
+	providerAccountId: text("providerAccountId").notNull(),
+	refresh_token: text("refresh_token"),
+	access_token: text("access_token"),
+	expires_at: integer("expires_at"),
+	token_type: text("token_type"),
+	scope: text("scope"),
+	id_token: text("id_token"),
+	session_state: text("session_state"),
+}, (account) => [
+	primaryKey({ columns: [account.provider, account.providerAccountId] }),
+]);
+
+export const sessions = pgTable("session", {
+	sessionToken: text("sessionToken").primaryKey(),
+	userId: text("userId").notNull().references(() => user.id, { onDelete: "cascade" }),
+	expires: timestamp("expires", { mode: "date" }).notNull(),
+});
+
+export const verificationTokens = pgTable("verificationToken", {
+	identifier: text("identifier").notNull(),
+	token: text("token").notNull(),
+	expires: timestamp("expires", { mode: "date" }).notNull(),
+}, (vt) => [
+	primaryKey({ columns: [vt.identifier, vt.token] }),
 ]);
 
 export const tag = pgTable("tag", {
