@@ -188,3 +188,10 @@ export const postTags = pgTable("post_tags", {
 	}).onDelete("cascade"),
 	primaryKey({ columns: [table.postId, table.tagId], name: "post_tags_pkey" }),
 ]);
+
+export const feedback = pgTable("feedback", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").references(() => user.id), // Optional: link to user if logged in
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

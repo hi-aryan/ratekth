@@ -1,6 +1,7 @@
 import { getCourseByCode } from "@/services/courses";
 import { auth } from "@/services/auth";
 import { loginAction, logoutAction } from "@/app/(auth)/actions";
+import { createFeedback } from "@/services/feedback";
 
 export default async function Home() {
   const session = await auth();
@@ -52,6 +53,21 @@ export default async function Home() {
           <p>Fetched Course: <span className="text-slate-900">{course?.name || "Not Found"}</span></p>
           <p>Code: <span className="text-slate-900">{course?.code || "N/A"}</span></p>
         </div>
+
+        {/* TEMPORARY FEEDBACK TEST */}
+        <form action={async () => {
+          "use server"
+          try {
+            await createFeedback("Test feedback from UI!");
+            console.log("Feedback saved!");
+          } catch (e) {
+            console.error("Feedback failed", e);
+          }
+        }} className="mt-4 pt-4 border-t border-slate-200">
+          <button type="submit" className="text-xs text-blue-600 hover:underline">
+            Test Feedback Save
+          </button>
+        </form>
       </div>
     </main>
   );
