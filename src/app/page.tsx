@@ -1,7 +1,8 @@
 import { getCourseByCode } from "@/services/courses";
 import { auth } from "@/services/auth";
-import { loginAction, logoutAction } from "@/actions/auth";
+import { logoutAction } from "@/actions/auth";
 import { createFeedback } from "@/services/feedback";
+import Link from "next/link";
 
 export default async function Home() {
   const session = await auth();
@@ -14,7 +15,9 @@ export default async function Home() {
       <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-sm border border-slate-100">
         {session ? (
           <div className="space-y-4">
-            <p className="text-slate-600">Logged in as <span className="font-medium text-slate-900">{session.user?.email}</span></p>
+            <p className="text-slate-600">
+              Logged in as <span className="font-medium text-slate-900">{session.user?.email}</span>
+            </p>
             <form action={logoutAction}>
               <button
                 type="submit"
@@ -25,25 +28,15 @@ export default async function Home() {
             </form>
           </div>
         ) : (
-          <form action={loginAction} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">KTH Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="user@kth.se"
-                required
-                className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full py-2 px-4 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors"
+          <div className="text-center space-y-4">
+            <p className="text-slate-600">Sign in to start reviewing courses.</p>
+            <Link
+              href="/login"
+              className="block w-full py-2 px-4 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-all font-medium"
             >
-              Send Magic Link
-            </button>
-          </form>
+              Go to Login
+            </Link>
+          </div>
         )}
       </div>
 
@@ -54,7 +47,7 @@ export default async function Home() {
           <p>Code: <span className="text-slate-900">{course?.code || "N/A"}</span></p>
         </div>
 
-        {/* TEMPORARY FEEDBACK TEST */}
+        {/* TEMPORARY FEEDBACK TEST, should probably move to src/actions/feedback.ts later */}
         <form action={async () => {
           "use server"
           try {
