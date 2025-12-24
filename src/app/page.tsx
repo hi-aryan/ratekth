@@ -1,6 +1,6 @@
 import { getCourseByCode } from "@/services/courses";
 import { auth } from "@/services/auth";
-import { loginAction, logoutAction } from "@/app/(auth)/actions";
+import { loginAction, logoutAction } from "@/actions/auth";
 import { createFeedback } from "@/services/feedback";
 
 export default async function Home() {

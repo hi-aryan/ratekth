@@ -14,7 +14,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [mailConfig],
   callbacks: {
     async signIn({ user }) {
-      return !!user.email?.endsWith("@kth.se");
+      return !!user.email?.toLowerCase().endsWith("@kth.se");
     },
   },
 });
