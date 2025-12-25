@@ -1,5 +1,6 @@
 "use server"
 
+import { redirect } from "next/navigation";
 import { loginSchema, registerSchema } from "@/lib/validation";
 import { signIn, signOut, findUserByEmail, createUser } from "@/services/auth";
 import { ActionState } from "@/lib/types";
@@ -39,16 +40,18 @@ export async function registerAction(_prevState: ActionState, formData: FormData
         });
 
         // 3. Send Verification Magic Link
-        await signIn("nodemailer", { email, redirect: false });
-
-        return {
-            success: true,
-            message: "Account created! Please check your KTH inbox to verify your email."
-        };
+        await signIn("nodemailer", {
+            email,
+            callbackUrl: "/login?verified=true",
+            redirect: false
+        });
     } catch (error) {
         console.error("[RegisterAction Error]:", error);
         return { error: "Failed to create account. Please try again." };
     }
+
+    // Redirect to login after success
+    redirect("/login?success=account-created");
 }
 
 /**
@@ -89,6 +92,10 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
 
         return { success: true };
     } catch (error) {
+        if ((error as any).message === "NEXT_REDIRECT") {
+            throw error;
+        }
+
         if (error instanceof AuthError) {
             switch (error.type) {
                 case "CredentialsSignin":
@@ -97,11 +104,10 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
                     return { error: "Something went wrong during login." };
             }
         }
-        // Next.js redirects throw a specific error, we should let those bubble up
-        if ((error as any).message === "NEXT_REDIRECT") throw error;
 
-        console.error("[LoginAction Error]:", error);
-        return { error: "Connection error. Please try again later." };
+        // Catch-all for database/service failures
+        console.error("[LoginAction Unexpected Error]:", error);
+        return { error: "Something went wrong. Please try again later." };
     }
 }
 

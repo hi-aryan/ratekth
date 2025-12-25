@@ -63,6 +63,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
+          emailVerified: user.emailVerified,
         } as User;
       }
     })
@@ -70,7 +71,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "credentials") {
-        return !!user.email && verifyKthEmail(user.email) && !!(user as any).emailVerified;
+        return !!user.email && verifyKthEmail(user.email) && !!user.emailVerified;
       }
       if (!user.email) return false;
       return verifyKthEmail(user.email);
