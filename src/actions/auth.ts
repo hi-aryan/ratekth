@@ -1,45 +1,110 @@
 "use server"
 
-import { loginSchema } from "@/lib/validation";
-import { signIn, signOut } from "@/services/auth";
+import { loginSchema, registerSchema } from "@/lib/validation";
+import { signIn, signOut, findUserByEmail, createUser } from "@/services/auth";
 import { ActionState } from "@/lib/types";
+import { AuthError } from "next-auth";
 
 /**
- * Action: Handles user login/magic link request.
- * Role: Controller - Validates input, calls service, returns state.
+ * Action: Handles user registration.
+ * Role: Controller - Validates, check identity, creates user, sends magic link.
  */
-export async function loginAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
-    const rawEmail = formData.get("email");
-    const result = loginSchema.safeParse({ email: rawEmail }); // any non @kth.se email is alr caught here
+export async function registerAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const rawData = Object.fromEntries(formData.entries());
+    const result = registerSchema.safeParse(rawData);
 
     if (!result.success) {
         return {
-            error: "Please check your input.",
-            fieldErrors: result.error.flatten().fieldErrors,
+            error: "Form validation failed.",
+            fieldErrors: result.error.flatten().fieldErrors as any,
         };
     }
 
-    const { email } = result.data;
+    const { email, password, programId, mastersDegreeId, specializationId } = result.data;
 
     try {
-        await signIn("nodemailer", {
+        // 1. Check if user exists
+        const existingUser = await findUserByEmail(email);
+        if (existingUser) {
+            return { error: "Email already registered. Please login." };
+        }
+
+        // 2. Create unverified user
+        await createUser({
             email,
-            redirectTo: "/",
-            redirect: false // Manual UI feedback is cleaner
+            password,
+            programId,
+            mastersDegreeId,
+            specializationId,
         });
+
+        // 3. Send Verification Magic Link
+        await signIn("nodemailer", { email, redirect: false });
 
         return {
             success: true,
-            message: "Success! Check your KTH inbox for the login link."
+            message: "Account created! Please check your KTH inbox to verify your email."
         };
     } catch (error) {
-        console.error("[LoginAction Error]:", error);
+        console.error("[RegisterAction Error]:", error);
+        return { error: "Failed to create account. Please try again." };
+    }
+}
+
+/**
+ * Action: Handles user login.
+ * Role: Controller - Password-based login for verified users.
+ */
+export async function loginAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const rawData = Object.fromEntries(formData.entries());
+    const result = loginSchema.safeParse(rawData);
+
+    if (!result.success) {
         return {
-            error: "Service temporarily unavailable. Please try again later."
+            error: "Please check your credentials.",
+            fieldErrors: result.error.flatten().fieldErrors as any,
         };
+    }
+
+    const { email, password } = result.data;
+
+    try {
+        const user = await findUserByEmail(email);
+
+        if (!user) {
+            return { error: "No account found with this email." };
+        }
+
+        if (!user.emailVerified) {
+            return { error: "Please verify your email before logging in." };
+        }
+
+        // Perform password login
+        await signIn("credentials", {
+            email,
+            password,
+            redirectTo: "/",
+            redirect: true
+        });
+
+        return { success: true };
+    } catch (error) {
+        if (error instanceof AuthError) {
+            switch (error.type) {
+                case "CredentialsSignin":
+                    return { error: "Invalid email or password." };
+                default:
+                    return { error: "Something went wrong during login." };
+            }
+        }
+        // Next.js redirects throw a specific error, we should let those bubble up
+        if ((error as any).message === "NEXT_REDIRECT") throw error;
+
+        console.error("[LoginAction Error]:", error);
+        return { error: "Connection error. Please try again later." };
     }
 }
 
 export async function logoutAction() {
-    await signOut();
+    await signOut({ redirectTo: "/" });
 }
