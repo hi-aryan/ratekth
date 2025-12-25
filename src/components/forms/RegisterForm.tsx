@@ -88,12 +88,6 @@ export const RegisterForm = ({ programs }: RegisterFormProps) => {
                 </p>
             )}
 
-            {state?.success && (
-                <p className="text-sm font-medium text-emerald-600 bg-emerald-50 p-3 rounded-lg border border-emerald-100">
-                    {state.message}
-                </p>
-            )}
-
             <Button type="submit" loading={isPending}>
                 Create Account
             </Button>

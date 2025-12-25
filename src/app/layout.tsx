@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
+import { NotificationListener } from "@/components/NotificationListener";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased font-sans">
+        <Toaster position="top-center" expand={false} richColors />
+        <NotificationListener />
         {children}
       </body>
     </html>

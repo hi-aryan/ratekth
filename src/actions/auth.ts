@@ -112,5 +112,5 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
 }
 
 export async function logoutAction() {
-    await signOut({ redirectTo: "/" });
+    await signOut({ redirectTo: "/login?success=logged-out" });
 }
