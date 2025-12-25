@@ -1,3 +1,5 @@
+/* TODO: User, Course, Review, Specialization, Tag types */
+
 import { DefaultSession } from "next-auth"
 
 export type ActionState = { /* add <T> to when adding posts/reviews?? */

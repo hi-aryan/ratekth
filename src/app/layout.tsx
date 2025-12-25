@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased font-sans">
-        <Toaster position="top-center" expand={false} richColors />
+        <Toaster duration={5000} position="top-center" expand={false} richColors />
         <NotificationListener />
         {children}
       </body>

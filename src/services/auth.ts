@@ -69,6 +69,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     })
   ],
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Magic link verification: force redirect to /login with success message
+      // overrides Auth.js default behavior (bit generic, use "targetUrl.pathname" if needed)
+      if (url.includes("/register") || url === baseUrl + "/register") {
+        return `${baseUrl}/login?success=verified`;
+      }
+      // Standard redirect handling
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      if (url.startsWith(baseUrl)) return url;
+      return baseUrl;
+    },
     async signIn({ user, account }) {
       if (account?.provider === "credentials") {
         return !!user.email && verifyKthEmail(user.email) && !!user.emailVerified;
@@ -83,5 +94,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     }
   },
-  session: { strategy: "jwt" }
+  session: { strategy: "jwt" }, /* cookies */
+  pages: {
+    signIn: "/login",
+    error: "/login",
+    verifyRequest: "/login",
+    newUser: "/login",
+  },
 });

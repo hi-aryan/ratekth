@@ -42,7 +42,7 @@ export async function registerAction(_prevState: ActionState, formData: FormData
         // 3. Send Verification Magic Link
         await signIn("nodemailer", {
             email,
-            callbackUrl: "/login?verified=true",
+            callbackUrl: "/login?success=verified",
             redirect: false
         });
     } catch (error) {
@@ -75,7 +75,7 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
         const user = await findUserByEmail(email);
 
         if (!user) {
-            return { error: "No account found with this email." };
+            return { error: "No account found with this email. Please register." };
         }
 
         if (!user.emailVerified) {

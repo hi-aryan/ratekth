@@ -14,7 +14,7 @@ export const LoginForm = () => {
         <form action={action} className="space-y-6">
             <FormField
                 label="KTH Email"
-                error={state?.fieldErrors?.email?.[0] || (state?.error && !state.fieldErrors ? state.error : undefined)}
+                error={state?.fieldErrors?.email?.[0]}
             >
                 <Input
                     id="email"
