@@ -15,13 +15,23 @@ export const loginSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
+/**
+ * Schema Helper: Optional numeric ID from HTML form.
+ * HTML forms send empty strings for unfilled fields.
+ * converts "" to undefined, then coerces valid values to numbers.
+ */
+const optionalId = z.preprocess(
+  (val) => (val === "" || val === null || val === undefined) ? undefined : val,
+  z.coerce.number().optional()
+);
+
 export const registerSchema = z.object({
   email: kthEmailSchema,
   password: z.string().min(8, "Password must be at least 8 characters"),
   confirmPassword: z.string().min(8, "Please confirm your password"),
-  programId: z.coerce.number().optional(),
-  mastersDegreeId: z.coerce.number().optional(),
-  specializationId: z.coerce.number().optional(),
+  programId: optionalId,
+  mastersDegreeId: optionalId,
+  specializationId: optionalId,
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
   path: ["confirmPassword"],

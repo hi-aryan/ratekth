@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { loginSchema, registerSchema } from "@/lib/validation";
 import { signIn, signOut, findUserByEmail, createUser } from "@/services/auth";
 import { ActionState } from "@/lib/types";
-import { AuthError } from "next-auth";
 
 /**
  * Action: Handles user registration.
@@ -82,35 +81,37 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
             return { error: "Please verify your email before logging in." };
         }
 
-        // Perform password login
-        await signIn("credentials", {
+        // Perform password login (redirect: false to handle result explicitly)
+        const signInResult = await signIn("credentials", {
             email,
             password,
-            redirectTo: "/",
-            redirect: true
+            redirect: false
         });
 
-        return { success: true };
+        if (!signInResult?.ok) {
+            return { error: "Invalid email or password." };
+        }
     } catch (error) {
-        if ((error as any).message === "NEXT_REDIRECT") {
-            throw error;
-        }
-
-        if (error instanceof AuthError) {
-            switch (error.type) {
-                case "CredentialsSignin":
-                    return { error: "Invalid email or password." };
-                default:
-                    return { error: "Something went wrong during login." };
-            }
-        }
-
-        // Catch-all for database/service failures
-        console.error("[LoginAction Unexpected Error]:", error);
+        console.error("[LoginAction Error]:", error);
         return { error: "Something went wrong. Please try again later." };
     }
+
+    // Redirect on success (outside try/catch, consistent with registerAction)
+    redirect("/");
 }
 
+/**
+ * Action: Handles user logout.
+ * Role: Controller - Destroys session and redirects to login.
+ */
 export async function logoutAction() {
-    await signOut({ redirectTo: "/login?success=logged-out" });
+    try {
+        await signOut({ redirect: false });
+    } catch (error) {
+        console.error("[LogoutAction Error]:", error);
+        redirect("/?error=logout-failed");
+    }
+
+    redirect("/login?success=logged-out");
 }
+
