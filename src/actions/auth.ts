@@ -1,6 +1,7 @@
 "use server"
 
 import { redirect } from "next/navigation";
+import { AuthError } from "next-auth";
 import { loginSchema, registerSchema } from "@/lib/validation";
 import { signIn, signOut, findUserByEmail, createUser } from "@/services/auth";
 import { ActionState } from "@/lib/types";
@@ -39,17 +40,24 @@ export async function registerAction(_prevState: ActionState, formData: FormData
         });
 
         // 3. Send Verification Magic Link
+        // Auth.js v5: signIn throws on failure, doesn't return { ok: false }
         await signIn("nodemailer", {
             email,
             callbackUrl: "/login?success=verified",
             redirect: false
         });
+        // If we reach here, email was sent successfully
     } catch (error) {
+        // Auth.js v5 throws AuthError on email send failure
+        if (error instanceof AuthError) {
+            console.error("[RegisterAction] Email send failed:", error);
+            return { error: "Account created but verification email failed to send. Please use 'Resend Verification' on the login page." };
+        }
         console.error("[RegisterAction Error]:", error);
         return { error: "Failed to create account. Please try again." };
     }
 
-    // Redirect to login after success
+    // Only redirect on full success (user created AND email sent)
     redirect("/login?success=account-created");
 }
 
@@ -81,17 +89,18 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
             return { error: "Please verify your email before logging in." };
         }
 
-        // Perform password login (redirect: false to handle result explicitly)
-        const signInResult = await signIn("credentials", {
+        // Auth.js v5: signIn throws on failure, doesn't return { ok: false }
+        await signIn("credentials", {
             email,
             password,
             redirect: false
         });
-
-        if (!signInResult?.ok) {
+        // If we reach here, sign-in succeeded
+    } catch (error) {
+        // Auth.js v5 throws AuthError on invalid credentials
+        if (error instanceof AuthError) {
             return { error: "Invalid email or password." };
         }
-    } catch (error) {
         console.error("[LoginAction Error]:", error);
         return { error: "Something went wrong. Please try again later." };
     }
