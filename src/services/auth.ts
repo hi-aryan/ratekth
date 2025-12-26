@@ -6,6 +6,7 @@ import { db } from "@/db";
 import { user as userTable, accounts, sessions, verificationTokens } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { mailConfig } from "@/lib/mail";
+import { CreateUserInput } from "@/lib/types";
 
 /**
  * Service: Verify if an email belongs to the KTH domain.
@@ -26,8 +27,9 @@ export const findUserByEmail = async (email: string) => {
 
 /**
  * Service: Create a new user with a hashed password.
+ * Accepts typed input ensuring either programId or mastersDegreeId is provided.
  */
-export const createUser = async (data: any) => {
+export const createUser = async (data: CreateUserInput) => {
   const hashedPassword = await bcrypt.hash(data.password, 12);
   return await db.insert(userTable).values({
     ...data,

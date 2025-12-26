@@ -33,4 +33,27 @@ export interface Program {
     id: number
     name: string
     code: string
+    credits: number
+    programType: 'bachelor' | 'master'
+}
+
+/**
+ * Domain Type: Specialization within a Master's Degree
+ */
+export interface Specialization {
+    id: number
+    name: string
+    programId: number
+}
+
+/**
+ * Service Input: Data required to create a new user.
+ * Either programId (Case 1) or mastersDegreeId (Case 2) must be provided.
+ */
+export interface CreateUserInput {
+    email: string
+    password: string
+    programId?: number
+    mastersDegreeId?: number
+    specializationId?: number
 }
