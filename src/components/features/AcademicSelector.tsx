@@ -4,6 +4,7 @@ import { useState, useTransition } from "react"
 import { Program, Specialization } from "@/lib/types"
 import { getSpecializationsAction } from "@/actions/academic"
 import { FormField } from "@/components/ui/FormField"
+import { Select } from "@/components/ui/Select"
 
 /**
  * AcademicSelector Component
@@ -63,8 +64,6 @@ export const AcademicSelector = ({
         setSpecializations([])
     }
 
-    const selectClassName = "w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-
     return (
         <div className="space-y-4">
             {/* Enrollment Type Toggle */}
@@ -99,11 +98,9 @@ export const AcademicSelector = ({
                     label="Your Base Program"
                     error={fieldErrors?.programId?.[0]}
                 >
-                    {/* TODO: change this select to shadcn component? */}
-                    <select
+                    <Select
                         value={selectedProgramId}
                         onChange={(e) => setSelectedProgramId(e.target.value)}
-                        className={selectClassName}
                     >
                         <option value="">Select your program...</option>
                         {basePrograms.map((p) => (
@@ -111,7 +108,7 @@ export const AcademicSelector = ({
                                 [{p.code}] {p.name} ({p.credits}hp)
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </FormField>
             )}
 
@@ -122,11 +119,9 @@ export const AcademicSelector = ({
                         label="Your Master's Degree"
                         error={fieldErrors?.mastersDegreeId?.[0]}
                     >
-                        {/* TODO: change this select to shadcn component? */}
-                        <select
+                        <Select
                             value={selectedMastersDegreeId}
                             onChange={(e) => handleMastersDegreeChange(e.target.value)}
-                            className={selectClassName}
                             disabled={isPending}
                         >
                             <option value="">Select your degree...</option>
@@ -135,7 +130,7 @@ export const AcademicSelector = ({
                                     [{p.code}] {p.name}
                                 </option>
                             ))}
-                        </select>
+                        </Select>
                     </FormField>
 
                     {/* Specialization (only if degree has specializations) */}
@@ -144,11 +139,9 @@ export const AcademicSelector = ({
                             label="Specialization (optional)"
                             error={fieldErrors?.specializationId?.[0]}
                         >
-                            {/* TODO: change this select to shadcn component? */}
-                            <select
+                            <Select
                                 value={selectedSpecializationId}
                                 onChange={(e) => setSelectedSpecializationId(e.target.value)}
-                                className={selectClassName}
                                 disabled={isPending}
                             >
                                 <option value="">No specialization</option>
@@ -157,7 +150,7 @@ export const AcademicSelector = ({
                                         {s.name}
                                     </option>
                                 ))}
-                            </select>
+                            </Select>
                         </FormField>
                     )}
 

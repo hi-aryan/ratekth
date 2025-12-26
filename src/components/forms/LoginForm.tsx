@@ -5,6 +5,7 @@ import { loginAction } from "@/actions/auth"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
+import { Alert } from "@/components/ui/Alert"
 import Link from "next/link"
 
 export const LoginForm = () => {
@@ -41,9 +42,7 @@ export const LoginForm = () => {
             </FormField>
 
             {state?.error && !state.fieldErrors && (
-                <p className="text-sm font-medium text-red-600 bg-red-50 p-3 rounded-lg border border-red-100">
-                    {state.error}
-                </p>
+                <Alert variant="error">{state.error}</Alert>
             )}
             <Button type="submit" loading={isPending}>
                 Login

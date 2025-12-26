@@ -5,6 +5,7 @@ import { resendVerificationAction } from "@/actions/auth"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
+import { Alert } from "@/components/ui/Alert"
 
 export const ResendVerificationForm = () => {
     const [state, action, isPending] = useActionState(resendVerificationAction, null)
@@ -23,15 +24,11 @@ export const ResendVerificationForm = () => {
             </FormField>
 
             {state?.error && (
-                <p className="text-sm font-medium text-red-600 bg-red-50 p-3 rounded-lg border border-red-100">
-                    {state.error}
-                </p>
+                <Alert variant="error">{state.error}</Alert>
             )}
 
             {state?.success && (
-                <p className="text-sm font-medium text-green-600 bg-green-50 p-3 rounded-lg border border-green-100">
-                    {state.message}
-                </p>
+                <Alert variant="success">{state.message}</Alert>
             )}
 
             <Button type="submit" loading={isPending}>
@@ -40,3 +37,4 @@ export const ResendVerificationForm = () => {
         </form>
     )
 }
+

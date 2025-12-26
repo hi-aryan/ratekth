@@ -5,6 +5,7 @@ import { registerAction } from "@/actions/auth"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
+import { Alert } from "@/components/ui/Alert"
 import { AcademicSelector } from "@/components/features/AcademicSelector"
 import { Program } from "@/lib/types"
 import Link from "next/link"
@@ -75,9 +76,7 @@ export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps
             />
 
             {state?.error && !state.fieldErrors && (
-                <p className="text-sm font-medium text-red-600 bg-red-50 p-3 rounded-lg border border-red-100">
-                    {state.error}
-                </p>
+                <Alert variant="error">{state.error}</Alert>
             )}
 
             <Button type="submit" loading={isPending}>
