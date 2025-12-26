@@ -62,6 +62,36 @@ export const createUser = async (data: CreateUserInput) => {
   }).returning();
 };
 
+/** Cooldown period for resending verification emails (5 minutes) */
+const RESEND_COOLDOWN_MS = 1 * 60 * 1000;
+/** NextAuth token lifespan - used to calculate when token was created */
+const TOKEN_LIFESPAN_MS = 24 * 60 * 60 * 1000; // 24 hours default
+
+/**
+ * Service: Check if user can resend verification email.
+ * Returns remaining cooldown seconds if blocked, or true if allowed.
+ */
+export const getResendCooldownStatus = async (email: string): Promise<{ canResend: true } | { canResend: false; retryAfterSeconds: number }> => {
+  const lastToken = await db.query.verificationTokens.findFirst({
+    where: eq(verificationTokens.identifier, email.toLowerCase()),
+  });
+
+  if (!lastToken) {
+    return { canResend: true };
+  }
+
+  // Calculate when token was created (expires - lifespan)
+  const tokenCreatedAt = new Date(lastToken.expires.getTime() - TOKEN_LIFESPAN_MS);
+  const timeSinceCreation = Date.now() - tokenCreatedAt.getTime();
+
+  if (timeSinceCreation < RESEND_COOLDOWN_MS) {
+    const retryAfterSeconds = Math.ceil((RESEND_COOLDOWN_MS - timeSinceCreation) / 1000);
+    return { canResend: false, retryAfterSeconds };
+  }
+
+  return { canResend: true };
+};
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
     usersTable: userTable,
@@ -106,12 +136,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (url.startsWith(baseUrl)) return url;
       return baseUrl;
     },
-    async signIn({ user, account }) {
-      if (account?.provider === "credentials") {
-        return !!user.email && verifyKthEmail(user.email) && !!user.emailVerified;
-      }
-      if (!user.email) return false;
-      return verifyKthEmail(user.email);
+    async signIn({ user }) {
+      // Defense-in-depth: ensure only KTH emails can ever sign in
+      // Note: emailVerified is checked by loginAction before signIn is called
+      return !!user.email && verifyKthEmail(user.email);
     },
     async session({ session, token }) {
       if (token.sub && session.user) {

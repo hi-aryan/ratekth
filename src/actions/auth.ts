@@ -2,8 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
-import { loginSchema, registerSchema } from "@/lib/validation";
-import { signIn, signOut, findUserByEmail, createUser } from "@/services/auth";
+import { loginSchema, registerSchema, kthEmailSchema } from "@/lib/validation";
+import { signIn, signOut, findUserByEmail, createUser, getResendCooldownStatus } from "@/services/auth";
 import { ActionState } from "@/lib/types";
 
 /**
@@ -40,19 +40,12 @@ export async function registerAction(_prevState: ActionState, formData: FormData
         });
 
         // 3. Send Verification Magic Link
-        // Auth.js v5: signIn throws on failure, doesn't return { ok: false }
         await signIn("nodemailer", {
             email,
             callbackUrl: "/login?success=verified",
             redirect: false
         });
-        // If we reach here, email was sent successfully
     } catch (error) {
-        // Auth.js v5 throws AuthError on email send failure
-        if (error instanceof AuthError) {
-            console.error("[RegisterAction] Email send failed:", error);
-            return { error: "Account created but verification email failed to send. Please use 'Resend Verification' on the login page." };
-        }
         console.error("[RegisterAction Error]:", error);
         return { error: "Failed to create account. Please try again." };
     }
@@ -124,3 +117,49 @@ export async function logoutAction() {
     redirect("/login?success=logged-out");
 }
 
+/**
+ * Action: Resends verification email to unverified users.
+ * Role: Controller - Validates email, checks cooldown, sends magic link.
+ */
+export async function resendVerificationAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const email = formData.get("email");
+    const parsed = kthEmailSchema.safeParse(email);
+
+    if (!parsed.success) {
+        return { error: "Please enter a valid @kth.se email address." };
+    }
+
+    const validEmail = parsed.data;
+
+    try {
+        // 1. Check user exists
+        const user = await findUserByEmail(validEmail);
+        if (!user) {
+            return { error: "No account found with this email." };
+        }
+
+        // 2. Check if already verified
+        if (user.emailVerified) {
+            return { error: "This email is already verified. You can log in." };
+        }
+
+        // 3. Check cooldown
+        const cooldownStatus = await getResendCooldownStatus(validEmail);
+        if (!cooldownStatus.canResend) {
+            const minutes = Math.ceil(cooldownStatus.retryAfterSeconds / 60);
+            return { error: `Please wait ${minutes} minute(s) before requesting another email.` };
+        }
+
+        // 4. Send verification email
+        await signIn("nodemailer", {
+            email: validEmail,
+            callbackUrl: "/login?success=verified",
+            redirect: false
+        });
+
+        return { success: true, message: "Verification email sent! Check your inbox." };
+    } catch (error) {
+        console.error("[ResendVerificationAction Error]:", error);
+        return { error: "Something went wrong. Please try again." };
+    }
+}

@@ -1,4 +1,5 @@
 import { LoginForm } from "@/components/forms/LoginForm";
+import { ResendVerificationForm } from "@/components/forms/ResendVerificationForm";
 
 export const dynamic = "force-dynamic"; /* wtf is this? */
 export default function LoginPage() {
@@ -12,6 +13,16 @@ export default function LoginPage() {
                 <div className="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100">
                     <LoginForm />
                 </div>
+
+                {/* Resend Verification Section */}
+                <details className="bg-white p-6 rounded-2xl shadow-md shadow-slate-200/50 border border-slate-100">
+                    <summary className="cursor-pointer text-sm font-medium text-slate-500 hover:text-slate-900">
+                        Didn't receive verification email?
+                    </summary>
+                    <div className="mt-4 pt-4 border-t border-slate-100">
+                        <ResendVerificationForm />
+                    </div>
+                </details>
             </div>
         </main>
     )
