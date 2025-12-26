@@ -1,4 +1,4 @@
-import { pgTable, varchar, uniqueIndex, index, serial, foreignKey, unique, timestamp, integer, text, boolean, primaryKey, pgEnum, check } from "drizzle-orm/pg-core"
+import { pgTable, varchar, uniqueIndex, index, serial, foreignKey, unique, timestamp, integer, text, primaryKey, pgEnum, check } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 export const programType = pgEnum("program_type", ['bachelor', 'master'])

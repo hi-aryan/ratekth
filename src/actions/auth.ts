@@ -16,7 +16,7 @@ export async function registerAction(_prevState: ActionState, formData: FormData
     if (!result.success) {
         return {
             error: "Form validation failed.",
-            fieldErrors: result.error.flatten().fieldErrors as any,
+            fieldErrors: result.error.flatten().fieldErrors as Record<string, string[] | undefined>,
         };
     }
 
@@ -64,7 +64,7 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
     if (!result.success) {
         return {
             error: "Please check your credentials.",
-            fieldErrors: result.error.flatten().fieldErrors as any,
+            fieldErrors: result.error.flatten().fieldErrors as Record<string, string[] | undefined>,
         };
     }
 

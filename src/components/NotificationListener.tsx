@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, Suspense } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { toast } from "sonner";
 import { getFlashMessage } from "@/lib/messages";
 
@@ -13,10 +13,20 @@ import { getFlashMessage } from "@/lib/messages";
  */
 function Listener() {
     const searchParams = useSearchParams();
-    const router = useRouter();
     const pathname = usePathname();
 
     useEffect(() => {
+        /**
+         * Removes the query parameter from the URL bar without refreshing the page.
+         * Prevents the toast from re-firing on page reloads.
+         */
+        const cleanUrl = (paramName: string) => {
+            const params = new URLSearchParams(searchParams.toString());
+            params.delete(paramName);
+            const queryString = params.toString();
+            window.history.replaceState(null, "", pathname + (queryString ? `?${queryString}` : ""));
+        };
+
         const successKey = searchParams.get("success");
         const errorKey = searchParams.get("error");
 
@@ -35,21 +45,7 @@ function Listener() {
                 cleanUrl("error");
             }
         }
-    }, [searchParams]);
-
-    /**
-     * Removes the query parameter from the URL bar without refreshing the page.
-     * Prevents the toast from re-firing on page reloads.
-     */
-    const cleanUrl = (paramName: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-        params.delete(paramName);
-
-        const queryString = params.toString();
-        const newPath = pathname + (queryString ? `?${queryString}` : "");
-
-        window.history.replaceState(null, "", newPath);
-    };
+    }, [searchParams, pathname]);
 
     return null;
 }
