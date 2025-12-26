@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db";
-import { user as userTable, accounts, sessions, verificationTokens } from "@/db/schema";
+import { user as userTable, accounts, sessions, verificationTokens, specialization } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { mailConfig } from "@/lib/mail";
 import { CreateUserInput, SafeUser, UserWithPassword } from "@/lib/types";
@@ -13,6 +13,28 @@ import { CreateUserInput, SafeUser, UserWithPassword } from "@/lib/types";
  */
 export const verifyKthEmail = (email: string): boolean => {
   return email.toLowerCase().endsWith("@kth.se");
+};
+
+/**
+ * Service: Validate that a specialization belongs to the given master's degree.
+ * Throws if the relationship is invalid (defense against form manipulation).
+ */
+const validateSpecializationBelongsToMastersDegree = async (
+  specializationId: number,
+  mastersDegreeId: number
+): Promise<void> => {
+  const spec = await db.query.specialization.findFirst({
+    where: eq(specialization.id, specializationId),
+    columns: { programId: true },
+  });
+
+  if (!spec) {
+    throw new Error("Specialization not found");
+  }
+
+  if (spec.programId !== mastersDegreeId) {
+    throw new Error("Specialization does not belong to the selected degree");
+  }
 };
 
 /**
@@ -52,8 +74,14 @@ const findUserWithPasswordByEmail = async (email: string): Promise<UserWithPassw
 
 /**
  * Service: Create a new user with a hashed password.
+ * Validates academic relationships before insertion.
  */
 export const createUser = async (data: CreateUserInput) => {
+  // Validate specialization belongs to selected master's degree (if both provided)
+  if (data.specializationId && data.mastersDegreeId) {
+    await validateSpecializationBelongsToMastersDegree(data.specializationId, data.mastersDegreeId);
+  }
+
   const hashedPassword = await bcrypt.hash(data.password, 12);
   return await db.insert(userTable).values({
     ...data,
