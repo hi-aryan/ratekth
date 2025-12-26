@@ -6,28 +6,52 @@ import { db } from "@/db";
 import { user as userTable, accounts, sessions, verificationTokens } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { mailConfig } from "@/lib/mail";
-import { CreateUserInput } from "@/lib/types";
+import { CreateUserInput, SafeUser, UserWithPassword } from "@/lib/types";
 
 /**
  * Service: Verify if an email belongs to the KTH domain.
- * Centralized source of truth for KTH identity verification.
  */
 export const verifyKthEmail = (email: string): boolean => {
   return email.toLowerCase().endsWith("@kth.se");
 };
 
 /**
- * Service: Find a user in the database by their email.
+ * Service: Find user by email - returns SAFE data only (no password).
+ * This is the ONLY user lookup that should be used by actions/components.
  */
-export const findUserByEmail = async (email: string) => {
-  return await db.query.user.findFirst({
+export const findUserByEmail = async (email: string): Promise<SafeUser | null> => {
+  const user = await db.query.user.findFirst({
+    where: eq(userTable.email, email.toLowerCase()),
+    columns: {
+      id: true,
+      email: true,
+      emailVerified: true,
+      name: true,
+      username: true,
+      image: true,
+      programId: true,
+      mastersDegreeId: true,
+      specializationId: true,
+      // password: EXCLUDED
+    },
+  });
+  return user ?? null;
+};
+
+/**
+ * Internal: Find user WITH password for auth verification.
+ * NOT exported - used only within this file's authorize() callback.
+ */
+const findUserWithPasswordByEmail = async (email: string): Promise<UserWithPassword | null> => {
+  const user = await db.query.user.findFirst({
     where: eq(userTable.email, email.toLowerCase()),
   });
+  if (!user || !user.password) return null;
+  return user as UserWithPassword;
 };
 
 /**
  * Service: Create a new user with a hashed password.
- * Accepts typed input ensuring either programId or mastersDegreeId is provided.
  */
 export const createUser = async (data: CreateUserInput) => {
   const hashedPassword = await bcrypt.hash(data.password, 12);
@@ -55,8 +79,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const user = await findUserByEmail(credentials.email as string);
-        if (!user || !user.password) return null;
+        const user = await findUserWithPasswordByEmail(credentials.email as string);
+        if (!user) return null;
 
         const isValid = await bcrypt.compare(credentials.password as string, user.password);
         if (!isValid) return null;

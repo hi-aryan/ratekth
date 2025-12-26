@@ -57,3 +57,27 @@ export interface CreateUserInput {
     mastersDegreeId?: number
     specializationId?: number
 }
+
+/**
+ * DTO: Safe user data for actions and components.
+ * Excludes password - this is the ONLY user type that should cross service boundaries.
+ */
+export interface SafeUser {
+    id: string
+    email: string
+    emailVerified: Date | null
+    name?: string | null
+    username?: string | null
+    image?: string | null
+    programId?: number | null
+    mastersDegreeId?: number | null
+    specializationId?: number | null
+}
+
+/**
+ * Internal: User with password for auth verification only.
+ * NEVER export from services - use only within auth.ts authorize().
+ */
+export interface UserWithPassword extends SafeUser {
+    password: string
+}
