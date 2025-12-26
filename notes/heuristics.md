@@ -1,0 +1,1 @@
+1. ONLY add 'use client' to the smallest interactive piece: Keep all files in app/, db/, services/, and lib/ as server components (no 'use client'). Only add 'use client' to individual interactive components in components/ui/ and components/forms/ that use useState, onClick, or other browser APIs—never to entire pages or layouts.

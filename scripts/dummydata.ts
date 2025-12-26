@@ -1,23 +1,24 @@
-import { db } from '../src/db';
-import * as schema from '../src/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { db } from '@/db';
+import * as schema from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
 /**
- * Robust Seed Script for rateKTH
+ * Seed Script for rateKTH
  * 
- * ACID Compliance:
- * - A (Atomicity): All inserts/updates happen within one transaction. One failure = full rollback.
- * - C (Consistency): Schema constraints (FKs, unique indexes) strictly enforced by DB.
- * - I (Isolation): Transaction ensures no partial data is visible to other queries.
- * - D (Durability): Committed data is safely stored in Postgres.
+ * Seeds test data for:
+ * - Case 1: Bachelor program (180hp) with a linked course
+ * - Case 2: Master's degree (120hp) with a specialization and linked course
+ * - Two test users (one for each case)
  */
 async function main() {
-    console.log('--- Seeding Database (Robust Mode) ---');
+    console.log('--- Seeding Database ---');
 
     try {
         await db.transaction(async (tx) => {
-            // 1. Upsert Program
-            const [program] = await tx.insert(schema.program).values({
+            // ==========================================
+            // CASE 1: Bachelor Program (Base Program)
+            // ==========================================
+            const [bachelorProgram] = await tx.insert(schema.program).values({
                 name: 'Information and Communication Technology',
                 code: 'TCOMK',
                 programType: 'bachelor',
@@ -26,9 +27,38 @@ async function main() {
                 target: schema.program.code,
                 set: { name: 'Information and Communication Technology', credits: 180 }
             }).returning();
+            console.log(`✓ Bachelor: ${bachelorProgram.code}`);
 
-            // 2. Upsert Course
-            const [course] = await tx.insert(schema.course).values({
+            // ==========================================
+            // CASE 2: Master's Degree (Direct Master's)
+            // ==========================================
+            const [mastersDegree] = await tx.insert(schema.program).values({
+                name: 'Computer Science',
+                code: 'TCSCM',
+                programType: 'master',
+                credits: 120,
+            }).onConflictDoUpdate({
+                target: schema.program.code,
+                set: { name: 'Computer Science', credits: 120 }
+            }).returning();
+            console.log(`✓ Master's Degree: ${mastersDegree.code}`);
+
+            // Specialization for the Master's Degree
+            const [specialization] = await tx.insert(schema.specialization).values({
+                name: 'Machine Learning',
+                programId: mastersDegree.id,
+            }).onConflictDoNothing().returning();
+
+            // Handle case where specialization already exists
+            const spec = specialization ?? await tx.query.specialization.findFirst({
+                where: eq(schema.specialization.programId, mastersDegree.id),
+            });
+            console.log(`✓ Specialization: ${spec?.name}`);
+
+            // ==========================================
+            // COURSES
+            // ==========================================
+            const [course1] = await tx.insert(schema.course).values({
                 name: 'Programmering I',
                 code: 'ID1018',
             }).onConflictDoUpdate({
@@ -36,45 +66,75 @@ async function main() {
                 set: { name: 'Programmering I' }
             }).returning();
 
-            // 3. Upsert Junction (Course Program)
+            const [course2] = await tx.insert(schema.course).values({
+                name: 'Machine Learning',
+                code: 'DD2421',
+            }).onConflictDoUpdate({
+                target: schema.course.code,
+                set: { name: 'Machine Learning' }
+            }).returning();
+            console.log(`✓ Courses: ${course1.code}, ${course2.code}`);
+
+            // Link course to bachelor program
             await tx.insert(schema.courseProgram).values({
-                courseId: course.id,
-                programId: program.id,
+                courseId: course1.id,
+                programId: bachelorProgram.id,
             }).onConflictDoNothing();
 
-            // 4. Robust User Creation (ID-based Username Logic)
-            // a) Ensure user exists by email.
-            // b) If new, generate username as CODE + ID.
-            const email = 'student@kth.se';
-            const existingUser = await tx.query.user.findFirst({
-                where: eq(schema.user.email, email),
-            });
-
-            if (!existingUser) {
-                const [newUser] = await tx.insert(schema.user).values({
-                    email: email,
-                    image: 'default1.png',
-                    programId: program.id,
-                    emailVerified: new Date(),
-                }).returning();
-
-                await tx.update(schema.user)
-                    .set({ username: `${program.code}${newUser.id.substring(0, 8)}` })
-                    .where(eq(schema.user.id, newUser.id));
-
-                console.log(`Created new user: ${program.code}${newUser.id.substring(0, 8)}`);
-            } else {
-                // If user exists, optionally sync the program
-                await tx.update(schema.user)
-                    .set({ programId: program.id })
-                    .where(eq(schema.user.id, existingUser.id));
-                console.log(`User already exists: ${existingUser.username}`);
+            // Link course to specialization
+            if (spec) {
+                await tx.insert(schema.courseSpecialization).values({
+                    courseId: course2.id,
+                    specializationId: spec.id,
+                }).onConflictDoNothing();
             }
 
-            console.log('✅ ACID Transaction finished successfully.');
+            // ==========================================
+            // TEST USERS
+            // ==========================================
+            const hashedPassword = '$2b$12$DLu1O49pr9sw4d7/tpnXz.V0Z0xAS8T6Au3WMhIZcUjW6mqEaDmxq'; // "password"
+
+            // User 1: Base Program student
+            const email1 = 'student@kth.se';
+            const existingUser1 = await tx.query.user.findFirst({
+                where: eq(schema.user.email, email1),
+            });
+            if (!existingUser1) {
+                const [user1] = await tx.insert(schema.user).values({
+                    email: email1,
+                    programId: bachelorProgram.id,
+                    emailVerified: new Date(),
+                    password: hashedPassword,
+                }).returning();
+                await tx.update(schema.user)
+                    .set({ username: `${bachelorProgram.code}${user1.id.substring(0, 6)}` })
+                    .where(eq(schema.user.id, user1.id));
+                console.log(`✓ User 1 (Base Program): ${email1}`);
+            }
+
+            // User 2: Direct Master's student
+            const email2 = 'masters@kth.se';
+            const existingUser2 = await tx.query.user.findFirst({
+                where: eq(schema.user.email, email2),
+            });
+            if (!existingUser2 && spec) {
+                const [user2] = await tx.insert(schema.user).values({
+                    email: email2,
+                    mastersDegreeId: mastersDegree.id,
+                    specializationId: spec.id,
+                    emailVerified: new Date(),
+                    password: hashedPassword,
+                }).returning();
+                await tx.update(schema.user)
+                    .set({ username: `${mastersDegree.code}${user2.id.substring(0, 6)}` })
+                    .where(eq(schema.user.id, user2.id));
+                console.log(`✓ User 2 (Master's Degree): ${email2}`);
+            }
+
+            console.log('✅ Seed completed successfully.');
         });
     } catch (error) {
-        console.error('❌ Transaction Failed. All changes rolled back.');
+        console.error('❌ Seed failed. All changes rolled back.');
         console.error(error);
         process.exit(1);
     }
@@ -82,3 +142,4 @@ async function main() {
 }
 
 main();
+

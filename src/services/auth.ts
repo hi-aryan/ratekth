@@ -62,7 +62,7 @@ export const createUser = async (data: CreateUserInput) => {
   }).returning();
 };
 
-/** Cooldown period for resending verification emails (5 minutes) */
+/** Cooldown period for resending verification emails (1 min) */
 const RESEND_COOLDOWN_MS = 1 * 60 * 1000;
 /** NextAuth token lifespan - used to calculate when token was created */
 const TOKEN_LIFESPAN_MS = 24 * 60 * 60 * 1000; // 24 hours default
