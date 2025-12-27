@@ -1,24 +1,8 @@
 import Nodemailer from "next-auth/providers/nodemailer";
 import nodemailer from "nodemailer";
+import { renderEmailTemplate } from "@/lib/email-templates";
 
-export const mailConfig = Nodemailer({
-    server: {
-        host: "smtp.gmail.com",
-        port: 465, /* 465 for SSL, 587 for TLS */
-        secure: true,
-        auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_APP_PASSWORD,
-        },
-    },
-    from: process.env.GMAIL_USER,
-});
-
-/**
- * Nodemailer transport for custom emails (password reset).
- * Reuses same SMTP config as Auth.js magic links.
- */
-const transporter = nodemailer.createTransport({
+const smtpConfig = {
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
@@ -26,7 +10,35 @@ const transporter = nodemailer.createTransport({
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
     },
+};
+
+export const mailConfig = Nodemailer({
+    server: { ...smtpConfig },
+    from: process.env.GMAIL_USER,
+    sendVerificationRequest: async ({ identifier, url, provider }) => {
+        const transport = nodemailer.createTransport(provider.server);
+        const { host } = new URL(url);
+
+        await transport.sendMail({
+            to: identifier,
+            from: provider.from,
+            subject: `Verify your email for ${host}`,
+            text: `Verify your email for rateKTH\n${url}\n\n`,
+            html: renderEmailTemplate({
+                title: "Verify your email",
+                body: "Welcome to rateKTH! Click the button below to verify your email address and activate your account.",
+                ctaText: "Verify Email",
+                ctaUrl: url,
+            }),
+        });
+    }
 });
+
+/**
+ * Nodemailer transport for custom emails (password reset).
+ * Reuses same SMTP config as Auth.js magic links.
+ */
+const transporter = nodemailer.createTransport({ ...smtpConfig });
 
 /**
  * Send password reset email with tokenized link.
@@ -40,16 +52,11 @@ export const sendPasswordResetEmail = async (email: string, token: string): Prom
         to: email,
         subject: "Reset your rateKTH password",
         text: `Click the link below to reset your password:\n\n${resetUrl}\n\nThis link expires in 1 hour.\n\nIf you didn't request this, you can safely ignore this email.`,
-        html: `
-            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-                <h2>Reset your password</h2>
-                <p>Click the button below to reset your rateKTH password:</p>
-                <a href="${resetUrl}" style="display: inline-block; background: #1e293b; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 16px 0;">
-                    Reset Password
-                </a>
-                <p style="color: #64748b; font-size: 14px;">This link expires in 1 hour.</p>
-                <p style="color: #64748b; font-size: 14px;">If you didn't request this, you can safely ignore this email.</p>
-            </div>
-        `,
+        html: renderEmailTemplate({
+            title: "Reset your password",
+            body: "Click the button below to reset your rateKTH password.",
+            ctaText: "Reset Password",
+            ctaUrl: resetUrl,
+        }),
     });
 };

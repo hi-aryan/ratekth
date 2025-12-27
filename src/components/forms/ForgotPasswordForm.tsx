@@ -12,28 +12,32 @@ export const ForgotPasswordForm = () => {
 
     return (
         <form action={action} className="space-y-4">
-            <FormField label="Email">
-                <Input
-                    id="forgot-email"
-                    name="email"
-                    type="email"
-                    placeholder="user@kth.se"
-                    required
-                    autoComplete="email"
-                />
-            </FormField>
+            {state?.success ? (
+                <div className="space-y-4">
+                    <Alert variant="success">{state.message}</Alert>
+                </div>
+            ) : (
+                <>
+                    <FormField label="Email">
+                        <Input
+                            id="forgot-email"
+                            name="email"
+                            type="email"
+                            placeholder="user@kth.se"
+                            required
+                            autoComplete="email"
+                        />
+                    </FormField>
 
-            {state?.error && (
-                <Alert variant="error">{state.error}</Alert>
+                    {state?.error && (
+                        <Alert variant="error">{state.error}</Alert>
+                    )}
+
+                    <Button type="submit" loading={isPending}>
+                        Send Reset Link
+                    </Button>
+                </>
             )}
-
-            {state?.success && (
-                <Alert variant="success">{state.message}</Alert>
-            )}
-
-            <Button type="submit" loading={isPending}>
-                Send Reset Link
-            </Button>
         </form>
     )
 }
