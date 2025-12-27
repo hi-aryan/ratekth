@@ -5,6 +5,7 @@ import { Program, Specialization } from "@/lib/types"
 import { getSpecializationsAction } from "@/actions/academic"
 import { FormField } from "@/components/ui/FormField"
 import { Select } from "@/components/ui/Select"
+import { ToggleButton } from "@/components/ui/ToggleButton"
 
 /**
  * AcademicSelector Component
@@ -69,26 +70,18 @@ export const AcademicSelector = ({
             {/* Enrollment Type Toggle */}
             <FormField label="I am enrolling in a...">
                 <div className="flex gap-2">
-                    <button
-                        type="button"
+                    <ToggleButton
+                        isActive={enrollmentType === "base"}
                         onClick={() => handleEnrollmentTypeChange("base")}
-                        className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg border transition-all ${enrollmentType === "base"
-                            ? "bg-slate-900 text-white border-slate-900"
-                            : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
-                            }`}
                     >
                         Base Program
-                    </button>
-                    <button
-                        type="button"
+                    </ToggleButton>
+                    <ToggleButton
+                        isActive={enrollmentType === "masters"}
                         onClick={() => handleEnrollmentTypeChange("masters")}
-                        className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg border transition-all ${enrollmentType === "masters"
-                            ? "bg-slate-900 text-white border-slate-900"
-                            : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
-                            }`}
                     >
                         Master's Degree
-                    </button>
+                    </ToggleButton>
                 </div>
             </FormField>
 

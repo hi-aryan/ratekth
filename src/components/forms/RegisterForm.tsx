@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
 import { Alert } from "@/components/ui/Alert"
+import { FormFooterLink } from "@/components/ui/FormFooterLink"
 import { AcademicSelector } from "@/components/features/AcademicSelector"
 import { Program } from "@/lib/types"
-import Link from "next/link"
 
 /**
  * Component Props: RegisterFormProps
@@ -83,12 +83,11 @@ export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps
                 Create Account
             </Button>
 
-            <p className="text-center text-xs text-slate-500">
-                Already have an account?{" "}
-                <Link href="/login" className="text-slate-900 font-semibold hover:underline">
-                    Login
-                </Link>
-            </p>
+            <FormFooterLink
+                text="Already have an account?"
+                linkText="Login"
+                href="/login"
+            />
         </form>
     )
 }

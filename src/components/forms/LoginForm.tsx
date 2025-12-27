@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
 import { Alert } from "@/components/ui/Alert"
-import Link from "next/link"
+import { FormFooterLink } from "@/components/ui/FormFooterLink"
 
 export const LoginForm = () => {
     const [state, action, isPending] = useActionState(loginAction, null)
@@ -48,12 +48,11 @@ export const LoginForm = () => {
                 Login
             </Button>
 
-            <p className="text-center text-xs text-slate-500">
-                Don't have an account?{" "}
-                <Link href="/register" className="text-slate-900 font-semibold hover:underline">
-                    Register
-                </Link>
-            </p>
+            <FormFooterLink
+                text="Don't have an account?"
+                linkText="Register"
+                href="/register"
+            />
         </form>
     )
 }
