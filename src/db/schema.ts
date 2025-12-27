@@ -80,7 +80,7 @@ export const user = pgTable("user", {
 	email: varchar("email", { length: 120 }).notNull(),
 	emailVerified: timestamp("email_verified", { mode: 'date' }),
 	image: text("image"),
-	password: varchar("password", { length: 60 }).notNull(),
+	password: varchar("password", { length: 200 }).notNull(),
 	programId: integer("program_id"),
 	mastersDegreeId: integer("masters_degree_id"),
 	specializationId: integer("specialization_id"),
