@@ -3,8 +3,8 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db";
-import { user as userTable, accounts, sessions, verificationTokens, specialization } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { user as userTable, accounts, sessions, verificationTokens, specialization, passwordResetTokens } from "@/db/schema";
+import { eq, and } from "drizzle-orm";
 import { mailConfig } from "@/lib/mail";
 import { CreateUserInput, SafeUser, UserWithPassword } from "@/lib/types";
 
@@ -90,10 +90,12 @@ export const createUser = async (data: CreateUserInput) => {
   }).returning();
 };
 
-/** Cooldown period for resending verification emails (1 min) */
+/** Cooldown period for resending emails (1 min) */
 const RESEND_COOLDOWN_MS = 1 * 60 * 1000;
 /** NextAuth token lifespan - used to calculate when token was created */
 const TOKEN_LIFESPAN_MS = 24 * 60 * 60 * 1000; // 24 hours default
+/** Password reset token lifespan (1 hour for security) */
+const PASSWORD_RESET_LIFESPAN_MS = 1 * 60 * 60 * 1000;
 
 /**
  * Service: Check if user can resend verification email.
@@ -118,6 +120,102 @@ export const getResendCooldownStatus = async (email: string): Promise<{ canResen
   }
 
   return { canResend: true };
+};
+
+/**
+ * Service: Check if user can request password reset (cooldown logic).
+ */
+export const getPasswordResetCooldownStatus = async (email: string): Promise<{ canRequest: true } | { canRequest: false; retryAfterSeconds: number }> => {
+  const lastToken = await db.query.passwordResetTokens.findFirst({
+    where: eq(passwordResetTokens.identifier, email.toLowerCase()),
+  });
+
+  if (!lastToken) {
+    return { canRequest: true };
+  }
+
+  // Calculate when token was created (expires - lifespan)
+  const tokenCreatedAt = new Date(lastToken.expires.getTime() - PASSWORD_RESET_LIFESPAN_MS);
+  const timeSinceCreation = Date.now() - tokenCreatedAt.getTime();
+
+  if (timeSinceCreation < RESEND_COOLDOWN_MS) {
+    const retryAfterSeconds = Math.ceil((RESEND_COOLDOWN_MS - timeSinceCreation) / 1000);
+    return { canRequest: false, retryAfterSeconds };
+  }
+
+  return { canRequest: true };
+};
+
+/**
+ * Service: Create password reset token for user.
+ * Implements delete-before-insert pattern to ensure max 1 token per email.
+ * Returns the token string to be included in the email link.
+ */
+export const createPasswordResetToken = async (email: string): Promise<string> => {
+  const normalizedEmail = email.toLowerCase();
+  const token = crypto.randomUUID();
+  const expires = new Date(Date.now() + PASSWORD_RESET_LIFESPAN_MS);
+
+  // Delete any existing tokens for this email (ensures max 1 token per user)
+  await db.delete(passwordResetTokens)
+    .where(eq(passwordResetTokens.identifier, normalizedEmail));
+
+  // Insert new token
+  await db.insert(passwordResetTokens).values({
+    identifier: normalizedEmail,
+    token,
+    expires,
+  });
+
+  return token;
+};
+
+/**
+ * Service: Validate password reset token.
+ * Returns the email if token is valid and not expired, null otherwise.
+ */
+export const validatePasswordResetToken = async (token: string): Promise<string | null> => {
+  const tokenRecord = await db.query.passwordResetTokens.findFirst({
+    where: eq(passwordResetTokens.token, token),
+  });
+
+  if (!tokenRecord) {
+    return null;
+  }
+
+  // Check if token is expired
+  if (tokenRecord.expires < new Date()) {
+    // Clean up expired token
+    await db.delete(passwordResetTokens)
+      .where(and(
+        eq(passwordResetTokens.identifier, tokenRecord.identifier),
+        eq(passwordResetTokens.token, token)
+      ));
+    return null;
+  }
+
+  return tokenRecord.identifier;
+};
+
+/**
+ * Service: Update user password and consume the reset token.
+ * Hashes the password internally. Deletes the token after successful update.
+ */
+export const updateUserPassword = async (email: string, newPassword: string, token: string): Promise<void> => {
+  const normalizedEmail = email.toLowerCase();
+  const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+  // Update password
+  await db.update(userTable)
+    .set({ password: hashedPassword })
+    .where(eq(userTable.email, normalizedEmail));
+
+  // Delete the used token (single-use enforcement)
+  await db.delete(passwordResetTokens)
+    .where(and(
+      eq(passwordResetTokens.identifier, normalizedEmail),
+      eq(passwordResetTokens.token, token)
+    ));
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

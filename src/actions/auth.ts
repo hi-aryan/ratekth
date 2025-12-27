@@ -2,8 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
-import { loginSchema, registerSchema, kthEmailSchema } from "@/lib/validation";
-import { signIn, signOut, findUserByEmail, createUser, getResendCooldownStatus } from "@/services/auth";
+import { loginSchema, registerSchema, kthEmailSchema, resetPasswordSchema } from "@/lib/validation";
+import { signIn, signOut, findUserByEmail, createUser, getResendCooldownStatus, getPasswordResetCooldownStatus, createPasswordResetToken, validatePasswordResetToken, updateUserPassword } from "@/services/auth";
+import { sendPasswordResetEmail } from "@/lib/mail";
 import { ActionState } from "@/lib/types";
 
 /**
@@ -163,3 +164,83 @@ export async function resendVerificationAction(_prevState: ActionState, formData
         return { error: "Something went wrong. Please try again." };
     }
 }
+
+/**
+ * Action: Request password reset email.
+ * Role: Controller - Validates email, checks user exists and is verified, generates token, sends email.
+ */
+export async function requestPasswordResetAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const email = formData.get("email");
+    const parsed = kthEmailSchema.safeParse(email);
+
+    if (!parsed.success) {
+        return { error: "Please enter a valid @kth.se email address." };
+    }
+
+    const validEmail = parsed.data;
+
+    try {
+        // 1. Check user exists
+        const user = await findUserByEmail(validEmail);
+        if (!user) {
+            return { error: "No account found with this email." };
+        }
+
+        // 2. Check if user is verified (unverified users should use resend verification instead)
+        if (!user.emailVerified) {
+            return { error: "Please verify your email first. Use 'Resend Verification' below." };
+        }
+
+        // 3. Check cooldown
+        const cooldownStatus = await getPasswordResetCooldownStatus(validEmail);
+        if (!cooldownStatus.canRequest) {
+            const minutes = Math.ceil(cooldownStatus.retryAfterSeconds / 60);
+            return { error: `Please wait ${minutes} minute(s) before requesting another reset email.` };
+        }
+
+        // 4. Generate token and send email
+        const token = await createPasswordResetToken(validEmail);
+        await sendPasswordResetEmail(validEmail, token);
+
+        return { success: true, message: "Password reset link sent! Check your inbox." };
+    } catch (error) {
+        console.error("[RequestPasswordResetAction Error]:", error);
+        return { error: "Something went wrong. Please try again." };
+    }
+}
+
+/**
+ * Action: Reset password with valid token.
+ * Role: Controller - Validates form and token, updates password, redirects to login.
+ */
+export async function resetPasswordAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const rawData = Object.fromEntries(formData.entries());
+    const result = resetPasswordSchema.safeParse(rawData);
+
+    if (!result.success) {
+        return {
+            error: "Please check your input.",
+            fieldErrors: result.error.flatten().fieldErrors as Record<string, string[] | undefined>,
+        };
+    }
+
+    const { token, password } = result.data;
+
+    try {
+        // 1. Validate token and get email
+        const email = await validatePasswordResetToken(token);
+        if (!email) {
+            redirect("/login?error=reset-link-invalid");
+        }
+
+        // 2. Update password and consume token
+        await updateUserPassword(email, password, token);
+    } catch (error) {
+        console.error("[ResetPasswordAction Error]:", error);
+        return { error: "Something went wrong. Please try again." };
+    }
+
+    // Redirect on success
+    redirect("/login?success=password-reset");
+}
+

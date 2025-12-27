@@ -1,5 +1,6 @@
 import { LoginForm } from "@/components/forms/LoginForm";
 import { ResendVerificationForm } from "@/components/forms/ResendVerificationForm";
+import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { Card } from "@/components/ui/Card";
 
 /** force-dynamic: Ensures fresh session check on each request */
@@ -16,7 +17,16 @@ export default function LoginPage() {
                     <LoginForm />
                 </Card>
 
-                <Card className="p-6 shadow-md shadow-slate-200/50">
+                <Card className="p-6 shadow-md shadow-slate-200/50 space-y-4">
+                    <details>
+                        <summary className="cursor-pointer text-sm font-medium text-slate-500 hover:text-slate-900">
+                            Forgot password?
+                        </summary>
+                        <div className="mt-4 pt-4 border-t border-slate-100">
+                            <ForgotPasswordForm />
+                        </div>
+                    </details>
+
                     <details>
                         <summary className="cursor-pointer text-sm font-medium text-slate-500 hover:text-slate-900">
                             Didn't receive verification email?

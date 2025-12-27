@@ -134,6 +134,14 @@ export const verificationTokens = pgTable("verificationToken", {
 	primaryKey({ columns: [vt.identifier, vt.token] }),
 ]);
 
+export const passwordResetTokens = pgTable("passwordResetToken", {
+	identifier: text("identifier").notNull(), // email
+	token: text("token").notNull(),
+	expires: timestamp("expires", { mode: "date" }).notNull(),
+}, (table) => [
+	primaryKey({ columns: [table.identifier, table.token] }),
+]);
+
 export const tag = pgTable("tag", {
 	id: serial("id").primaryKey().notNull(),
 	name: varchar("name", { length: 50 }).notNull(),

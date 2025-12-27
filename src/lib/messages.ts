@@ -11,11 +11,13 @@ export const FLASH_MESSAGES = {
     "verified": "Email verified successfully! You can now log in.",
     "logged-out": "Successfully logged out.",
     "post-created": "Your review has been published!",
+    "password-reset": "Password reset successfully! You can now log in with your new password.",
 
     // Error Messages
     "verification-failed": "Invalid or expired verification link. Please request a new one.",
     "login-failed": "Invalid credentials or account not verified.",
     "unauthorized": "You must be logged in to view that page.",
+    "reset-link-invalid": "Invalid or expired reset link. Please request a new one.",
 } as const;
 
 export type FlashMessageKey = keyof typeof FLASH_MESSAGES;
