@@ -83,11 +83,20 @@ export const createUser = async (data: CreateUserInput) => {
   }
 
   const hashedPassword = await bcrypt.hash(data.password, 12);
-  return await db.insert(userTable).values({
-    ...data,
-    email: data.email.toLowerCase(),
-    password: hashedPassword,
-  }).returning();
+
+  try {
+    return await db.insert(userTable).values({
+      ...data,
+      email: data.email.toLowerCase(),
+      password: hashedPassword,
+    }).returning();
+  } catch (error) {
+    // Handle PostgreSQL unique constraint violation (race condition)
+    if (error && typeof error === "object" && "code" in error && error.code === "23505") {
+      throw new Error("Email already registered");
+    }
+    throw error;
+  }
 };
 
 /** Cooldown period for resending emails (1 min) */

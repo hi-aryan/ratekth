@@ -47,6 +47,10 @@ export async function registerAction(_prevState: ActionState, formData: FormData
             redirect: false
         });
     } catch (error) {
+        // Handle race condition: user was created between check and insert
+        if (error instanceof Error && error.message === "Email already registered") {
+            return { error: "Email already registered. Please login." };
+        }
         console.error("[RegisterAction Error]:", error);
         return { error: "Failed to create account. Please try again." };
     }

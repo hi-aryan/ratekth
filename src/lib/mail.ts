@@ -26,7 +26,7 @@ export const mailConfig = Nodemailer({
             text: `Verify your email for rateKTH\n${url}\n\n`,
             html: renderEmailTemplate({
                 title: "Verify your email",
-                body: "Welcome to rateKTH! Click the button below to verify your email address and activate your account.",
+                body: "Welcome to the home of student reviews at KTH! Click the button below to activate your account.",
                 ctaText: "Verify Email",
                 ctaUrl: url,
             }),
