@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { validatePasswordResetToken } from "@/services/auth";
 import { ResetPasswordForm } from "@/components/forms/ResetPasswordForm";
 import { Card } from "@/components/ui/Card";
 
@@ -13,6 +14,12 @@ export default async function ResetPasswordPage({ searchParams }: ResetPasswordP
 
     // No token in URL = invalid access
     if (!token) {
+        redirect("/login?error=reset-link-invalid");
+    }
+
+    // Validate token immediately (UX: don't show form if link is dead)
+    const email = await validatePasswordResetToken(token);
+    if (!email) {
         redirect("/login?error=reset-link-invalid");
     }
 

@@ -140,6 +140,7 @@ export const passwordResetTokens = pgTable("passwordResetToken", {
 	expires: timestamp("expires", { mode: "date" }).notNull(),
 }, (table) => [
 	primaryKey({ columns: [table.identifier, table.token] }),
+	index("ix_password_reset_token").on(table.token),
 ]);
 
 export const tag = pgTable("tag", {

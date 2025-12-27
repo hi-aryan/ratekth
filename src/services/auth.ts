@@ -156,15 +156,19 @@ export const createPasswordResetToken = async (email: string): Promise<string> =
   const token = crypto.randomUUID();
   const expires = new Date(Date.now() + PASSWORD_RESET_LIFESPAN_MS);
 
-  // Delete any existing tokens for this email (ensures max 1 token per user)
-  await db.delete(passwordResetTokens)
-    .where(eq(passwordResetTokens.identifier, normalizedEmail));
+  // Use transaction to ensure ACID compliance (race condition protection)
+  // Ensures max 1 token per email atomically
+  await db.transaction(async (tx) => {
+    // 1. Delete any existing tokens for this email
+    await tx.delete(passwordResetTokens)
+      .where(eq(passwordResetTokens.identifier, normalizedEmail));
 
-  // Insert new token
-  await db.insert(passwordResetTokens).values({
-    identifier: normalizedEmail,
-    token,
-    expires,
+    // 2. Insert new token
+    await tx.insert(passwordResetTokens).values({
+      identifier: normalizedEmail,
+      token,
+      expires,
+    });
   });
 
   return token;
@@ -205,17 +209,20 @@ export const updateUserPassword = async (email: string, newPassword: string, tok
   const normalizedEmail = email.toLowerCase();
   const hashedPassword = await bcrypt.hash(newPassword, 12);
 
-  // Update password
-  await db.update(userTable)
-    .set({ password: hashedPassword })
-    .where(eq(userTable.email, normalizedEmail));
+  // Use transaction to ensure ACID compliance (race condition protection)
+  await db.transaction(async (tx) => {
+    // 1. Update password
+    await tx.update(userTable)
+      .set({ password: hashedPassword })
+      .where(eq(userTable.email, normalizedEmail));
 
-  // Delete the used token (single-use enforcement)
-  await db.delete(passwordResetTokens)
-    .where(and(
-      eq(passwordResetTokens.identifier, normalizedEmail),
-      eq(passwordResetTokens.token, token)
-    ));
+    // 2. Delete the used token (single-use enforcement)
+    await tx.delete(passwordResetTokens)
+      .where(and(
+        eq(passwordResetTokens.identifier, normalizedEmail),
+        eq(passwordResetTokens.token, token)
+      ));
+  });
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

@@ -230,12 +230,16 @@ export async function resetPasswordAction(_prevState: ActionState, formData: For
         // 1. Validate token and get email
         const email = await validatePasswordResetToken(token);
         if (!email) {
-            redirect("/login?error=reset-link-invalid");
+            // Throw specific error to be handled in catch block
+            throw new Error("RESET_LINK_INVALID");
         }
 
         // 2. Update password and consume token
         await updateUserPassword(email, password, token);
     } catch (error) {
+        if (error instanceof Error && error.message === "RESET_LINK_INVALID") {
+            redirect("/login?error=reset-link-invalid");
+        }
         console.error("[ResetPasswordAction Error]:", error);
         return { error: "Something went wrong. Please try again." };
     }
