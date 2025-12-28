@@ -11,17 +11,32 @@ export type ActionState = { /* add <T> to when adding posts/reviews?? */
 
 /**
  * NextAuth Module Augmentation
- * extends User and Session objects with extra fields.
+ * Extends User, Session, and JWT with academic fields.
+ * Enables visibility queries without extra DB lookups.
  */
 declare module "next-auth" {
     interface User {
         emailVerified?: Date | null
+        programId?: number | null
+        mastersDegreeId?: number | null
+        specializationId?: number | null
     }
 
     interface Session {
         user: {
             id: string
+            programId?: number | null
+            mastersDegreeId?: number | null
+            specializationId?: number | null
         } & DefaultSession["user"]
+    }
+}
+
+declare module "@auth/core/jwt" {
+    interface JWT {
+        programId?: number | null
+        mastersDegreeId?: number | null
+        specializationId?: number | null
     }
 }
 

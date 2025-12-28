@@ -38,6 +38,20 @@ const validateSpecializationBelongsToMastersDegree = async (
 };
 
 /**
+ * Service: Validate that a programId exists in the program table.
+ * Used for both base programs (programId) and direct master's (mastersDegreeId).
+ */
+const validateProgramExists = async (programId: number): Promise<void> => {
+  const program = await db.query.program.findFirst({
+    where: eq(programTable.id, programId),
+    columns: { id: true },
+  });
+  if (!program) {
+    throw new Error("Invalid program selected");
+  }
+};
+
+/**
  * Service: Find user by email - returns SAFE data only (no password).
  * This is the ONLY user lookup that should be used by actions/components.
  */
@@ -78,7 +92,13 @@ const findUserWithPasswordByEmail = async (email: string): Promise<UserWithPassw
  * Generates username atomically using transaction.
  */
 export const createUser = async (data: CreateUserInput) => {
-  // Validate specialization belongs to selected master's degree (if both provided)
+  // Validate academic IDs exist before insertion
+  if (data.programId) {
+    await validateProgramExists(data.programId);
+  }
+  if (data.mastersDegreeId) {
+    await validateProgramExists(data.mastersDegreeId);
+  }
   if (data.specializationId && data.mastersDegreeId) {
     await validateSpecializationBelongsToMastersDegree(data.specializationId, data.mastersDegreeId);
   }
@@ -290,6 +310,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: user.email,
           name: user.name,
           emailVerified: user.emailVerified,
+          programId: user.programId,
+          mastersDegreeId: user.mastersDegreeId,
+          specializationId: user.specializationId,
         } as User;
       }
     })
@@ -311,9 +334,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Note: emailVerified is checked by loginAction before signIn is called
       return !!user.email && verifyKthEmail(user.email);
     },
+    async jwt({ token, user }) {
+      // On initial sign-in, persist academic IDs to JWT
+      if (user) {
+        token.programId = user.programId;
+        token.mastersDegreeId = user.mastersDegreeId;
+        token.specializationId = user.specializationId;
+      }
+      return token;
+    },
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
+        session.user.programId = token.programId as number | null | undefined;
+        session.user.mastersDegreeId = token.mastersDegreeId as number | null | undefined;
+        session.user.specializationId = token.specializationId as number | null | undefined;
       }
       return session;
     }
