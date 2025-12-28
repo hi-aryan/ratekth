@@ -5,7 +5,7 @@ Use error.tsx file (Next.js Error Boundary) to catch unexpected crashes (like DB
 
 (auth)/: Route Group. Login/Register pages using the Auth Layout.
 
-(dashboard)/: Route Group. Main app pages (Feed, Course, Profile) using the Dashboard Layout.
+(app)/: Route Group. Main app pages (Feed, Course, Profile) using the App Layout.
 
 api/: Webhooks Only. (e.g., Database webhooks). Do not build your own API here.
 
