@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db";
-import { user as userTable, accounts, sessions, verificationTokens, specialization, passwordResetTokens } from "@/db/schema";
+import { user as userTable, accounts, sessions, verificationTokens, specialization, passwordResetTokens, program as programTable } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { mailConfig } from "@/lib/mail";
 import { CreateUserInput, SafeUser, UserWithPassword } from "@/lib/types";
@@ -75,6 +75,7 @@ const findUserWithPasswordByEmail = async (email: string): Promise<UserWithPassw
 /**
  * Service: Create a new user with a hashed password.
  * Validates academic relationships before insertion.
+ * Generates username atomically using transaction.
  */
 export const createUser = async (data: CreateUserInput) => {
   // Validate specialization belongs to selected master's degree (if both provided)
@@ -85,11 +86,38 @@ export const createUser = async (data: CreateUserInput) => {
   const hashedPassword = await bcrypt.hash(data.password, 12);
 
   try {
-    return await db.insert(userTable).values({
-      ...data,
-      email: data.email.toLowerCase(),
-      password: hashedPassword,
-    }).returning();
+    // Use transaction to atomically insert user and generate username
+    return await db.transaction(async (tx) => {
+      // 1. Insert user
+      const [newUser] = await tx.insert(userTable).values({
+        ...data,
+        email: data.email.toLowerCase(),
+        password: hashedPassword,
+      }).returning();
+
+      // 2. Get program code for username generation
+      // Priority: programId (base program) > mastersDegreeId (direct master's)
+      const programIdForUsername = data.programId ?? data.mastersDegreeId;
+      if (programIdForUsername) {
+        const program = await tx.query.program.findFirst({
+          where: eq(programTable.id, programIdForUsername),
+          columns: { code: true },
+        });
+
+        if (program?.code) {
+          // 3. Generate and set username: e.g., "CDATE1a2b3c"
+          const username = `${program.code}${newUser.id.substring(0, 6)}`;
+          await tx.update(userTable)
+            .set({ username })
+            .where(eq(userTable.id, newUser.id));
+
+          return [{ ...newUser, username }];
+        }
+      }
+
+      // Return user without username if no program selected (edge case)
+      return [newUser];
+    });
   } catch (error) {
     // Handle PostgreSQL unique constraint violation (race condition)
     if (error && typeof error === "object" && "code" in error && error.code === "23505") {

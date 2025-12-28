@@ -35,3 +35,15 @@ export const getMastersDegrees = async () => {
         orderBy: [asc(program.name)],
     });
 };
+
+/**
+ * Service: Get program code by ID.
+ * Used for username generation during registration.
+ */
+export const getProgramCodeById = async (programId: number): Promise<string | null> => {
+    const result = await db.query.program.findFirst({
+        where: eq(program.id, programId),
+        columns: { code: true },
+    });
+    return result?.code ?? null;
+};
