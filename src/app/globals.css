@@ -8,10 +8,10 @@
   
   --color-coral: #F76C5E; /* errors, destructive actions, warnings */
   
-  /* --color-green: #B4F19C; /* success states, confirmations 92E572 */
-  --color-green: #92E572; 
+  /* --color-green: #B4F19C; /* success states, confirmations */
+  --color-green: #74CA50; /* testing new green */
   
-  --color-porcelain: #FBFEF9; /* main bg */
+  --color-porcelain: #fbfbfb; /* main bg */
 
   --color-white: #FFFFFF; /* card bg */
 }

@@ -30,7 +30,7 @@ export default async function ResetPasswordPage({ searchParams }: ResetPasswordP
                     <h1 className="text-2xl font-bold">Reset Password</h1>
                     <p className="text-carbon/60 mt-2">Enter your new password below.</p>
                 </div>
-                <Card className="shadow-xl shadow-carbon/5">
+                <Card>
                     <ResetPasswordForm token={token} />
                 </Card>
             </div>

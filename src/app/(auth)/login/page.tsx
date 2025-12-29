@@ -11,13 +11,13 @@ export default function LoginPage() {
             <div className="w-full max-w-md space-y-8">
                 <div className="mb-8 text-center text-carbon">
                     <h1 className="text-2xl font-bold">Welcome Back</h1>
-                    <p className="text-carbon/60 mt-2">Login with your KTH credentials.</p>
+                    <p className="text-carbon/60 mt-2">Login with your rateKTH credentials.</p>
                 </div>
-                <Card className="shadow-xl shadow-carbon/5">
+                <Card>
                     <LoginForm />
                 </Card>
 
-                <Card className="p-6 shadow-md shadow-carbon/5 space-y-4">
+                <Card className="p-6 space-y-4">
                     <details>
                         <summary className="cursor-pointer text-sm font-medium text-carbon/60 hover:text-carbon">
                             Forgot password?

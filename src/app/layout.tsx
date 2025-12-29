@@ -16,7 +16,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased font-sans">
-        <Toaster duration={5000} position="top-center" expand={false} richColors />
+        <Toaster 
+          duration={5000} 
+          position="top-center" 
+          expand={false}
+          toastOptions={{
+            style: {
+              borderRadius: '8px',
+            },
+            classNames: {
+              success: '!bg-[#74CA501A] !text-[#74CA50] !border-[#74CA5033]',
+              error: '!bg-[#F76C5E1A] !text-[#F76C5E] !border-[#F76C5E33]',
+            }
+          }}
+        />
         <NotificationListener />
         {children}
       </body>
