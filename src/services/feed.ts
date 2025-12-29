@@ -1,7 +1,7 @@
 import "server-only";
 import { db } from "@/db";
 import { post, course, user, postTags, tag, courseProgram, courseSpecialization } from "@/db/schema";
-import { eq, desc, inArray, sql, asc } from "drizzle-orm";
+import { eq, desc, inArray, sql } from "drizzle-orm";
 import type { ReviewForDisplay, PaginatedResult, Tag } from "@/lib/types";
 import { FEED_PAGE_SIZE, type FeedSortOption } from "@/lib/constants";
 

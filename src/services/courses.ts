@@ -1,3 +1,4 @@
+import "server-only";
 import { db } from "@/db";
 import { course, courseProgram, courseSpecialization, post } from "@/db/schema";
 import { eq, sql, inArray, count, avg } from "drizzle-orm";

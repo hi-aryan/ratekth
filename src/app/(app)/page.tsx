@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
 export default async function Home() {
+  /* throw new Error("Testing error boundary"); */ // testing error page
+
   const session = await auth();
 
   // Get feed based on user's visibility (or all reviews if guest)
