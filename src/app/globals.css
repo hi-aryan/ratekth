@@ -9,7 +9,7 @@
   --color-coral: #F76C5E; /* errors, destructive actions, warnings */
   
   /* --color-green: #B4F19C; /* success states, confirmations */
-  --color-green: #74CA50; /* testing new green */
+  --color-green: #68BF43; /* testing new greens (NEEDS CHANGING IN layout.tsx ALSO!!): 74CA50 68BF43 */
   
   --color-porcelain: #fbfbfb; /* main bg */
 

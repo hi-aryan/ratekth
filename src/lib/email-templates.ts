@@ -19,7 +19,7 @@ export const renderEmailTemplate = ({ title, body, ctaText, ctaUrl }: EmailTempl
             </p>
 
             <a href="${ctaUrl}" 
-               style="display: inline-block; background: #171817; color: #FBFEF9; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; margin-bottom: 24px;">
+               style="display: inline-block; background: #171817; color: #FBFEF9; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-bottom: 24px;">
                 ${ctaText}
             </a>
 

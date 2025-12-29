@@ -23,9 +23,10 @@ export default function RootLayout({
           toastOptions={{
             style: {
               borderRadius: '8px',
+              boxShadow: '0 0 10px rgba(0,0,0,0.10)',
             },
             classNames: {
-              success: '!bg-[#74CA501A] !text-[#74CA50] !border-[#74CA5033]',
+              success: '!bg-[#68BF431A] !text-[#68BF43] !border-[#68BF4333]',
               error: '!bg-[#F76C5E1A] !text-[#F76C5E] !border-[#F76C5E33]',
             }
           }}
