@@ -1,3 +1,4 @@
+import "server-only";
 import { db } from "@/db";
 import { program } from "@/db/schema";
 import { asc, eq, or } from "drizzle-orm";

@@ -1,3 +1,4 @@
+import "server-only";
 import { db } from "@/db";
 import { feedback } from "@/db/schema";
 
