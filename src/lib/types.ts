@@ -96,3 +96,62 @@ export interface SafeUser {
 export interface UserWithPassword extends SafeUser {
     password: string
 }
+
+/**
+ * Domain Type: Tag for reviews with sentiment.
+ */
+export interface Tag {
+    id: number
+    name: string
+    sentiment: 'positive' | 'negative'
+}
+
+/**
+ * Domain Type: Course basic info.
+ */
+export interface Course {
+    id: number
+    name: string
+    code: string
+}
+
+/**
+ * DTO: Course with aggregated review statistics (for search results/listings).
+ */
+export interface CourseWithStats extends Course {
+    reviewCount: number
+    averageRating?: number
+}
+
+/**
+ * DTO: Review formatted for display (includes related course, author, tags).
+ * Overall rating is computed, not stored.
+ */
+export interface ReviewForDisplay {
+    id: number
+    datePosted: Date
+    yearTaken: number
+    ratingProfessor: number
+    ratingMaterial: number
+    ratingPeers: number
+    ratingWorkload: 'light' | 'medium' | 'heavy'
+    content: string | null
+    overallRating: number // computed: avg of 3 ratings
+    course: Course
+    author: {
+        username: string | null
+        image: string | null
+    }
+    tags: Tag[]
+}
+
+/**
+ * Generic paginated result wrapper.
+ */
+export interface PaginatedResult<T> {
+    items: T[]
+    totalCount: number
+    page: number
+    pageSize: number
+    hasMore: boolean
+}

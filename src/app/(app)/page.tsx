@@ -1,42 +1,69 @@
-import { getCourseByCode } from "@/services/courses";
 import { auth } from "@/services/auth";
-import { logoutAction } from "@/actions/auth";
+import { getStudentFeed } from "@/services/feed";
+import { ReviewCard } from "@/components/features/ReviewCard";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
 export default async function Home() {
   const session = await auth();
-  const course = await getCourseByCode("ID1018");
+
+  // Get feed based on user's visibility (or all reviews if guest)
+  const feed = await getStudentFeed(
+    session?.user?.programId,
+    session?.user?.mastersDegreeId,
+    session?.user?.specializationId
+  );
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-porcelain text-carbon">
-      <h1 className="text-4xl font-bold mb-8">rateKTH</h1>
+    <main className="min-h-screen bg-porcelain">
+      {/* Header */}
+      <header className="bg-white border-b border-carbon/10">
+        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
+          <h1 className="text-xl font-bold text-carbon">rateKTH</h1>
+          {session ? (
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-carbon/60">
+                {session.user?.email}
+              </span>
+            </div>
+          ) : (
+            <Link href="/login">
+              <Button>Sign In</Button>
+            </Link>
+          )}
+        </div>
+      </header>
 
-      <Card className="w-full max-w-md">
-        {session ? (
+      {/* Feed */}
+      <div className="max-w-3xl mx-auto px-4 py-8">
+        {feed.items.length > 0 ? (
           <div className="space-y-4">
-            <p className="text-carbon/70">
-              Logged in as <span className="font-medium text-carbon">{session.user?.email}</span>
-            </p>
-            <form action={logoutAction}>
-              <Button type="submit">Logout</Button>
-            </form>
+            {feed.items.map(review => (
+              <ReviewCard key={review.id} review={review} />
+            ))}
+
+            {/* Pagination info */}
+            <div className="text-center text-sm text-carbon/50 pt-4">
+              Showing {feed.items.length} of {feed.totalCount} reviews
+              {feed.hasMore && " • More available"}
+            </div>
           </div>
         ) : (
-          <div className="text-center space-y-4">
-            <p className="text-carbon/70">Sign in to start reviewing courses.</p>
-            <Link href="/login">
-              <Button>Go to Login</Button>
-            </Link>
-          </div>
+          <Card className="text-center py-12">
+            <p className="text-carbon/60 mb-4">
+              {session
+                ? "No reviews for your courses yet."
+                : "No reviews yet. Sign in to see reviews for your program!"}
+            </p>
+            {!session && (
+              <Link href="/login">
+                <Button>Sign In</Button>
+              </Link>
+            )}
+          </Card>
         )}
-      </Card>
-
-      <div className="mt-8 text-sm text-carbon/50">
-        <p>Featured Course: {course?.name} ({course?.code})</p>
       </div>
     </main>
   );
 }
-

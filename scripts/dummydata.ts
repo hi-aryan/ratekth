@@ -114,7 +114,7 @@ async function main() {
 
             // User 2: Direct Master's student
             const email2 = 'masters@kth.se';
-            const existingUser2 = await tx.query.user.findFirst({
+            let existingUser2 = await tx.query.user.findFirst({
                 where: eq(schema.user.email, email2),
             });
             if (!existingUser2 && spec) {
@@ -128,7 +128,107 @@ async function main() {
                 await tx.update(schema.user)
                     .set({ username: `${mastersDegree.code}${user2.id.substring(0, 6)}` })
                     .where(eq(schema.user.id, user2.id));
+                existingUser2 = user2;
                 console.log(`✓ User 2 (Master's Degree): ${email2}`);
+            }
+
+            // ==========================================
+            // TAGS
+            // ==========================================
+            const tagData = [
+                { name: 'Clear explanations', sentiment: 'positive' as const },
+                { name: 'Engaging lectures', sentiment: 'positive' as const },
+                { name: 'Heavy workload', sentiment: 'negative' as const },
+                { name: 'Outdated material', sentiment: 'negative' as const },
+            ];
+
+            const insertedTags: { id: number; name: string }[] = [];
+            for (const tagItem of tagData) {
+                const [inserted] = await tx.insert(schema.tag).values(tagItem)
+                    .onConflictDoNothing()
+                    .returning();
+                if (inserted) {
+                    insertedTags.push({ id: inserted.id, name: inserted.name });
+                } else {
+                    const existing = await tx.query.tag.findFirst({
+                        where: eq(schema.tag.name, tagItem.name),
+                    });
+                    if (existing) insertedTags.push({ id: existing.id, name: existing.name });
+                }
+            }
+            console.log(`✓ Tags: ${insertedTags.map(t => t.name).join(', ')}`);
+
+            // ==========================================
+            // REVIEWS (Posts)
+            // ==========================================
+            // Fetch actual user IDs for reviews
+            const user1ForReview = await tx.query.user.findFirst({
+                where: eq(schema.user.email, email1),
+            });
+            const user2ForReview = existingUser2;
+
+            if (user1ForReview) {
+                // Check if review already exists
+                const existingReview1 = await tx.query.post.findFirst({
+                    where: (post, { and, eq: postEq }) => and(
+                        postEq(post.userId, user1ForReview.id),
+                        postEq(post.courseId, course1.id)
+                    ),
+                });
+
+                if (!existingReview1) {
+                    const [review1] = await tx.insert(schema.post).values({
+                        userId: user1ForReview.id,
+                        courseId: course1.id,
+                        datePosted: new Date(),
+                        yearTaken: 2024,
+                        ratingProfessor: 4,
+                        ratingMaterial: 5,
+                        ratingPeers: 4,
+                        ratingWorkload: 'medium',
+                        content: 'Great introduction to programming! The professor explains concepts clearly and the labs are well-designed.',
+                    }).returning();
+
+                    // Add tags to review
+                    if (insertedTags.length >= 2) {
+                        await tx.insert(schema.postTags).values([
+                            { postId: review1.id, tagId: insertedTags[0].id },
+                            { postId: review1.id, tagId: insertedTags[1].id },
+                        ]).onConflictDoNothing();
+                    }
+                    console.log(`✓ Review 1: User 1 → ${course1.code}`);
+                }
+            }
+
+            if (user2ForReview && spec) {
+                const existingReview2 = await tx.query.post.findFirst({
+                    where: (post, { and, eq: postEq }) => and(
+                        postEq(post.userId, user2ForReview.id),
+                        postEq(post.courseId, course2.id)
+                    ),
+                });
+
+                if (!existingReview2) {
+                    const [review2] = await tx.insert(schema.post).values({
+                        userId: user2ForReview.id,
+                        courseId: course2.id,
+                        datePosted: new Date(Date.now() - 86400000), // 1 day ago
+                        yearTaken: 2024,
+                        ratingProfessor: 5,
+                        ratingMaterial: 3,
+                        ratingPeers: 5,
+                        ratingWorkload: 'heavy',
+                        content: 'Challenging but rewarding course. The math is intense and the assignments take a lot of time.',
+                    }).returning();
+
+                    if (insertedTags.length >= 3) {
+                        await tx.insert(schema.postTags).values([
+                            { postId: review2.id, tagId: insertedTags[0].id },
+                            { postId: review2.id, tagId: insertedTags[2].id },
+                        ]).onConflictDoNothing();
+                    }
+                    console.log(`✓ Review 2: User 2 → ${course2.code}`);
+                }
             }
 
             console.log('✅ Seed completed successfully.');
