@@ -4,14 +4,10 @@ import { post, course, user, postTags, tag } from "@/db/schema";
 import { eq, desc, inArray, sql } from "drizzle-orm";
 import type { ReviewForDisplay, PaginatedResult, Tag } from "@/lib/types";
 import { FEED_PAGE_SIZE, type FeedSortOption } from "@/lib/constants";
+import { computeOverallRating } from "@/lib/utils";
 import { getVisibleCourseIds } from "@/services/courses";
 
-/**
- * Compute overall rating from three component ratings.
- */
-const computeOverallRating = (professor: number, material: number, peers: number): number => {
-    return Math.round(((professor + material + peers) / 3) * 10) / 10;
-};
+
 
 /**
  * Get sort expression based on sort option.

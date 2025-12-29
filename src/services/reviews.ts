@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { post, course, user, postTags, tag } from "@/db/schema";
 import { eq, and, desc, inArray } from "drizzle-orm";
 import type { ReviewForDisplay, Tag } from "@/lib/types";
+import { computeOverallRating } from "@/lib/utils";
 
 /**
  * Service Input: Data required to create a new review.
@@ -32,12 +33,7 @@ export interface UpdateReviewInput {
     tagIds?: number[];
 }
 
-/**
- * Compute overall rating from three component ratings.
- */
-const computeOverallRating = (professor: number, material: number, peers: number): number => {
-    return Math.round(((professor + material + peers) / 3) * 10) / 10;
-};
+
 
 /**
  * Service: Check if a user has already reviewed a specific course.
