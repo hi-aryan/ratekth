@@ -10,14 +10,14 @@ export default async function Home() {
   const course = await getCourseByCode("ID1018");
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-slate-50 text-slate-900">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-porcelain text-carbon">
       <h1 className="text-4xl font-bold mb-8">rateKTH</h1>
 
       <Card className="w-full max-w-md">
         {session ? (
           <div className="space-y-4">
-            <p className="text-slate-600">
-              Logged in as <span className="font-medium text-slate-900">{session.user?.email}</span>
+            <p className="text-carbon/70">
+              Logged in as <span className="font-medium text-carbon">{session.user?.email}</span>
             </p>
             <form action={logoutAction}>
               <Button type="submit">Logout</Button>
@@ -25,7 +25,7 @@ export default async function Home() {
           </div>
         ) : (
           <div className="text-center space-y-4">
-            <p className="text-slate-600">Sign in to start reviewing courses.</p>
+            <p className="text-carbon/70">Sign in to start reviewing courses.</p>
             <Link href="/login">
               <Button>Go to Login</Button>
             </Link>
@@ -33,7 +33,7 @@ export default async function Home() {
         )}
       </Card>
 
-      <div className="mt-8 text-sm text-slate-400">
+      <div className="mt-8 text-sm text-carbon/50">
         <p>Featured Course: {course?.name} ({course?.code})</p>
       </div>
     </main>

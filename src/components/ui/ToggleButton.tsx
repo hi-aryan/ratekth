@@ -15,8 +15,8 @@ export const ToggleButton = ({ children, isActive, onClick, className }: ToggleB
             className={cn(
                 "flex-1 px-4 py-2 text-sm font-medium rounded-lg border transition-all",
                 isActive
-                    ? "bg-slate-900 text-white border-slate-900"
-                    : "bg-white text-slate-600 border-slate-200 hover:border-slate-300",
+                    ? "bg-carbon text-porcelain border-carbon"
+                    : "bg-white text-carbon/70 border-carbon/20 hover:border-carbon/30",
                 className
             )}
         >

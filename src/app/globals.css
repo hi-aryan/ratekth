@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+@theme {  
+  /* creates bg-carbon, text-carbon, border-carbon + opacity variants */
+  --color-carbon: #171817; /* primary brand, text, buttons */
+  
+  --color-blue: #1F5BAE; /* links, interactive accents, focus rings */
+  
+  --color-coral: #F76C5E; /* errors, destructive actions, warnings */
+  
+  /* --color-green: #B4F19C; /* success states, confirmations 92E572 */
+  --color-green: #92E572; 
+  
+  --color-porcelain: #FBFEF9; /* main bg */
+
+  --color-white: #FFFFFF; /* card bg */
+}

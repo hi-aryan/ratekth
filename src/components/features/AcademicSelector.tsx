@@ -148,7 +148,7 @@ export const AcademicSelector = ({
                     )}
 
                     {isPending && (
-                        <p className="text-xs text-slate-400">Loading specializations...</p>
+                        <p className="text-xs text-carbon/50">Loading specializations...</p>
                     )}
                 </>
             )}

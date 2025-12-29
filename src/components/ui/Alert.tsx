@@ -9,8 +9,8 @@ interface AlertProps {
 }
 
 const variantStyles: Record<AlertVariant, string> = {
-    error: "text-red-600 bg-red-50 border-red-100",
-    success: "text-green-600 bg-green-50 border-green-100",
+    error: "text-coral bg-coral/10 border-coral/20",
+    success: "text-green bg-green/20 border-green/30",
 }
 
 export const Alert = ({ variant, children, className }: AlertProps) => {
