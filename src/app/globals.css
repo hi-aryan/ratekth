@@ -11,7 +11,7 @@
   /* --color-green: #B4F19C; /* success states, confirmations */
   --color-green: #68BF43; /* testing new greens (NEEDS CHANGING IN layout.tsx ALSO!!): 74CA50 68BF43 */
   
-  --color-porcelain: #fbfbfb; /* main bg */
+  --color-porcelain: #F9F9F9; /* main bg */
 
   --color-white: #FFFFFF; /* card bg */
 }
