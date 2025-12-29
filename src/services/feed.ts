@@ -1,53 +1,16 @@
 import "server-only";
 import { db } from "@/db";
-import { post, course, user, postTags, tag, courseProgram, courseSpecialization } from "@/db/schema";
+import { post, course, user, postTags, tag } from "@/db/schema";
 import { eq, desc, inArray, sql } from "drizzle-orm";
 import type { ReviewForDisplay, PaginatedResult, Tag } from "@/lib/types";
 import { FEED_PAGE_SIZE, type FeedSortOption } from "@/lib/constants";
+import { getVisibleCourseIds } from "@/services/courses";
 
 /**
  * Compute overall rating from three component ratings.
  */
 const computeOverallRating = (professor: number, material: number, peers: number): number => {
     return Math.round(((professor + material + peers) / 3) * 10) / 10;
-};
-
-/**
- * Get visible course IDs for a user based on their academic affiliation.
- * Returns null if no filtering should be applied (guest user).
- */
-const getVisibleCourseIds = async (
-    programId?: number | null,
-    mastersDegreeId?: number | null,
-    specializationId?: number | null
-): Promise<number[] | null> => {
-    // If no academic info, don't filter (show all)
-    if (!programId && !mastersDegreeId && !specializationId) {
-        return null;
-    }
-
-    const courseIds = new Set<number>();
-
-    // Courses from Program or Master's Degree
-    const programIds = [programId, mastersDegreeId].filter((id): id is number => id != null);
-    if (programIds.length > 0) {
-        const programCourses = await db
-            .select({ courseId: courseProgram.courseId })
-            .from(courseProgram)
-            .where(inArray(courseProgram.programId, programIds));
-        programCourses.forEach(row => courseIds.add(row.courseId));
-    }
-
-    // Courses from Specialization
-    if (specializationId) {
-        const specCourses = await db
-            .select({ courseId: courseSpecialization.courseId })
-            .from(courseSpecialization)
-            .where(eq(courseSpecialization.specializationId, specializationId));
-        specCourses.forEach(row => courseIds.add(row.courseId));
-    }
-
-    return Array.from(courseIds);
 };
 
 /**

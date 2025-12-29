@@ -50,6 +50,46 @@ export const getCourseById = async (id: number): Promise<CourseWithStats | null>
 };
 
 /**
+ * Service: Get visible course IDs for a user based on their academic affiliation.
+ * Returns null if no filtering should be applied (guest user).
+ * 
+ * Shared by: getAvailableCourses, getStudentFeed
+ */
+export const getVisibleCourseIds = async (
+    programId?: number | null,
+    mastersDegreeId?: number | null,
+    specializationId?: number | null
+): Promise<number[] | null> => {
+    // If no academic info, don't filter (show all)
+    if (!programId && !mastersDegreeId && !specializationId) {
+        return null;
+    }
+
+    const courseIds = new Set<number>();
+
+    // Courses from Program or Master's Degree
+    const programIds = [programId, mastersDegreeId].filter((id): id is number => id != null);
+    if (programIds.length > 0) {
+        const programCourses = await db
+            .select({ courseId: courseProgram.courseId })
+            .from(courseProgram)
+            .where(inArray(courseProgram.programId, programIds));
+        programCourses.forEach(row => courseIds.add(row.courseId));
+    }
+
+    // Courses from Specialization
+    if (specializationId) {
+        const specCourses = await db
+            .select({ courseId: courseSpecialization.courseId })
+            .from(courseSpecialization)
+            .where(eq(courseSpecialization.specializationId, specializationId));
+        specCourses.forEach(row => courseIds.add(row.courseId));
+    }
+
+    return Array.from(courseIds);
+};
+
+/**
  * Service: Get courses visible to a user based on their academic affiliation.
  * Returns the UNION of courses from:
  * 1. Base Program (programId)
@@ -63,30 +103,11 @@ export const getAvailableCourses = async (
     mastersDegreeId?: number | null,
     specializationId?: number | null
 ): Promise<CourseWithStats[]> => {
-    // Collect visible course IDs based on academic affiliation
-    const courseIds = new Set<number>();
-
-    // 1. Courses from Base Program or Master's Degree (both use courseProgram table)
-    const programIds = [programId, mastersDegreeId].filter((id): id is number => id != null);
-    if (programIds.length > 0) {
-        const programCourses = await db
-            .select({ courseId: courseProgram.courseId })
-            .from(courseProgram)
-            .where(inArray(courseProgram.programId, programIds));
-        programCourses.forEach(row => courseIds.add(row.courseId));
-    }
-
-    // 2. Courses from Specialization
-    if (specializationId) {
-        const specCourses = await db
-            .select({ courseId: courseSpecialization.courseId })
-            .from(courseSpecialization)
-            .where(eq(courseSpecialization.specializationId, specializationId));
-        specCourses.forEach(row => courseIds.add(row.courseId));
-    }
+    // Use shared visibility logic
+    const visibleCourseIds = await getVisibleCourseIds(programId, mastersDegreeId, specializationId);
 
     // If no courses found (guest user or no academic affiliation), return all courses
-    if (courseIds.size === 0 && !programId && !mastersDegreeId && !specializationId) {
+    if (visibleCourseIds === null) {
         const allCourses = await db
             .select({
                 id: course.id,
@@ -110,7 +131,7 @@ export const getAvailableCourses = async (
     }
 
     // No visible courses for this user
-    if (courseIds.size === 0) {
+    if (visibleCourseIds.length === 0) {
         return [];
     }
 
@@ -127,7 +148,7 @@ export const getAvailableCourses = async (
         })
         .from(course)
         .leftJoin(post, eq(course.id, post.courseId))
-        .where(inArray(course.id, Array.from(courseIds)))
+        .where(inArray(course.id, visibleCourseIds))
         .groupBy(course.id)
         .orderBy(course.code);
 
