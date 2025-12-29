@@ -24,12 +24,12 @@ export interface CreateReviewInput {
  * Service Input: Data required to update an existing review.
  */
 export interface UpdateReviewInput {
-    yearTaken?: number;
-    ratingProfessor?: number;
-    ratingMaterial?: number;
-    ratingPeers?: number;
-    ratingWorkload?: "light" | "medium" | "heavy";
-    content?: string;
+    yearTaken: number;
+    ratingProfessor: number;
+    ratingMaterial: number;
+    ratingPeers: number;
+    ratingWorkload: "light" | "medium" | "heavy";
+    content?: string | null;
     tagIds?: number[];
 }
 
