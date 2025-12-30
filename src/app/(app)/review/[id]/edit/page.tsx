@@ -10,17 +10,16 @@ interface PageProps {
 
 export default async function EditReviewPage({ params }: PageProps) {
     const session = await auth();
-
-    // Protected by proxy.ts, but double-check
-    if (!session?.user?.id) {
-        redirect("/login");
-    }
-
     const { id } = await params;
     const reviewId = parseInt(id, 10);
 
     if (isNaN(reviewId) || reviewId <= 0) {
         redirect("/?error=review-not-found");
+    }
+
+    // Protected by proxy.ts - session is guaranteed to exist here
+    if (!session?.user?.id) {
+        redirect("/login");
     }
 
     // Fetch review with ownership validation

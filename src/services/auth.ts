@@ -320,10 +320,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // Magic link verification: force redirect to /login with success message
-      // overrides Auth.js default behavior (bit generic, use "targetUrl.pathname" if needed)
-      if (url.includes("/register") || url === baseUrl + "/register") {
-        return `${baseUrl}/login?success=verified`;
+      // Magic link verification: redirect directly to home with success message
+      // (user is already logged in after verification, so going through /login would just redirect again)
+      if (url.includes("/login?success=verified")) {
+        return `${baseUrl}/?success=verified`;
       }
       // Standard redirect handling
       if (url.startsWith("/")) return `${baseUrl}${url}`;
