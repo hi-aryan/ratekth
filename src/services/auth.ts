@@ -1,3 +1,4 @@
+/* no server-only import cause of some Edge middleware thingy */
 import NextAuth, { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
