@@ -24,16 +24,14 @@ export default async function ResetPasswordPage({ searchParams }: ResetPasswordP
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-porcelain">
-            <div className="w-full max-w-md space-y-8">
-                <div className="mb-8 text-center text-carbon">
-                    <h1 className="text-2xl font-bold">Reset Password</h1>
-                    <p className="text-carbon/60 mt-2">Enter your new password below.</p>
-                </div>
-                <Card>
-                    <ResetPasswordForm token={token} />
-                </Card>
+        <>
+            <div className="text-center text-carbon">
+                <h1 className="text-2xl font-bold">Reset Password</h1>
+                <p className="text-carbon/60 mt-2">Enter your new password below.</p>
             </div>
-        </main>
+            <Card>
+                <ResetPasswordForm token={token} />
+            </Card>
+        </>
     );
 }

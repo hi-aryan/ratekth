@@ -7,36 +7,34 @@ import { Card } from "@/components/ui/Card";
 export const dynamic = "force-dynamic";
 export default function LoginPage() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-porcelain">
-            <div className="w-full max-w-md space-y-8">
-                <div className="mb-8 text-center text-carbon">
-                    <h1 className="text-2xl font-bold">Welcome Back</h1>
-                    <p className="text-carbon/60 mt-2">Login with your rateKTH credentials.</p>
-                </div>
-                <Card>
-                    <LoginForm />
-                </Card>
-
-                <Card className="p-6 space-y-4">
-                    <details>
-                        <summary className="cursor-pointer text-sm font-medium text-carbon/60 hover:text-carbon">
-                            Forgot password?
-                        </summary>
-                        <div className="mt-4 pt-4 border-t border-carbon/10">
-                            <ForgotPasswordForm />
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary className="cursor-pointer text-sm font-medium text-carbon/60 hover:text-carbon">
-                            Didn't receive verification email?
-                        </summary>
-                        <div className="mt-4 pt-4 border-t border-carbon/10">
-                            <ResendVerificationForm />
-                        </div>
-                    </details>
-                </Card>
+        <>
+            <div className="text-center text-carbon">
+                <h1 className="text-2xl font-bold">Welcome Back</h1>
+                <p className="text-carbon/60 mt-2">Login with your rateKTH credentials.</p>
             </div>
-        </main>
+            <Card>
+                <LoginForm />
+            </Card>
+
+            <Card className="p-6 space-y-4">
+                <details>
+                    <summary className="cursor-pointer text-sm font-medium text-carbon/60 hover:text-carbon">
+                        Forgot password?
+                    </summary>
+                    <div className="mt-4 pt-4 border-t border-carbon/10">
+                        <ForgotPasswordForm />
+                    </div>
+                </details>
+
+                <details>
+                    <summary className="cursor-pointer text-sm font-medium text-carbon/60 hover:text-carbon">
+                        Didn't receive verification email?
+                    </summary>
+                    <div className="mt-4 pt-4 border-t border-carbon/10">
+                        <ResendVerificationForm />
+                    </div>
+                </details>
+            </Card>
+        </>
     )
 }

@@ -9,7 +9,7 @@ interface FormFieldProps {
 
 export const FormField = ({ label, error, children, className }: FormFieldProps) => {
     return (
-        <div className={cn("space-y-1.5", className)}>
+        <div className={cn("flex flex-col gap-1.5", className)}>
             {label && (
                 <label className="text-xs font-semibold uppercase tracking-wider text-carbon/60 ml-1">
                     {label}
