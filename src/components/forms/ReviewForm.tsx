@@ -89,6 +89,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                 <FormField
                     label="Professor"
                     error={state?.fieldErrors?.ratingProfessor?.[0]}
+                    className="items-center"
                 >
                     <StarRatingInput
                         name="ratingProfessor"
@@ -100,6 +101,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                 <FormField
                     label="Material"
                     error={state?.fieldErrors?.ratingMaterial?.[0]}
+                    className="items-center"
                 >
                     <StarRatingInput
                         name="ratingMaterial"
@@ -111,6 +113,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                 <FormField
                     label="Peers"
                     error={state?.fieldErrors?.ratingPeers?.[0]}
+                    className="items-center"
                 >
                     <StarRatingInput
                         name="ratingPeers"

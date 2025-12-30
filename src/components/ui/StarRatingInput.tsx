@@ -32,7 +32,7 @@ export const StarRatingInput = ({
     className,
 }: StarRatingInputProps) => {
     return (
-        <div className="inline-flex items-center gap-1">
+        <div className="inline-flex items-center gap-0.5">
             <input type="hidden" name={name} value={value} />
             {Array.from({ length: max }, (_, i) => i + 1).map((star) => {
                 const isFilled = star <= value;
@@ -49,8 +49,8 @@ export const StarRatingInput = ({
                                 sizeStyles[size],
                                 "transition-all duration-150",
                                 isFilled
-                                    ? "fill-current text-carbon drop-shadow-[0_0_4px_rgba(31,91,174,0.2)]"
-                                    : "text-carbon/30 group-hover:text-carbon/50 group-hover:drop-shadow-[0_0_4px_rgba(31,91,174,0.2)]",
+                                    ? "fill-current text-carbon drop-shadow-[0_0_4px_rgba(31,91,174,0.1)]"
+                                    : "text-carbon/30 group-hover:text-carbon/50 group-hover:drop-shadow-[0_0_4px_rgba(31,91,174,0.1)]",
                                 className
                             )}
                         />
