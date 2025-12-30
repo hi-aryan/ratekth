@@ -41,7 +41,7 @@ export const StarRatingInput = ({
                         key={star}
                         type="button"
                         onClick={() => onChange(star)}
-                        className="group p-0.5 transition-transform duration-150 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-carbon/20 rounded-sm"
+                        className="group p-0.5 transition-transform duration-150 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-carbon/20 rounded-sm"
                         aria-label={`Rate ${star} out of ${max}`}
                     >
                         <Star
