@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useActionState } from "react";
+import { Feather, Scale, Flame } from "lucide-react";
 import { submitReviewAction } from "@/actions/reviews";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -138,7 +139,11 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                 error={state?.fieldErrors?.ratingWorkload?.[0]}
             >
                 <div className="flex gap-2">
-                    {(["light", "medium", "heavy"] as const).map((level) => (
+                    {([
+                        { level: "light", Icon: Feather },
+                        { level: "medium", Icon: Scale },
+                        { level: "heavy", Icon: Flame },
+                    ] as const).map(({ level, Icon }) => (
                         <label
                             key={level}
                             className="flex-1 cursor-pointer"
@@ -149,7 +154,8 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                                 value={level}
                                 className="sr-only peer"
                             />
-                            <div className="text-center py-2 px-4 border border-carbon/20 rounded-lg transition-all peer-checked:bg-carbon peer-checked:text-white peer-checked:border-carbon hover:border-carbon/40">
+                            <div className="flex items-center justify-center gap-2 py-2 px-4 border border-carbon/20 rounded-lg transition-all duration-150 peer-checked:bg-carbon peer-checked:text-white peer-checked:border-carbon hover:scale-105 active:scale-95 hover:border-carbon/40">
+                                <Icon className="w-4 h-4" />
                                 <span className="text-sm font-medium capitalize">{level}</span>
                             </div>
                         </label>
