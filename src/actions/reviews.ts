@@ -76,15 +76,20 @@ export async function submitReviewAction(
 /**
  * Action: Update an existing review.
  * Validates input, checks auth and ownership, updates review.
+ * reviewId is read from hidden form field for standard useActionState compatibility.
  */
 export async function updateReviewAction(
-    reviewId: number,
     _prevState: ActionState,
     formData: FormData
 ): Promise<ActionState> {
     const session = await auth();
     if (!session?.user?.id) {
         return { error: "You must be logged in to edit a review." };
+    }
+
+    const reviewId = Number(formData.get("reviewId"));
+    if (!reviewId || isNaN(reviewId) || reviewId <= 0) {
+        return { error: "Invalid review ID." };
     }
 
     const rawData = Object.fromEntries(formData.entries());

@@ -59,12 +59,14 @@ export const resetPasswordSchema = z.object({
  * Review Schema: Validates review submission data.
  * Enforces rating bounds (1-5) and tag limit (3 max).
  */
-const currentYear = new Date().getFullYear();
 const ratingField = z.coerce.number().int().min(1, "Rating required").max(5, "Rating must be 1-5");
 
 export const reviewSchema = z.object({
   courseId: z.coerce.number().int().positive("Please select a course"),
-  yearTaken: z.coerce.number().int().min(2000, "Invalid year").max(currentYear, `Year cannot exceed ${currentYear}`),
+  yearTaken: z.coerce.number().int().min(2000, "Invalid year").refine(
+    (year) => year <= new Date().getFullYear(),
+    { message: "Year cannot be in the future" }
+  ),
   ratingProfessor: ratingField,
   ratingMaterial: ratingField,
   ratingPeers: ratingField,
