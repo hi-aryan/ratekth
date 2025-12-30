@@ -10,15 +10,16 @@ export default async function RegisterPage() {
     ]);
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-porcelain">
-            <Card className="w-full max-w-xl">
-                <div className="mb-4 text-center">
-                    <h1 className="text-2xl font-bold text-carbon">Join rateKTH</h1>
+        <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-porcelain">
+            <div className="w-full max-w-md space-y-8">
+                <div className="mb-8 text-center text-carbon">
+                    <h1 className="text-2xl font-bold">Join rateKTH</h1>
                     <p className="text-carbon/60 mt-2">The home of student reviews.</p>
                 </div>
-
-                <RegisterForm basePrograms={basePrograms} mastersDegrees={mastersDegrees} />
-            </Card>
-        </div>
+                <Card>
+                    <RegisterForm basePrograms={basePrograms} mastersDegrees={mastersDegrees} />
+                </Card>
+            </div>
+        </main>
     );
 }
