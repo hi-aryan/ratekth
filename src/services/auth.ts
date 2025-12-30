@@ -9,10 +9,8 @@ import { eq, and } from "drizzle-orm";
 import { mailConfig } from "@/lib/mail";
 import { CreateUserInput, SafeUser, UserWithPassword } from "@/lib/types";
 
-/**
- * Service: Verify if an email belongs to the KTH domain.
- */
-export const verifyKthEmail = (email: string): boolean => {
+/** Verify if an email belongs to the KTH domain */
+const verifyKthEmail = (email: string): boolean => {
   return email.toLowerCase().endsWith("@kth.se");
 };
 

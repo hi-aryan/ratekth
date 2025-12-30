@@ -1,7 +1,10 @@
 "use client"
 
-import { useActionState } from "react"
+import { useRef, useState, useTransition } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { registerAction } from "@/actions/auth"
+import { registerFormSchema, type RegisterFormInput } from "@/lib/validation"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
@@ -10,57 +13,87 @@ import { FormFooterLink } from "@/components/ui/FormFooterLink"
 import { AcademicSelector } from "@/components/features/AcademicSelector"
 import { Program } from "@/lib/types"
 
-/**
- * Component Props: RegisterFormProps
- * Receives both base programs and master's degrees from the page.
- */
 interface RegisterFormProps {
     basePrograms: Program[]
     mastersDegrees: Program[]
 }
 
+interface AcademicFieldErrors {
+    programId?: string[]
+    mastersDegreeId?: string[]
+    specializationId?: string[]
+}
+
 export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps) => {
-    const [state, action, isPending] = useActionState(registerAction, null)
+    const formRef = useRef<HTMLFormElement>(null)
+    const [isPending, startTransition] = useTransition()
+    const [academicErrors, setAcademicErrors] = useState<AcademicFieldErrors>({})
+    
+    const form = useForm<RegisterFormInput>({
+        resolver: zodResolver(registerFormSchema),
+        defaultValues: { email: "", password: "", confirmPassword: "" }
+    })
+
+    const onSubmit = form.handleSubmit(() => {
+        if (!formRef.current) return
+        const formData = new FormData(formRef.current)
+        setAcademicErrors({})
+        
+        startTransition(async () => {
+            const result = await registerAction(null, formData)
+            
+            if (result?.fieldErrors) {
+                const { programId, mastersDegreeId, specializationId, ...formErrors } = result.fieldErrors
+                
+                setAcademicErrors({ programId, mastersDegreeId, specializationId })
+                
+                Object.entries(formErrors).forEach(([field, errors]) => {
+                    if (errors?.[0]) {
+                        form.setError(field as keyof RegisterFormInput, { message: errors[0] })
+                    }
+                })
+            } else if (result?.error) {
+                form.setError("root", { message: result.error })
+            }
+        })
+    })
 
     return (
-        <form action={action} className="space-y-4">
+        <form ref={formRef} onSubmit={onSubmit} className="space-y-4">
             <FormField
                 label="KTH Email"
-                error={state?.fieldErrors?.email?.[0]}
+                error={form.formState.errors.email?.message}
             >
                 <Input
-                    id="email"
-                    name="email"
                     type="email"
                     placeholder="user@kth.se"
                     required
+                    {...form.register("email")}
                 />
             </FormField>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                     label="Password"
-                    error={state?.fieldErrors?.password?.[0]}
+                    error={form.formState.errors.password?.message}
                 >
                     <Input
-                        id="password"
-                        name="password"
                         type="password"
                         placeholder="••••••••"
                         required
+                        {...form.register("password")}
                     />
                 </FormField>
 
                 <FormField
                     label="Confirm Password"
-                    error={state?.fieldErrors?.confirmPassword?.[0]}
+                    error={form.formState.errors.confirmPassword?.message}
                 >
                     <Input
-                        id="confirmPassword"
-                        name="confirmPassword"
                         type="password"
                         placeholder="••••••••"
                         required
+                        {...form.register("confirmPassword")}
                     />
                 </FormField>
             </div>
@@ -68,15 +101,11 @@ export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps
             <AcademicSelector
                 basePrograms={basePrograms}
                 mastersDegrees={mastersDegrees}
-                fieldErrors={{
-                    programId: state?.fieldErrors?.programId,
-                    mastersDegreeId: state?.fieldErrors?.mastersDegreeId,
-                    specializationId: state?.fieldErrors?.specializationId,
-                }}
+                fieldErrors={academicErrors}
             />
 
-            {state?.error && !state.fieldErrors && (
-                <Alert variant="error">{state.error}</Alert>
+            {form.formState.errors.root && (
+                <Alert variant="error">{form.formState.errors.root.message}</Alert>
             )}
 
             <Button type="submit" loading={isPending}>

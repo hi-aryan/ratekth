@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { RATING_MAX } from "@/lib/constants";
 
 interface StarRatingInputProps {
-    name: string;
+    name?: string;
     value: number;
     onChange: (value: number) => void;
     max?: number;
@@ -33,7 +33,7 @@ export const StarRatingInput = ({
 }: StarRatingInputProps) => {
     return (
         <div className="inline-flex items-center gap-0.5">
-            <input type="hidden" name={name} value={value} />
+            {name && <input type="hidden" name={name} value={value} />}
             {Array.from({ length: max }, (_, i) => i + 1).map((star) => {
                 const isFilled = star <= value;
                 return (

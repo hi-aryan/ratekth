@@ -1,7 +1,10 @@
 "use client"
 
-import { useActionState } from "react"
+import { useTransition } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { resetPasswordAction } from "@/actions/auth"
+import { resetPasswordSchema, ResetPasswordInput } from "@/lib/validation"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { FormField } from "@/components/ui/FormField"
@@ -12,43 +15,64 @@ interface ResetPasswordFormProps {
 }
 
 export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
-    const [state, action, isPending] = useActionState(resetPasswordAction, null)
+    const [isPending, startTransition] = useTransition()
+    
+    const form = useForm<ResetPasswordInput>({
+        resolver: zodResolver(resetPasswordSchema),
+        defaultValues: { token, password: "", confirmPassword: "" }
+    })
+
+    const onSubmit = (data: ResetPasswordInput) => {
+        startTransition(async () => {
+            const formData = new FormData()
+            formData.append("token", data.token)
+            formData.append("password", data.password)
+            formData.append("confirmPassword", data.confirmPassword)
+            
+            const result = await resetPasswordAction(null, formData)
+            
+            if (result?.fieldErrors) {
+                Object.entries(result.fieldErrors).forEach(([field, errors]) => {
+                    if (errors?.[0]) {
+                        form.setError(field as keyof ResetPasswordInput, { message: errors[0] })
+                    }
+                })
+            } else if (result?.error) {
+                form.setError("root", { message: result.error })
+            }
+        })
+    }
 
     return (
-        <form action={action} className="space-y-4">
-            {/* Hidden token field */}
-            <input type="hidden" name="token" value={token} />
-
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
                 label="New Password"
-                error={state?.fieldErrors?.password?.[0]}
+                error={form.formState.errors.password?.message}
             >
                 <Input
-                    id="password"
-                    name="password"
                     type="password"
                     placeholder="••••••••"
-                    required
                     autoComplete="new-password"
+                    required
+                    {...form.register("password")}
                 />
             </FormField>
 
             <FormField
                 label="Confirm Password"
-                error={state?.fieldErrors?.confirmPassword?.[0]}
+                error={form.formState.errors.confirmPassword?.message}
             >
                 <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
                     type="password"
                     placeholder="••••••••"
-                    required
                     autoComplete="new-password"
+                    required
+                    {...form.register("confirmPassword")}
                 />
             </FormField>
 
-            {state?.error && !state.fieldErrors && (
-                <Alert variant="error">{state.error}</Alert>
+            {form.formState.errors.root && (
+                <Alert variant="error">{form.formState.errors.root.message}</Alert>
             )}
 
             <Button type="submit" loading={isPending}>
