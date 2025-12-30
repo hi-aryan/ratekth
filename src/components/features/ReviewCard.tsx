@@ -47,9 +47,6 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                     <StarRating value={Math.round(review.overallRating)} size="md" />
-                    <span className="text-sm font-medium text-carbon">
-                        {review.overallRating.toFixed(1)}
-                    </span>
                 </div>
             </div>
 
