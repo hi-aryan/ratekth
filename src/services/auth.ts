@@ -318,9 +318,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // Magic link verification: redirect directly to home with success message
-      // (user is already logged in after verification, so going through /login would just redirect again)
-      if (url.includes("/login?success=verified")) {
+      // Email verification: Auth.js ignores callbackUrl for nodemailer and uses current page URL.
+      // Intercept /register and /login (verification can happen from either page).
+      // Logout uses Next.js redirect() directly, so won't be affected here.
+      if (url === `${baseUrl}/register` || url === "/register" ||
+          url === `${baseUrl}/login` || url === "/login") {
         return `${baseUrl}/?success=verified`;
       }
       // Standard redirect handling

@@ -40,10 +40,9 @@ export async function registerAction(_prevState: ActionState, formData: FormData
             specializationId,
         });
 
-        // 3. Send Verification Magic Link
+        // 3. Send Verification Magic Link (callbackUrl handled in redirect callback)
         await signIn("nodemailer", {
             email,
-            callbackUrl: "/login?success=verified",
             redirect: false
         });
     } catch (error) {
@@ -155,10 +154,9 @@ export async function resendVerificationAction(_prevState: ActionState, formData
             return { error: `Please wait ${minutes} minute(s) before requesting another email.` };
         }
 
-        // 4. Send verification email
+        // 4. Send verification email (callbackUrl handled in redirect callback)
         await signIn("nodemailer", {
             email: validEmail,
-            callbackUrl: "/login?success=verified",
             redirect: false
         });
 
