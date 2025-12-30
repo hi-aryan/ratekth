@@ -182,11 +182,11 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                                 />
                                 <div
                                     className={cn(
-                                        "px-3 py-1.5 border rounded-full text-sm transition-all",
+                                        "px-3 py-1.5 border rounded-full text-sm transition-all duration-150",
                                         tag.sentiment === "positive"
-                                            ? "border-sage/40 peer-checked:bg-sage/20 peer-checked:border-sage"
-                                            : "border-coral/40 peer-checked:bg-coral/20 peer-checked:border-coral",
-                                        !isDisabled && "hover:border-carbon/40"
+                                            ? "border-green/50 text-green/80 peer-checked:bg-green/20 peer-checked:border-green peer-checked:text-green"
+                                            : "border-coral/50 text-coral/70 peer-checked:bg-coral/20 peer-checked:border-coral peer-checked:text-coral",
+                                        !isDisabled && "hover:scale-105 active:scale-95"
                                     )}
                                 >
                                     {tag.name}
