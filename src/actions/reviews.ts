@@ -45,8 +45,7 @@ export async function submitReviewAction(
         if (existingReview) {
             return {
                 error: "You have already reviewed this course.",
-                message: `You can edit your existing review.`,
-                // Include review ID for redirect to edit page
+                existingReviewId: existingReview.id,
             };
         }
 

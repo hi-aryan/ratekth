@@ -2,7 +2,8 @@
 
 import { useState, useActionState } from "react";
 import { Feather, Scale, Flame } from "lucide-react";
-import { submitReviewAction } from "@/actions/reviews";
+import Link from "next/link";
+import { submitReviewAction, updateReviewAction } from "@/actions/reviews";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
@@ -13,23 +14,29 @@ import { cn } from "@/lib/utils";
 import { computeOverallRating } from "@/lib/utils";
 import { MAX_TAGS_PER_REVIEW } from "@/lib/constants";
 import type { CourseWithStats, Tag } from "@/lib/types";
+import type { ReviewForEdit } from "@/services/reviews";
 
 interface ReviewFormProps {
     courses: CourseWithStats[];
     tags: Tag[];
     defaultCourseId?: number;
+    initialData?: ReviewForEdit;
 }
 
-export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) => {
-    const [state, action, isPending] = useActionState(submitReviewAction, null);
+export const ReviewForm = ({ courses, tags, defaultCourseId, initialData }: ReviewFormProps) => {
+    const isEditMode = !!initialData;
+    const [state, action, isPending] = useActionState(
+        isEditMode ? updateReviewAction : submitReviewAction,
+        null
+    );
 
     // Controlled state for ratings (for real-time overall display)
-    const [ratingProfessor, setRatingProfessor] = useState(0);
-    const [ratingMaterial, setRatingMaterial] = useState(0);
-    const [ratingPeers, setRatingPeers] = useState(0);
+    const [ratingProfessor, setRatingProfessor] = useState(initialData?.ratingProfessor ?? 0);
+    const [ratingMaterial, setRatingMaterial] = useState(initialData?.ratingMaterial ?? 0);
+    const [ratingPeers, setRatingPeers] = useState(initialData?.ratingPeers ?? 0);
 
     // Tag selection state (max 3)
-    const [selectedTags, setSelectedTags] = useState<number[]>([]);
+    const [selectedTags, setSelectedTags] = useState<number[]>(initialData?.tagIds ?? []);
 
     const overallRating =
         ratingProfessor > 0 && ratingMaterial > 0 && ratingPeers > 0
@@ -52,23 +59,37 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
 
     return (
         <form action={action} className="space-y-6">
+            {/* Hidden fields for edit mode */}
+            {isEditMode && (
+                <>
+                    <input type="hidden" name="reviewId" value={initialData.id} />
+                    <input type="hidden" name="courseId" value={initialData.courseId} />
+                </>
+            )}
+
             {/* Course Selection */}
             <FormField
                 label="Course"
                 error={state?.fieldErrors?.courseId?.[0]}
             >
-                <Select
-                    name="courseId"
-                    defaultValue={defaultCourseId ?? ""}
-                    required
-                >
-                    <option value="">Select a course...</option>
-                    {courses.map((course) => (
-                        <option key={course.id} value={course.id}>
-                            {course.code} - {course.name}
-                        </option>
-                    ))}
-                </Select>
+                {isEditMode ? (
+                    <div className="px-4 py-2 bg-carbon/5 border border-carbon/20 rounded-lg text-sm text-carbon/60">
+                        {initialData.courseCode} - {initialData.courseName}
+                    </div>
+                ) : (
+                    <Select
+                        name="courseId"
+                        defaultValue={defaultCourseId ?? ""}
+                        required
+                    >
+                        <option value="">Select a course...</option>
+                        {courses.map((course) => (
+                            <option key={course.id} value={course.id}>
+                                {course.code} - {course.name}
+                            </option>
+                        ))}
+                    </Select>
+                )}
             </FormField>
 
             {/* Year Taken */}
@@ -76,7 +97,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                 label="Year Taken"
                 error={state?.fieldErrors?.yearTaken?.[0]}
             >
-                <Select name="yearTaken" defaultValue={currentYear} required>
+                <Select name="yearTaken" defaultValue={initialData?.yearTaken ?? currentYear} required>
                     {Array.from({ length: 10 }, (_, i) => currentYear - i).map((year) => (
                         <option key={year} value={year}>
                             {year}
@@ -152,6 +173,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                                 type="radio"
                                 name="ratingWorkload"
                                 value={level}
+                                defaultChecked={initialData?.ratingWorkload === level}
                                 className="sr-only peer"
                             />
                             <div className="flex items-center justify-center gap-2 py-2 px-4 border border-carbon/20 rounded-lg transition-all duration-150 peer-checked:bg-carbon peer-checked:text-white peer-checked:border-carbon hover:scale-105 active:scale-95 hover:border-carbon/40">
@@ -215,6 +237,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
                     name="content"
                     rows={4}
                     maxLength={2000}
+                    defaultValue={initialData?.content ?? ""}
                     placeholder="Share your experience..."
                     className="w-full px-4 py-3 bg-white border border-carbon/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-carbon/10 focus:border-carbon transition-all text-sm resize-none"
                 />
@@ -222,12 +245,21 @@ export const ReviewForm = ({ courses, tags, defaultCourseId }: ReviewFormProps) 
 
             {/* Error Display */}
             {state?.error && !state.fieldErrors && (
-                <Alert variant="error">{state.error}</Alert>
+                <div className="space-y-3">
+                    <Alert variant="error">{state.error}</Alert>
+                    {state.existingReviewId && (
+                        <Link href={`/review/${state.existingReviewId}/edit`} className="block">
+                            <Button type="button" className="w-full">
+                                Edit Your Review
+                            </Button>
+                        </Link>
+                    )}
+                </div>
             )}
 
             {/* Submit */}
             <Button type="submit" loading={isPending} className="w-full">
-                Submit Review
+                {isEditMode ? "Update Review" : "Submit Review"}
             </Button>
         </form>
     );

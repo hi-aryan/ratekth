@@ -20,6 +20,7 @@ export const FLASH_MESSAGES = {
     "unauthorized": "You must be logged in to view that page.",
     "reset-link-invalid": "Invalid or expired reset link. Please request a new one.",
     "logout-failed": "Something went wrong while logging out. Please try again.",
+    "review-not-found": "Review not found or you don't have permission to edit it.",
 } as const;
 
 export type FlashMessageKey = keyof typeof FLASH_MESSAGES;

@@ -1,15 +1,15 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/services/auth";
 import { getAvailableCourses } from "@/services/courses";
-import { getAllTags } from "@/services/reviews";
+import { getAllTags, getReviewForEdit } from "@/services/reviews";
 import { ReviewForm } from "@/components/forms/ReviewForm";
 import { Card } from "@/components/ui/Card";
 
 interface PageProps {
-    searchParams: Promise<{ course_id?: string }>;
+    params: Promise<{ id: string }>;
 }
 
-export default async function NewReviewPage({ searchParams }: PageProps) {
+export default async function EditReviewPage({ params }: PageProps) {
     const session = await auth();
 
     // Protected by proxy.ts, but double-check
@@ -17,10 +17,21 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
         redirect("/login?callbackUrl=/review/new");
     }
 
-    const { course_id } = await searchParams;
-    const defaultCourseId = course_id ? parseInt(course_id, 10) : undefined;
+    const { id } = await params;
+    const reviewId = parseInt(id, 10);
 
-    // Fetch courses visible to this user
+    if (isNaN(reviewId) || reviewId <= 0) {
+        redirect("/?error=review-not-found");
+    }
+
+    // Fetch review with ownership validation
+    const review = await getReviewForEdit(reviewId, session.user.id);
+
+    if (!review) {
+        redirect("/?error=review-not-found");
+    }
+
+    // Fetch courses visible to this user (for form, though course is disabled in edit mode)
     const courses = await getAvailableCourses(
         session.user.programId,
         session.user.mastersDegreeId,
@@ -36,22 +47,17 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
             <div className="max-w-3xl mx-auto px-4 py-8">
                 <Card className="p-6">
                     <h1 className="text-xl font-bold text-carbon mb-6">
-                        Write a Review
+                        Edit Review
                     </h1>
 
-                    {courses.length > 0 ? (
-                        <ReviewForm
-                            courses={courses}
-                            tags={tags}
-                            defaultCourseId={defaultCourseId}
-                        />
-                    ) : (
-                        <p className="text-carbon/60 text-center py-8">
-                            No courses available for your program yet.
-                        </p>
-                    )}
+                    <ReviewForm
+                        courses={courses}
+                        tags={tags}
+                        initialData={review}
+                    />
                 </Card>
             </div>
         </>
     );
 }
+

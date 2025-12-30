@@ -7,6 +7,7 @@ export type ActionState = { /* add <T> to when adding posts/reviews?? */
     error?: string
     fieldErrors?: Record<string, string[] | undefined>
     message?: string
+    existingReviewId?: number
 } | null
 
 /**

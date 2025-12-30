@@ -33,6 +33,24 @@ export interface UpdateReviewInput {
     tagIds?: number[];
 }
 
+/**
+ * Service Output: Review data formatted for edit form.
+ * Includes course info and tag IDs for form population.
+ */
+export interface ReviewForEdit {
+    id: number;
+    courseId: number;
+    courseName: string;
+    courseCode: string;
+    yearTaken: number;
+    ratingProfessor: number;
+    ratingMaterial: number;
+    ratingPeers: number;
+    ratingWorkload: 'light' | 'medium' | 'heavy';
+    content: string | null;
+    tagIds: number[];
+}
+
 
 
 /**
@@ -238,4 +256,64 @@ export const getAllTags = async (): Promise<Tag[]> => {
         orderBy: (tag, { asc }) => [asc(tag.name)],
     });
     return tags;
+};
+
+/**
+ * Service: Get review data for editing.
+ * Validates ownership before returning.
+ * Returns null if review not found or user doesn't own it.
+ */
+export const getReviewForEdit = async (
+    reviewId: number,
+    userId: string
+): Promise<ReviewForEdit | null> => {
+    // Fetch review with ownership check and course info
+    const reviewResult = await db
+        .select({
+            id: post.id,
+            courseId: course.id,
+            courseName: course.name,
+            courseCode: course.code,
+            yearTaken: post.yearTaken,
+            ratingProfessor: post.ratingProfessor,
+            ratingMaterial: post.ratingMaterial,
+            ratingPeers: post.ratingPeers,
+            ratingWorkload: post.ratingWorkload,
+            content: post.content,
+        })
+        .from(post)
+        .innerJoin(course, eq(post.courseId, course.id))
+        .where(and(
+            eq(post.id, reviewId),
+            eq(post.userId, userId)
+        ))
+        .limit(1);
+
+    if (reviewResult.length === 0) {
+        return null;
+    }
+
+    const review = reviewResult[0];
+
+    // Fetch tag IDs for this review
+    const tagRows = await db.query.postTags.findMany({
+        where: eq(postTags.postId, reviewId),
+        columns: { tagId: true },
+    });
+
+    const tagIds = tagRows.map(row => row.tagId);
+
+    return {
+        id: review.id,
+        courseId: review.courseId,
+        courseName: review.courseName,
+        courseCode: review.courseCode,
+        yearTaken: review.yearTaken,
+        ratingProfessor: review.ratingProfessor,
+        ratingMaterial: review.ratingMaterial,
+        ratingPeers: review.ratingPeers,
+        ratingWorkload: review.ratingWorkload,
+        content: review.content,
+        tagIds,
+    };
 };

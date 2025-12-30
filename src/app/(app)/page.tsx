@@ -18,25 +18,7 @@ export default async function Home() {
   );
 
   return (
-    <main className="min-h-screen bg-porcelain">
-      {/* Header */}
-      <header className="bg-white border-b border-carbon/10">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-carbon">rateKTH</h1>
-          {session ? (
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-carbon/60">
-                {session.user?.email}
-              </span>
-            </div>
-          ) : (
-            <Link href="/login">
-              <Button>Sign In</Button>
-            </Link>
-          )}
-        </div>
-      </header>
-
+    <>
       {/* Feed */}
       <div className="max-w-3xl mx-auto px-4 py-8">
         {feed.items.length > 0 ? (
@@ -66,6 +48,6 @@ export default async function Home() {
           </Card>
         )}
       </div>
-    </main>
+    </>
   );
 }
