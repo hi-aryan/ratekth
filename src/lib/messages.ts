@@ -19,6 +19,7 @@ export const FLASH_MESSAGES = {
     "login-failed": "Invalid credentials or account not verified.",
     "unauthorized": "You must be logged in to view that page.",
     "reset-link-invalid": "Invalid or expired reset link. Please request a new one.",
+    "logout-failed": "Something went wrong while logging out. Please try again.",
 } as const;
 
 export type FlashMessageKey = keyof typeof FLASH_MESSAGES;

@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 /** force-dynamic: Ensures fresh session check on each request */
 export const dynamic = "force-dynamic";
 export default function LoginPage() {
+    // throw new Error("Testing error boundary"); // testing error.tsx
     return (
         <>
             <div className="text-center text-carbon">

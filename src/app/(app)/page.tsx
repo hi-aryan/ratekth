@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
 export default async function Home() {
-  /* throw new Error("Testing error boundary"); */ // testing error page
+  // throw new Error("Testing error boundary"); // testing error page
 
   const session = await auth();
 
