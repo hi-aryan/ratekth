@@ -55,6 +55,27 @@ export const resetPasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
+/**
+ * Review Schema: Validates review submission data.
+ * Enforces rating bounds (1-5) and tag limit (3 max).
+ */
+const currentYear = new Date().getFullYear();
+const ratingField = z.coerce.number().int().min(1, "Rating required").max(5, "Rating must be 1-5");
+
+export const reviewSchema = z.object({
+  courseId: z.coerce.number().int().positive("Please select a course"),
+  yearTaken: z.coerce.number().int().min(2000, "Invalid year").max(currentYear, `Year cannot exceed ${currentYear}`),
+  ratingProfessor: ratingField,
+  ratingMaterial: ratingField,
+  ratingPeers: ratingField,
+  ratingWorkload: z.enum(["light", "medium", "heavy"], {
+    message: "Please select workload level"
+  }),
+  content: z.string().max(2000, "Review too long (max 2000 chars)").optional().nullable(),
+  tagIds: z.array(z.coerce.number().int().positive()).max(3, "Maximum 3 tags allowed").optional(),
+});
+
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+export type ReviewInput = z.infer<typeof reviewSchema>;
