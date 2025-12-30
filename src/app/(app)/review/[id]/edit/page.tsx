@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/services/auth";
-import { getAvailableCourses } from "@/services/courses";
 import { getAllTags, getReviewForEdit } from "@/services/reviews";
 import { ReviewForm } from "@/components/forms/ReviewForm";
 import { Card } from "@/components/ui/Card";
@@ -14,7 +13,7 @@ export default async function EditReviewPage({ params }: PageProps) {
 
     // Protected by proxy.ts, but double-check
     if (!session?.user?.id) {
-        redirect("/login?callbackUrl=/review/new");
+        redirect("/login");
     }
 
     const { id } = await params;
@@ -31,13 +30,6 @@ export default async function EditReviewPage({ params }: PageProps) {
         redirect("/?error=review-not-found");
     }
 
-    // Fetch courses visible to this user (for form, though course is disabled in edit mode)
-    const courses = await getAvailableCourses(
-        session.user.programId,
-        session.user.mastersDegreeId,
-        session.user.specializationId
-    );
-
     // Fetch all available tags
     const tags = await getAllTags();
 
@@ -51,7 +43,7 @@ export default async function EditReviewPage({ params }: PageProps) {
                     </h1>
 
                     <ReviewForm
-                        courses={courses}
+                        courses={[]}
                         tags={tags}
                         initialData={review}
                     />

@@ -5,7 +5,6 @@ import { Feather, Scale, Flame } from "lucide-react";
 import Link from "next/link";
 import { submitReviewAction, updateReviewAction } from "@/actions/reviews";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { FormField } from "@/components/ui/FormField";
 import { Alert } from "@/components/ui/Alert";

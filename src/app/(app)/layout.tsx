@@ -13,18 +13,13 @@ export default async function AppLayout({
   return (
     <main className="min-h-screen bg-porcelain">
       {/* Header */}
-      <header className="bg-white border-b border-carbon/10">
+      <header className="sticky top-0 z-50 bg-white border-b border-carbon/10">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-carbon">
             rateKTH
           </Link>
           {session ? (
-            <div className="flex items-center gap-4">
-              {session.user?.email && (
-                <span className="text-sm text-carbon/60">
-                  {session.user.email}
-                </span>
-              )}
+            <div className="flex items-center gap-3">
               <Link href="/review/new">
                 <Button className="w-auto">Write Review</Button>
               </Link>
