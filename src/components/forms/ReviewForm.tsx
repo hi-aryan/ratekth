@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState, useMemo } from "react";
+import { useState, useActionState, useMemo, useEffect } from "react";
 import { Feather, Scale, Flame } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -59,6 +59,12 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
     // Tag selection state (max 3)
     const [selectedTags, setSelectedTags] = useState<number[]>(initialData?.tagIds ?? []);
 
+    // Fix: React 19 form actions desync controlled input DOM state. See notes/react19-form-bug.md
+    const [formKey, setFormKey] = useState(0);
+    useEffect(() => {
+        if (state !== null) setFormKey(k => k + 1);
+    }, [state]);
+
     const overallRating =
         ratingProfessor > 0 && ratingMaterial > 0 && ratingPeers > 0
             ? computeOverallRating(ratingProfessor, ratingMaterial, ratingPeers)
@@ -70,7 +76,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                 return prev.filter((id) => id !== tagId);
             }
             if (prev.length >= MAX_TAGS_PER_REVIEW) {
-                return prev; // Don't add if at limit
+                return prev;
             }
             return [...prev, tagId];
         });
@@ -216,8 +222,9 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                 </div>
             </FormField>
 
-            {/* Tags */}
+            {/* Tags - key={formKey} fixes React 19 form action bug (see comment above) */}
             <FormField
+                key={formKey}
                 label={`Tags (${selectedTags.length}/${MAX_TAGS_PER_REVIEW})`}
                 error={state?.fieldErrors?.tagIds?.[0]}
             >
