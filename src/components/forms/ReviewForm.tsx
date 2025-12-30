@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useActionState } from "react";
+import { useState, useActionState, useMemo } from "react";
 import { Feather, Scale, Flame } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { submitReviewAction, updateReviewAction } from "@/actions/reviews";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
@@ -20,14 +21,35 @@ interface ReviewFormProps {
     tags: Tag[];
     defaultCourseId?: number;
     initialData?: ReviewForEdit;
+    reviewedCourses?: Array<{ courseId: number; reviewId: number }>;
 }
 
-export const ReviewForm = ({ courses, tags, defaultCourseId, initialData }: ReviewFormProps) => {
+export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, reviewedCourses }: ReviewFormProps) => {
+    const router = useRouter();
     const isEditMode = !!initialData;
     const [state, action, isPending] = useActionState(
         isEditMode ? updateReviewAction : submitReviewAction,
         null
     );
+
+    // Memoized map for quick lookup: courseId -> reviewId
+    const reviewIdByCourseId = useMemo(() => {
+        const map = new Map<number, number>();
+        reviewedCourses?.forEach(({ courseId, reviewId }) => {
+            map.set(courseId, reviewId);
+        });
+        return map;
+    }, [reviewedCourses]);
+
+    const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedCourseId = parseInt(e.target.value, 10);
+        if (!isNaN(selectedCourseId) && selectedCourseId > 0) {
+            const reviewId = reviewIdByCourseId.get(selectedCourseId);
+            if (reviewId) {
+                router.push(`/review/${reviewId}/edit`);
+            }
+        }
+    };
 
     // Controlled state for ratings (for real-time overall display)
     const [ratingProfessor, setRatingProfessor] = useState(initialData?.ratingProfessor ?? 0);
@@ -79,14 +101,24 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData }: Revi
                     <Select
                         name="courseId"
                         defaultValue={defaultCourseId ?? ""}
+                        onChange={handleCourseChange}
                         required
                     >
                         <option value="">Select a course...</option>
-                        {courses.map((course) => (
+                        {courses.filter(c => !reviewIdByCourseId.has(c.id)).map(course => (
                             <option key={course.id} value={course.id}>
                                 {course.code} - {course.name}
                             </option>
                         ))}
+                        {reviewIdByCourseId.size > 0 && (
+                            <optgroup label="Already Reviewed">
+                                {courses.filter(c => reviewIdByCourseId.has(c.id)).map(course => (
+                                    <option key={course.id} value={course.id}>
+                                        {course.code} - {course.name}
+                                    </option>
+                                ))}
+                            </optgroup>
+                        )}
                     </Select>
                 )}
             </FormField>

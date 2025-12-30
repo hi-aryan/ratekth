@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/services/auth";
 import { getAvailableCourses } from "@/services/courses";
-import { getAllTags } from "@/services/reviews";
+import { getAllTags, getUserReviewedCourseIds } from "@/services/reviews";
 import { ReviewForm } from "@/components/forms/ReviewForm";
 import { Card } from "@/components/ui/Card";
 
@@ -30,6 +30,9 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
     // Fetch all available tags
     const tags = await getAllTags();
 
+    // Fetch reviewed courses for this user (with reviewId for redirect)
+    const userReviews = await getUserReviewedCourseIds(session.user.id);
+
     return (
         <>
             {/* Form */}
@@ -44,6 +47,7 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
                             courses={courses}
                             tags={tags}
                             defaultCourseId={defaultCourseId}
+                            reviewedCourses={userReviews}
                         />
                     ) : (
                         <p className="text-carbon/60 text-center py-8">

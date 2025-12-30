@@ -259,6 +259,18 @@ export const getAllTags = async (): Promise<Tag[]> => {
 };
 
 /**
+ * Service: Get all courses that a user has already reviewed.
+ * Returns an array with both courseId and reviewId for redirecting to edit page.
+ */
+export const getUserReviewedCourseIds = async (userId: string): Promise<Array<{ courseId: number; reviewId: number }>> => {
+    const reviews = await db
+        .select({ courseId: post.courseId, reviewId: post.id })
+        .from(post)
+        .where(eq(post.userId, userId));
+    return reviews;
+};
+
+/**
  * Service: Get review data for editing.
  * Validates ownership before returning.
  * Returns null if review not found or user doesn't own it.
