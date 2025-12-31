@@ -50,7 +50,7 @@ export const StarRatingInput = ({
                                 "transition-all duration-150",
                                 isFilled
                                     ? "fill-current text-carbon drop-shadow-[0_0_4px_rgba(31,91,174,0.1)]"
-                                    : "text-carbon/30 group-hover:text-carbon/50 group-hover:drop-shadow-[0_0_4px_rgba(31,91,174,0.1)]",
+                                    : "text-carbon opacity-30 group-hover:opacity-50 group-hover:drop-shadow-[0_0_4px_rgba(31,91,174,0.1)]",
                                 className
                             )}
                         />

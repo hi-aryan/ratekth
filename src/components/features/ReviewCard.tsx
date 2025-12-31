@@ -91,15 +91,15 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
             {/* Footer: Metadata */}
             <div className="flex items-center gap-4 text-xs text-carbon/50 pt-4 border-t border-carbon/10">
                 <div className="flex items-center gap-1">
-                    <User className="w-3.5 h-3.5" />
+                    <User className="w-3.5 h-3.5 text-carbon opacity-50" />
                     <span>{review.author.username ?? 'Anonymous'}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                    <GraduationCap className="w-3.5 h-3.5" />
+                    <GraduationCap className="w-3.5 h-3.5 text-carbon opacity-50" />
                     <span>Taken {review.yearTaken}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
+                    <Calendar className="w-3.5 h-3.5 text-carbon opacity-50" />
                     <span>{formatDate(review.datePosted)}</span>
                 </div>
             </div>

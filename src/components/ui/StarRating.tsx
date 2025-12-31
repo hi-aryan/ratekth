@@ -29,7 +29,7 @@ export const StarRating = ({ value, max = RATING_MAX, size = 'md', className }: 
                 key={i}
                 className={cn(
                     sizeStyles[size],
-                    isFilled ? "fill-current text-carbon" : "text-carbon/30",
+                    isFilled ? "fill-current text-carbon" : "text-carbon opacity-30",
                     className
                 )}
             />

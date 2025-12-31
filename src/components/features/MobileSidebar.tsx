@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { SearchBar } from "@/components/ui/SearchBar"
 import Link from "next/link"
@@ -45,11 +45,16 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                     style={{ touchAction: "none" }}
                 />
 
-                {/* Sidebar Panel - overscroll-behavior prevents scroll chaining */}
+                {/* Sidebar Panel - no scrolling */}
                 <div
-                    className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transition-transform duration-300 ease-in-out transform overflow-y-auto overscroll-contain ${isOpen ? "translate-x-0" : "translate-x-full"
+                    className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transition-transform duration-300 ease-in-out transform overflow-hidden ${isOpen ? "translate-x-0" : "translate-x-full"
                         }`}
                 >
+                    {/* Background Icon - Scrolls with content to preserve simple logic */}
+                    <div className="absolute -bottom-20 -right-14 text-carbon opacity-[0.05] pointer-events-none select-none z-0 rotate-[-12deg]">
+                        <GraduationCap className="w-80 h-80" strokeWidth={1} />
+                    </div>
+
                     {/* Header with close button */}
                     <div className="flex items-center justify-between p-4 border-b border-carbon/10">
                         <span className="text-sm font-medium text-carbon/60">Menu</span>
@@ -85,15 +90,8 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                     </div>
 
                     {/* Search */}
-                    <div className="p-4 border-b border-carbon/10">
+                    <div className="p-4"> {/* border-b border-carbon/10 */}
                         <SearchBar />
-                    </div>
-
-                    {/* Info Section */}
-                    <div className="p-4">
-                        <p className="text-sm text-carbon/50 leading-relaxed">
-                            Discover course reviews from KTH students.
-                        </p>
                     </div>
                 </div>
             </div>
