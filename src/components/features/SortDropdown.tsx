@@ -63,8 +63,8 @@ export const SortDropdown = ({ currentSort: propSort }: SortDropdownProps) => {
                 id="sort-select"
                 value={currentSort}
                 onChange={handleChange}
-                className="flex-1 min-w-0 px-3 py-2 text-sm bg-white border border-carbon/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-carbon/10 focus:border-carbon transition-all cursor-pointer"
-            >
+                className="flex-1 min-w-0 px-3 py-2 text-sm text-carbon/80 bg-white border border-carbon/20 rounded-lg focus:outline-none hover:border-carbon/50 transition-all cursor-pointer appearance-none"
+                >
                 {SORT_OPTIONS.map((option) => (
                     <option key={option} value={option}>
                         {sortLabels[option]}
