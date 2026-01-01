@@ -54,7 +54,7 @@ export default async function Home() {
 
         {/* Sidebar Column - hidden on mobile */}
         <div className="hidden md:block w-72 shrink-0">
-          <div className="sticky top-20">
+          <div className="sticky top-18">
             <Sidebar>
               <div className="space-y-6">
                 {/* Search */}

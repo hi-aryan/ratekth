@@ -13,8 +13,8 @@ export default async function AppLayout({
 
   return (
     <main className="min-h-screen bg-porcelain">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-carbon/10">
+      {/* Header - gradient fade from white to transparent */}
+      <header className="sticky top-0 z-40 bg-gradient-to-b from-white via-white/90 to-transparent">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-carbon">
             rateKTH
