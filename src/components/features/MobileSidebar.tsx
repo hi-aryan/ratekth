@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Menu, X, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { SearchBar } from "@/components/ui/SearchBar"
+import { SortDropdown } from "@/components/features/SortDropdown"
 import Link from "next/link"
 
 interface MobileSidebarProps {
@@ -13,7 +14,7 @@ interface MobileSidebarProps {
 
 /**
  * MobileSidebar: Toggle button + overlay sidebar for mobile view.
- * Contains nav actions + search + info. Only visible on mobile.
+ * Contains nav actions + sort + search. Only visible on mobile.
  */
 export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarProps) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -89,8 +90,9 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                         )}
                     </div>
 
-                    {/* Search */}
-                    <div className="p-4"> {/* border-b border-carbon/10 */}
+                    {/* Sort & Search */}
+                    <div className="p-4 space-y-4">
+                        <SortDropdown />
                         <SearchBar />
                     </div>
                 </div>

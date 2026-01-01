@@ -148,10 +148,11 @@ export interface ReviewForDisplay {
 
 /**
  * Generic paginated result wrapper.
+ * totalCount is optional (not available when using limit+1 optimization).
  */
 export interface PaginatedResult<T> {
     items: T[]
-    totalCount: number
+    totalCount?: number
     page: number
     pageSize: number
     hasMore: boolean

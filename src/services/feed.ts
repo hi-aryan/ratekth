@@ -54,25 +54,17 @@ export const getStudentFeed = async (
         ? inArray(post.courseId, visibleCourseIds)
         : undefined;
 
-    // Count total reviews
-    const countResult = await db
-        .select({ count: sql<number>`count(*)` })
-        .from(post)
-        .where(whereClause);
-    const totalCount = Number(countResult[0]?.count ?? 0);
-
     // If user has academic info but no visible courses, return empty
     if (visibleCourseIds !== null && visibleCourseIds.length === 0) {
         return {
             items: [],
-            totalCount: 0,
             page,
             pageSize,
             hasMore: false,
         };
     }
 
-    // Fetch reviews with course and author info
+    // Fetch pageSize + 1 records to determine hasMore without COUNT query
     const reviews = await db
         .select({
             id: post.id,
@@ -94,11 +86,15 @@ export const getStudentFeed = async (
         .innerJoin(user, eq(post.userId, user.id))
         .where(whereClause)
         .orderBy(getSortOrder(sortBy))
-        .limit(pageSize)
+        .limit(pageSize + 1)
         .offset(offset);
 
-    // Fetch tags for these reviews
-    const reviewIds = reviews.map(r => r.id);
+    // Determine hasMore and trim to pageSize
+    const hasMore = reviews.length > pageSize;
+    const trimmedReviews = hasMore ? reviews.slice(0, pageSize) : reviews;
+
+    // Fetch tags for trimmed reviews
+    const reviewIds = trimmedReviews.map(r => r.id);
     const tagsResult = reviewIds.length > 0
         ? await db
             .select({
@@ -125,7 +121,7 @@ export const getStudentFeed = async (
     });
 
     // Transform to ReviewForDisplay
-    const items: ReviewForDisplay[] = reviews.map(r => ({
+    const items: ReviewForDisplay[] = trimmedReviews.map(r => ({
         id: r.id,
         datePosted: r.datePosted,
         yearTaken: r.yearTaken,
@@ -149,9 +145,8 @@ export const getStudentFeed = async (
 
     return {
         items,
-        totalCount,
         page,
         pageSize,
-        hasMore: offset + items.length < totalCount,
+        hasMore,
     };
 };

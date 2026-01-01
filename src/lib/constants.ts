@@ -3,7 +3,7 @@
  * Centralized to avoid magic numbers across services/components.
  */
 
-export const FEED_PAGE_SIZE = 5 as const
+export const FEED_PAGE_SIZE = 10 as const
 
 export const SORT_OPTIONS = ['newest', 'top-rated', 'professor', 'material', 'peers'] as const
 export type FeedSortOption = typeof SORT_OPTIONS[number]
