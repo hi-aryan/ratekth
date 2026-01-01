@@ -16,7 +16,7 @@ export const Button = ({ children, className, loading, ...props }: ButtonProps) 
             {...props}
             disabled={isPending || props.disabled}
             className={cn(
-                "group relative overflow-hidden flex w-full items-center justify-center rounded-lg bg-carbon px-4 py-2.5 text-sm font-semibold text-porcelain transition-all duration-150 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed",
+                "group relative overflow-hidden flex w-full items-center justify-center rounded-lg bg-carbon px-4 py-2.5 text-sm font-semibold text-porcelain transition-all duration-150 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed",
                 className
             )}
         >
