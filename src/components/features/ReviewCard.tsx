@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { StarRating } from "@/components/ui/StarRating"
 import type { ReviewForDisplay } from "@/lib/types"
-import { Calendar, GraduationCap, User } from "lucide-react"
+import { Calendar, GraduationCap, User, Feather, Scale, Dumbbell } from "lucide-react"
 
 interface ReviewCardProps {
     review: ReviewForDisplay
@@ -15,6 +15,15 @@ const workloadLabels: Record<ReviewForDisplay['ratingWorkload'], string> = {
     light: 'Light',
     medium: 'Medium',
     heavy: 'Heavy',
+}
+
+/**
+ * Workload icon mapping for display.
+ */
+const workloadIcons: Record<ReviewForDisplay['ratingWorkload'], React.ElementType> = {
+    light: Feather,
+    medium: Scale,
+    heavy: Dumbbell,
 }
 
 /**
@@ -50,19 +59,31 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
                 </div>
             </div>
 
-            {/* Ratings breakdown */}
-            <div className="grid grid-cols-3 gap-3 mb-4 p-3 bg-carbon/5 rounded-lg">
+            {/* Ratings breakdown with workload */}
+            <div className="grid grid-cols-4 gap-2 mb-4 p-3 bg-carbon/[0.02] rounded-lg text-xs text-carbon/40">
                 <div className="text-center">
-                    <p className="text-xs text-carbon/50 mb-1">Professor</p>
-                    <StarRating value={review.ratingProfessor} size="sm" />
+                    <p className="mb-1">Professor</p>
+                    <StarRating value={review.ratingProfessor} size="xs" />
                 </div>
                 <div className="text-center">
-                    <p className="text-xs text-carbon/50 mb-1">Material</p>
-                    <StarRating value={review.ratingMaterial} size="sm" />
+                    <p className="mb-1">Material</p>
+                    <StarRating value={review.ratingMaterial} size="xs" />
                 </div>
                 <div className="text-center">
-                    <p className="text-xs text-carbon/50 mb-1">Peers</p>
-                    <StarRating value={review.ratingPeers} size="sm" />
+                    <p className="mb-1">Peers</p>
+                    <StarRating value={review.ratingPeers} size="xs" />
+                </div>
+                <div className="text-center">
+                    <p className="mb-1">Workload</p>
+                    {(() => {
+                        const WorkloadIcon = workloadIcons[review.ratingWorkload]
+                        return (
+                            <span className="inline-flex items-center gap-1">
+                                <WorkloadIcon className="w-3 h-3 text-carbon opacity-80" />
+                                <span className="text-carbon/80 font-semibold">{workloadLabels[review.ratingWorkload]}</span>
+                            </span>
+                        )
+                    })()}
                 </div>
             </div>
 
@@ -73,20 +94,19 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
                 </p>
             )}
 
-            {/* Tags and Workload */}
-            <div className="flex flex-wrap gap-2 mb-4"> {/* TODO: add justify-center ?? */}
-                <Badge variant="neutral">
-                    {workloadLabels[review.ratingWorkload]} Workload
-                </Badge>
-                {review.tags.map(tag => (
-                    <Badge
-                        key={tag.id}
-                        variant={tag.sentiment === 'positive' ? 'positive' : 'negative'}
-                    >
-                        {tag.name}
-                    </Badge>
-                ))}
-            </div>
+            {/* Tags (workload moved to ratings section) */}
+            {review.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {review.tags.map(tag => (
+                        <Badge
+                            key={tag.id}
+                            variant={tag.sentiment === 'positive' ? 'positive' : 'negative'}
+                        >
+                            {tag.name}
+                        </Badge>
+                    ))}
+                </div>
+            )}
 
             {/* Footer: Metadata */}
             <div className="flex items-center gap-4 text-xs text-carbon/50 pt-4 border-t border-carbon/10">

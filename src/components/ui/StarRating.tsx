@@ -5,11 +5,12 @@ import { RATING_MAX } from "@/lib/constants"
 interface StarRatingProps {
     value: number
     max?: number
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'xs' | 'sm' | 'md' | 'lg'
     className?: string
 }
 
 const sizeStyles = {
+    xs: "w-2.5 h-2.5",
     sm: "w-3.5 h-3.5",
     md: "w-4 h-4",
     lg: "w-5 h-5",

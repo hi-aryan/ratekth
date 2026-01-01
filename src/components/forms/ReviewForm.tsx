@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Feather, Scale, Flame } from "lucide-react"
+import { Feather, Scale, Dumbbell } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { submitReviewAction, updateReviewAction } from "@/actions/reviews"
@@ -250,7 +250,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                             {([
                                 { level: "light" as WorkloadLevel, Icon: Feather },
                                 { level: "medium" as WorkloadLevel, Icon: Scale },
-                                { level: "heavy" as WorkloadLevel, Icon: Flame },
+                                { level: "heavy" as WorkloadLevel, Icon: Dumbbell },
                             ]).map(({ level, Icon }) => (
                                 <button
                                     key={level}
