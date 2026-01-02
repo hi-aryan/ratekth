@@ -2,6 +2,7 @@ import { LoginForm } from "@/components/forms/LoginForm";
 import { ResendVerificationForm } from "@/components/forms/ResendVerificationForm";
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { Card } from "@/components/ui/Card";
+import { BackLink } from "@/components/ui/BackLink";
 
 /** force-dynamic: Ensures fresh session check on each request */
 export const dynamic = "force-dynamic";
@@ -9,6 +10,7 @@ export default function LoginPage() {
     // throw new Error("Testing error boundary"); // testing error.tsx
     return (
         <>
+            <BackLink href="/" label="Home" className="mb-4" />
             <div className="text-center text-carbon">
                 <h1 className="text-2xl font-bold">Welcome Back</h1>
                 <p className="text-carbon/60 mt-2">Login with your rateKTH credentials.</p>

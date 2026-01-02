@@ -1,6 +1,7 @@
 import { RegisterForm } from "@/components/forms/RegisterForm";
 import { getBasePrograms, getMastersDegrees } from "@/services/programs";
 import { Card } from "@/components/ui/Card";
+import { BackLink } from "@/components/ui/BackLink";
 
 export const dynamic = "force-dynamic";
 export default async function RegisterPage() {
@@ -11,6 +12,7 @@ export default async function RegisterPage() {
 
     return (
         <>
+            <BackLink href="/" label="Home" className="mb-4" />
             <div className="text-center text-carbon">
                 <h1 className="text-2xl font-bold">Join rateKTH</h1>
                 <p className="text-carbon/60 mt-2">The home of student reviews.</p>

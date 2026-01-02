@@ -6,7 +6,8 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { StarRating } from "@/components/ui/StarRating";
 import { DeleteReviewButton } from "@/components/ui/DeleteReviewButton";
-import { Calendar, GraduationCap, User, Feather, Scale, Dumbbell, Pencil, ArrowLeft } from "lucide-react";
+import { BackLink } from "@/components/ui/BackLink";
+import { Calendar, GraduationCap, User, Feather, Scale, Dumbbell, Pencil } from "lucide-react";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -62,13 +63,7 @@ export default async function ReviewDetailPage({ params }: PageProps) {
     return (
         <div className="max-w-3xl mx-auto px-4 py-6">
             {/* Back link */}
-            <Link
-                href="/"
-                className="inline-flex items-center gap-1.5 text-sm text-carbon/60 hover:translate-x-[-2px] transition-all duration-200 ease-in-out mb-6"
-            >
-                <ArrowLeft className="w-4 h-4 text-carbon opacity-60"/>
-                Back
-            </Link>
+            <BackLink href="/" className="mb-6" />
 
             <Card className="p-6">
                 {/* Header: Course info and overall rating */}

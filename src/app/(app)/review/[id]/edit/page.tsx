@@ -3,6 +3,7 @@ import { auth } from "@/services/auth";
 import { getAllTags, getReviewForEdit } from "@/services/reviews";
 import { ReviewForm } from "@/components/forms/ReviewForm";
 import { Card } from "@/components/ui/Card";
+import { BackLink } from "@/components/ui/BackLink";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -33,22 +34,20 @@ export default async function EditReviewPage({ params }: PageProps) {
     const tags = await getAllTags();
 
     return (
-        <>
-            {/* Form */}
-            <div className="max-w-3xl mx-auto px-4 py-6">
-                <Card className="p-6">
-                    <h1 className="text-xl font-bold text-carbon mb-6">
-                        Edit Review
-                    </h1>
+        <div className="max-w-3xl mx-auto px-4 py-6">
+            <BackLink href={`/review/${reviewId}`} label="Back to Review" className="mb-6" />
+            <Card className="p-6">
+                <h1 className="text-xl font-bold text-carbon mb-6">
+                    Edit Review
+                </h1>
 
-                    <ReviewForm
-                        courses={[]}
-                        tags={tags}
-                        initialData={review}
-                    />
-                </Card>
-            </div>
-        </>
+                <ReviewForm
+                    courses={[]}
+                    tags={tags}
+                    initialData={review}
+                />
+            </Card>
+        </div>
     );
 }
 

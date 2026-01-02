@@ -4,6 +4,7 @@ import { getAvailableCourses } from "@/services/courses";
 import { getAllTags, getUserReviewedCourseIds } from "@/services/reviews";
 import { ReviewForm } from "@/components/forms/ReviewForm";
 import { Card } from "@/components/ui/Card";
+import { BackLink } from "@/components/ui/BackLink";
 
 interface PageProps {
     searchParams: Promise<{ course_id?: string }>;
@@ -34,28 +35,26 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
     const userReviews = await getUserReviewedCourseIds(session.user.id);
 
     return (
-        <>
-            {/* Form */}
-            <div className="max-w-3xl mx-auto px-4 py-6">
-                <Card className="p-6">
-                    <h1 className="text-xl font-bold text-carbon mb-6">
-                        Write a Review
-                    </h1>
+        <div className="max-w-3xl mx-auto px-4 py-6">
+            <BackLink href="/" className="mb-6" />
+            <Card className="p-6">
+                <h1 className="text-xl font-bold text-carbon mb-6">
+                    Write a Review
+                </h1>
 
-                    {courses.length > 0 ? (
-                        <ReviewForm
-                            courses={courses}
-                            tags={tags}
-                            defaultCourseId={defaultCourseId}
-                            reviewedCourses={userReviews}
-                        />
-                    ) : (
-                        <p className="text-carbon/60 text-center py-8">
-                            No courses available for your program yet.
-                        </p>
-                    )}
-                </Card>
-            </div>
-        </>
+                {courses.length > 0 ? (
+                    <ReviewForm
+                        courses={courses}
+                        tags={tags}
+                        defaultCourseId={defaultCourseId}
+                        reviewedCourses={userReviews}
+                    />
+                ) : (
+                    <p className="text-carbon/60 text-center py-8">
+                        No courses available for your program yet.
+                    </p>
+                )}
+            </Card>
+        </div>
     );
 }
