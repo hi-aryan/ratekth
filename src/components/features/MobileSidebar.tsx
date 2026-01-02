@@ -77,7 +77,7 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                     <div className="p-4 border-b border-carbon/10 space-y-3">
                         {isAuthenticated ? (
                             <>
-                                <WriteReviewButton className="w-full" />
+                                <WriteReviewButton onClick={handleClose} className="w-full" />
                                 {logoutAction && (
                                     <form action={logoutAction}>
                                         <Button type="submit" size="lg" className="w-full">

@@ -148,7 +148,7 @@ export default async function ReviewDetailPage({ params }: PageProps) {
                     <div className="flex items-center justify-end gap-1 pt-6 mt-6 border-t border-carbon/10">
                         <Link
                             href={`/review/${review.id}/edit`}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors text-carbon opacity-80 hover:opacity-100 hover:bg-carbon/5"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-lg transition-colors text-carbon opacity-80 hover:opacity-100 hover:bg-carbon/5"
                         >
                             <Pencil className="w-4 h-4" />
                             Edit

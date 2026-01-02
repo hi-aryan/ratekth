@@ -66,7 +66,7 @@ export const Button = ({
             disabled={isPending || props.disabled}
             className={cn(
                 // Base styles
-                "group relative inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-150",
+                "group relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-lg whitespace-nowrap transition-all duration-150",
                 // Universal active effect
                 "active:scale-[0.97]",
                 // Disabled state
@@ -86,7 +86,7 @@ export const Button = ({
             {isPending ? (
                 <span className="relative mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current/20 border-t-current" />
             ) : null}
-            <span className="relative">{children}</span>
+            <span className="relative inline-flex items-center">{children}</span>
         </button>
     )
 }
