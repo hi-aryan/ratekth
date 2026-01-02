@@ -184,6 +184,7 @@ export const getReviewsForCourse = async (courseId: number): Promise<ReviewForDi
             courseId: course.id,
             courseName: course.name,
             courseCode: course.code,
+            authorId: post.userId,
             authorUsername: user.username,
             authorImage: user.image,
         })
@@ -235,6 +236,7 @@ export const getReviewsForCourse = async (courseId: number): Promise<ReviewForDi
         ratingWorkload: r.ratingWorkload,
         content: r.content,
         overallRating: computeOverallRating(r.ratingProfessor, r.ratingMaterial, r.ratingPeers),
+        authorId: r.authorId,
         course: {
             id: r.courseId,
             name: r.courseName,
@@ -328,4 +330,105 @@ export const getReviewForEdit = async (
         content: review.content,
         tagIds,
     };
+};
+
+/**
+ * Service: Get a single review by ID for public display.
+ * Returns full review info including authorId for ownership check.
+ * Returns null if review not found.
+ */
+export const getReviewById = async (reviewId: number): Promise<ReviewForDisplay | null> => {
+    // Fetch review with course and author info
+    const reviewResult = await db
+        .select({
+            id: post.id,
+            datePosted: post.datePosted,
+            yearTaken: post.yearTaken,
+            ratingProfessor: post.ratingProfessor,
+            ratingMaterial: post.ratingMaterial,
+            ratingPeers: post.ratingPeers,
+            ratingWorkload: post.ratingWorkload,
+            content: post.content,
+            courseId: course.id,
+            courseName: course.name,
+            courseCode: course.code,
+            authorId: post.userId,
+            authorUsername: user.username,
+            authorImage: user.image,
+        })
+        .from(post)
+        .innerJoin(course, eq(post.courseId, course.id))
+        .innerJoin(user, eq(post.userId, user.id))
+        .where(eq(post.id, reviewId))
+        .limit(1);
+
+    if (reviewResult.length === 0) {
+        return null;
+    }
+
+    const r = reviewResult[0];
+
+    // Fetch tags for this review
+    const tagsResult = await db
+        .select({
+            tagId: tag.id,
+            tagName: tag.name,
+            tagSentiment: tag.sentiment,
+        })
+        .from(postTags)
+        .innerJoin(tag, eq(postTags.tagId, tag.id))
+        .where(eq(postTags.postId, reviewId));
+
+    const tags: Tag[] = tagsResult.map(t => ({
+        id: t.tagId,
+        name: t.tagName,
+        sentiment: t.tagSentiment,
+    }));
+
+    return {
+        id: r.id,
+        datePosted: r.datePosted,
+        yearTaken: r.yearTaken,
+        ratingProfessor: r.ratingProfessor,
+        ratingMaterial: r.ratingMaterial,
+        ratingPeers: r.ratingPeers,
+        ratingWorkload: r.ratingWorkload,
+        content: r.content,
+        overallRating: computeOverallRating(r.ratingProfessor, r.ratingMaterial, r.ratingPeers),
+        authorId: r.authorId,
+        course: {
+            id: r.courseId,
+            name: r.courseName,
+            code: r.courseCode,
+        },
+        author: {
+            username: r.authorUsername,
+            image: r.authorImage,
+        },
+        tags,
+    };
+};
+
+/**
+ * Service: Delete a review.
+ * Validates ownership before deletion.
+ * Throws if review not found or user doesn't own it.
+ * Tags are automatically deleted via CASCADE foreign key.
+ */
+export const deleteReview = async (reviewId: number, userId: string): Promise<void> => {
+    // Verify ownership
+    const existingReview = await db.query.post.findFirst({
+        where: and(
+            eq(post.id, reviewId),
+            eq(post.userId, userId)
+        ),
+        columns: { id: true },
+    });
+
+    if (!existingReview) {
+        throw new Error("Review not found or you don't have permission to delete it");
+    }
+
+    // Delete the review (tags deleted via CASCADE)
+    await db.delete(post).where(eq(post.id, reviewId));
 };

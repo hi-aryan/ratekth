@@ -138,6 +138,7 @@ export interface ReviewForDisplay {
     ratingWorkload: 'light' | 'medium' | 'heavy'
     content: string | null
     overallRating: number // computed: avg of 3 ratings
+    authorId: string // for ownership check on detail page
     course: Course
     author: {
         username: string | null

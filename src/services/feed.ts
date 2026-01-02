@@ -78,6 +78,7 @@ export const getStudentFeed = async (
             courseId: course.id,
             courseName: course.name,
             courseCode: course.code,
+            authorId: post.userId,
             authorUsername: user.username,
             authorImage: user.image,
         })
@@ -131,6 +132,7 @@ export const getStudentFeed = async (
         ratingWorkload: r.ratingWorkload,
         content: r.content,
         overallRating: computeOverallRating(r.ratingProfessor, r.ratingMaterial, r.ratingPeers),
+        authorId: r.authorId,
         course: {
             id: r.courseId,
             name: r.courseName,

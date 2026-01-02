@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/services/auth";
 import { reviewSchema } from "@/lib/validation";
-import { createReview, updateReview, getUserReviewForCourse } from "@/services/reviews";
+import { createReview, updateReview, deleteReview, getUserReviewForCourse } from "@/services/reviews";
 import { ActionState } from "@/lib/types";
 
 /**
@@ -130,4 +130,37 @@ export async function updateReviewAction(
 
     revalidatePath("/");
     redirect("/?success=review-updated");
+}
+
+/**
+ * Action: Delete a review.
+ * Validates auth and ownership, deletes review.
+ * Uses form submission pattern for compatibility with client component.
+ */
+export async function deleteReviewAction(
+    _prevState: ActionState,
+    formData: FormData
+): Promise<ActionState> {
+    const session = await auth();
+    if (!session?.user?.id) {
+        return { error: "You must be logged in to delete a review." };
+    }
+
+    const reviewId = Number(formData.get("reviewId"));
+    if (!reviewId || isNaN(reviewId) || reviewId <= 0) {
+        return { error: "Invalid review ID." };
+    }
+
+    try {
+        await deleteReview(reviewId, session.user.id);
+    } catch (error) {
+        console.error("[DeleteReviewAction Error]:", error);
+        if (error instanceof Error && error.message.includes("permission")) {
+            return { error: "You don't have permission to delete this review." };
+        }
+        return { error: "Failed to delete review. Please try again." };
+    }
+
+    revalidatePath("/");
+    redirect("/?success=review-deleted");
 }
