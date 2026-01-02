@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
  */
 
 // Routes that require authentication
-const protectedPaths = ["/account", "/review/new", "/review/"];
+const protectedPaths = ["/account", "/review/new"];
 
 // Routes only for guests (redirect logged-in users away)  
 const authPaths = ["/login", "/register", "/reset-password"];
