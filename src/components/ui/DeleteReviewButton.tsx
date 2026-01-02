@@ -1,10 +1,9 @@
 "use client"
 
-import { useActionState } from "react"
+import { useActionState, useState } from "react"
 import { Trash2 } from "lucide-react"
 import { deleteReviewAction } from "@/actions/reviews"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { Button } from "@/components/ui/Button"
 
 interface DeleteReviewButtonProps {
     reviewId: number
@@ -12,7 +11,7 @@ interface DeleteReviewButtonProps {
 
 /**
  * Interactive delete button with confirmation dialog.
- * Uses useActionState for form submission with pending state.
+ * Uses Button variants: ghost for initial trigger, destructive for confirm.
  */
 export const DeleteReviewButton = ({ reviewId }: DeleteReviewButtonProps) => {
     const [showConfirm, setShowConfirm] = useState(false)
@@ -24,47 +23,40 @@ export const DeleteReviewButton = ({ reviewId }: DeleteReviewButtonProps) => {
                 <span className="text-sm text-carbon/70">Delete review?</span>
                 <form action={formAction}>
                     <input type="hidden" name="reviewId" value={reviewId} />
-                    <button
+                    <Button
                         type="submit"
-                        disabled={isPending}
-                        className={cn(
-                            "px-3 py-1.5 text-sm font-medium rounded-lg transition-colors",
-                            "bg-coral text-white hover:bg-coral/90",
-                            "disabled:opacity-50 disabled:cursor-not-allowed"
-                        )}
+                        variant="destructive"
+                        size="sm"
+                        loading={isPending}
                     >
-                        {isPending ? "Deleting..." : "Confirm"}
-                    </button>
+                        Confirm
+                    </Button>
                 </form>
-                <button
+                <Button
                     type="button"
+                    variant="ghost"
+                    size="sm"
                     onClick={() => setShowConfirm(false)}
                     disabled={isPending}
-                    className={cn(
-                        "px-3 py-1.5 text-sm font-medium rounded-lg transition-colors",
-                        "bg-carbon/10 text-carbon hover:bg-carbon/20",
-                        "disabled:opacity-50 disabled:cursor-not-allowed"
-                    )}
                 >
                     Cancel
-                </button>
+                </Button>
             </div>
         )
     }
 
     return (
         <>
-            <button
+            <Button
                 type="button"
+                variant="ghost"
+                size="sm"
                 onClick={() => setShowConfirm(true)}
-                className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors",
-                    "text-coral opacity-80 hover:opacity-100 hover:bg-coral/10"
-                )}
+                className="text-coral hover:text-coral hover:bg-coral/10"
             >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-4 h-4 mr-1.5" />
                 Delete
-            </button>
+            </Button>
             {state?.error && (
                 <p className="text-sm text-coral mt-1">{state.error}</p>
             )}

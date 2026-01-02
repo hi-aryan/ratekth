@@ -23,7 +23,7 @@ export default function Error({
                 <p className="text-sm text-carbon/60 mb-6">
                     We couldn&apos;t load this page. Please try again.
                 </p>
-                <Button onClick={() => reset()}>
+                <Button onClick={() => reset()} size="lg" className="w-full">
                     Try again
                 </Button>
             </Card>

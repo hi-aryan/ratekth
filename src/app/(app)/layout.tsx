@@ -24,16 +24,14 @@ export default async function AppLayout({
           {/* Desktop Nav - hidden on mobile */}
           {session ? (
             <div className="hidden md:flex items-center gap-3">
-              <WriteReviewButton className="w-auto" />
+              <WriteReviewButton />
               <form action={logoutAction}>
-                <Button type="submit" className="w-auto">
-                  Logout
-                </Button>
+                <Button type="submit">Logout</Button>
               </form>
             </div>
           ) : (
             <Link href="/login" className="hidden md:block">
-              <Button className="w-auto">Sign In</Button>
+              <Button>Sign In</Button>
             </Link>
           )}
 

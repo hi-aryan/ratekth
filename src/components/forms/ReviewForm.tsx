@@ -327,7 +327,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                     <Alert variant="error">{form.formState.errors.root.message}</Alert>
                     {existingReviewId && (
                         <Link href={`/review/${existingReviewId}/edit`} className="block">
-                            <Button type="button" className="w-full">
+                            <Button type="button" size="lg" className="w-full">
                                 Edit Your Review
                             </Button>
                         </Link>
@@ -336,7 +336,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
             )}
 
             {/* Submit */}
-            <Button type="submit" loading={isPending} className="w-full">
+            <Button type="submit" size="lg" loading={isPending} className="w-full">
                 {isEditMode ? "Update Review" : "Submit Review"}
             </Button>
         </form>

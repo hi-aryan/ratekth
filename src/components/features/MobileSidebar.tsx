@@ -25,13 +25,15 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
     return (
         <>
             {/* Toggle Button - visible only on mobile */}
-            <button
+            <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setIsOpen(true)}
-                className="md:hidden p-2 rounded-lg hover:bg-carbon/5 active:scale-95 transition-all"
+                className="md:hidden p-2"
                 aria-label="Open menu"
             >
-                <Menu className="w-6 h-6 text-carbon" />
-            </button>
+                <Menu className="w-6 h-6" />
+            </Button>
 
             {/* Overlay */}
             <div
@@ -60,13 +62,15 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                     {/* Header with close button */}
                     <div className="flex items-center justify-between p-4 border-b border-carbon/10">
                         <span className="text-sm font-medium text-carbon/60">Menu</span>
-                        <button
+                        <Button
+                            variant="ghost"
+                            size="sm"
                             onClick={handleClose}
-                            className="p-2 rounded-lg hover:bg-carbon/5 active:scale-95 transition-all"
+                            className="p-2"
                             aria-label="Close menu"
                         >
-                            <X className="w-5 h-5 text-carbon" />
-                        </button>
+                            <X className="w-5 h-5" />
+                        </Button>
                     </div>
 
                     {/* Nav Actions */}
@@ -76,7 +80,7 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                                 <WriteReviewButton className="w-full" />
                                 {logoutAction && (
                                     <form action={logoutAction}>
-                                        <Button type="submit" className="w-full">
+                                        <Button type="submit" size="lg" className="w-full">
                                             Logout
                                         </Button>
                                     </form>
@@ -84,7 +88,7 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                             </>
                         ) : (
                             <Link href="/login" onClick={handleClose} className="block">
-                                <Button className="w-full">Sign In</Button>
+                                <Button size="lg" className="w-full">Sign In</Button>
                             </Link>
                         )}
                     </div>

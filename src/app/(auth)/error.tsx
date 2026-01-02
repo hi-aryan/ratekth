@@ -24,7 +24,7 @@ export default function Error({
                 <p className="text-sm text-carbon/60 mb-6">
                     Please try again. If the problem persists, contact support.
                 </p>
-                <Button onClick={() => reset()}>
+                <Button onClick={() => reset()} size="lg" className="w-full">
                     Try again
                 </Button>
             </Card>
