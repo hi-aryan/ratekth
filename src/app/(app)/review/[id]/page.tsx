@@ -64,10 +64,10 @@ export default async function ReviewDetailPage({ params }: PageProps) {
             {/* Back link */}
             <Link
                 href="/"
-                className="inline-flex items-center gap-1.5 text-sm text-carbon/60 hover:text-carbon transition-colors mb-6"
+                className="inline-flex items-center gap-1.5 text-sm text-carbon/60 hover:translate-x-[-2px] transition-all duration-200 ease-in-out mb-6"
             >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Feed
+                <ArrowLeft className="w-4 h-4 text-carbon opacity-60"/>
+                Back
             </Link>
 
             <Card className="p-6">
