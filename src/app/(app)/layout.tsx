@@ -1,6 +1,7 @@
 import { auth } from "@/services/auth";
 import { logoutAction } from "@/actions/auth";
 import { Button } from "@/components/ui/Button";
+import { WriteReviewButton } from "@/components/ui/WriteReviewButton";
 import { MobileSidebar } from "@/components/features/MobileSidebar";
 import Link from "next/link";
 
@@ -23,9 +24,7 @@ export default async function AppLayout({
           {/* Desktop Nav - hidden on mobile */}
           {session ? (
             <div className="hidden md:flex items-center gap-3">
-              <Link href="/review/new">
-                <Button className="w-auto">Write Review</Button>
-              </Link>
+              <WriteReviewButton className="w-auto" />
               <form action={logoutAction}>
                 <Button type="submit" className="w-auto">
                   Logout

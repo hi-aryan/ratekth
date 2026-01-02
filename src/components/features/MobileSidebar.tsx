@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Menu, X, GraduationCap } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import { WriteReviewButton } from "@/components/ui/WriteReviewButton"
 import { SearchBar } from "@/components/ui/SearchBar"
 import { SortDropdown } from "@/components/features/SortDropdown"
 import Link from "next/link"
@@ -72,9 +73,7 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                     <div className="p-4 border-b border-carbon/10 space-y-3">
                         {isAuthenticated ? (
                             <>
-                                <Link href="/review/new" onClick={handleClose} className="block">
-                                    <Button className="w-full">Write Review</Button>
-                                </Link>
+                                <WriteReviewButton className="w-full" />
                                 {logoutAction && (
                                     <form action={logoutAction}>
                                         <Button type="submit" className="w-full">
