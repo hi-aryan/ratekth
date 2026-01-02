@@ -15,3 +15,13 @@
 
   --color-white: #FFFFFF; /* card bg */
 }
+
+/* html {
+  scrollbar-gutter: stable;
+} */
+ html {
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
