@@ -1,6 +1,8 @@
 "use client"
 
+import { useTransition } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+import { Loader2 } from "lucide-react"
 import { SORT_OPTIONS, type FeedSortOption } from "@/lib/constants"
 
 /**
@@ -25,6 +27,7 @@ interface SortDropdownProps {
  * Updates URL params and resets to page 1 when sort changes.
  */
 export const SortDropdown = ({ currentSort: propSort }: SortDropdownProps) => {
+    const [isPending, startTransition] = useTransition()
     const router = useRouter()
     const searchParams = useSearchParams()
 
@@ -51,7 +54,9 @@ export const SortDropdown = ({ currentSort: propSort }: SortDropdownProps) => {
         }
 
         const query = params.toString()
-        router.push(query ? `/?${query}` : "/")
+        startTransition(() => {
+            router.push(query ? `/?${query}` : "/")
+        })
     }
 
     return (
@@ -59,18 +64,24 @@ export const SortDropdown = ({ currentSort: propSort }: SortDropdownProps) => {
             <label htmlFor="sort-select" className="text-sm text-carbon/50 shrink-0">
                 Sort by
             </label>
-            <select
-                id="sort-select"
-                value={currentSort}
-                onChange={handleChange}
-                className="flex-1 min-w-0 px-3 py-2 text-sm text-carbon/80 bg-white border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 rounded-lg focus:outline-none focus:border-carbon cursor-pointer appearance-none"
+            <div className="relative flex-1">
+                <select
+                    id="sort-select"
+                    value={currentSort}
+                    onChange={handleChange}
+                    disabled={isPending}
+                    className={`w-full min-w-0 px-3 py-2 text-sm text-carbon/80 bg-white border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 rounded-lg focus:outline-none focus:border-carbon cursor-pointer appearance-none ${isPending ? 'opacity-50' : ''}`}
                 >
-                {SORT_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                        {sortLabels[option]}
-                    </option>
-                ))}
-            </select>
+                    {SORT_OPTIONS.map((option) => (
+                        <option key={option} value={option}>
+                            {sortLabels[option]}
+                        </option>
+                    ))}
+                </select>
+                <div className={`absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none transition-opacity duration-200 ${isPending ? 'opacity-70' : 'opacity-0'}`}>
+                    <Loader2 className="w-4 h-4 text-carbon animate-spin" />
+                </div>
+            </div>
         </div>
     )
 }
