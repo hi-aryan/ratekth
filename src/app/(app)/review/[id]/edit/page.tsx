@@ -35,7 +35,7 @@ export default async function EditReviewPage({ params }: PageProps) {
     return (
         <>
             {/* Form */}
-            <div className="max-w-3xl mx-auto px-4 py-8">
+            <div className="max-w-3xl mx-auto px-4 py-6">
                 <Card className="p-6">
                     <h1 className="text-xl font-bold text-carbon mb-6">
                         Edit Review

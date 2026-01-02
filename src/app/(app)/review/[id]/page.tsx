@@ -60,7 +60,7 @@ export default async function ReviewDetailPage({ params }: PageProps) {
     const WorkloadIcon = workloadIcons[review.ratingWorkload];
 
     return (
-        <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="max-w-3xl mx-auto px-4 py-6">
             {/* Back link */}
             <Link
                 href="/"
@@ -150,7 +150,7 @@ export default async function ReviewDetailPage({ params }: PageProps) {
 
                 {/* Owner Actions */}
                 {isOwner && (
-                    <div className="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-carbon/10">
+                    <div className="flex items-center justify-end gap-1 pt-6 mt-6 border-t border-carbon/10">
                         <Link
                             href={`/review/${review.id}/edit`}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors text-carbon opacity-80 hover:opacity-100 hover:bg-carbon/5"
