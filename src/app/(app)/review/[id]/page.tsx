@@ -133,7 +133,7 @@ export default async function ReviewDetailPage({ params }: PageProps) {
                 )}
 
                 {/* Metadata */}
-                <div className="flex items-center gap-4 text-sm text-carbon/50 pt-4 border-t border-carbon/10">
+                <div className="flex items-center gap-4 text-sm text-carbon opacity-50 pt-4 border-t border-carbon/10">
                     <div className="flex items-center gap-1.5">
                         <User className="w-4 h-4" />
                         <span>{review.author.username ?? 'Anonymous'}</span>
@@ -150,10 +150,10 @@ export default async function ReviewDetailPage({ params }: PageProps) {
 
                 {/* Owner Actions */}
                 {isOwner && (
-                    <div className="flex items-center gap-3 pt-6 mt-6 border-t border-carbon/10">
+                    <div className="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-carbon/10">
                         <Link
                             href={`/review/${review.id}/edit`}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors bg-carbon/10 text-carbon hover:bg-carbon/20"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors text-carbon opacity-80 hover:opacity-100 hover:bg-carbon/5"
                         >
                             <Pencil className="w-4 h-4" />
                             Edit

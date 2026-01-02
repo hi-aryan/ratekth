@@ -59,7 +59,7 @@ export const DeleteReviewButton = ({ reviewId }: DeleteReviewButtonProps) => {
                 onClick={() => setShowConfirm(true)}
                 className={cn(
                     "flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors",
-                    "text-coral/80 hover:text-coral hover:bg-coral/10"
+                    "text-coral opacity-80 hover:opacity-100 hover:bg-coral/10"
                 )}
             >
                 <Trash2 className="w-4 h-4" />
