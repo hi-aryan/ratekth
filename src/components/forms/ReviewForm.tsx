@@ -317,7 +317,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                     rows={4}
                     maxLength={2000}
                     placeholder="Share your experience..."
-                    className="w-full px-4 py-3 bg-white border border-carbon/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-carbon/10 focus:border-carbon transition-all text-sm resize-none"
+                    className="w-full px-4 py-3 bg-white border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 rounded-lg focus:outline-none focus:border-carbon text-sm resize-none"
                 />
             </FormField>
 

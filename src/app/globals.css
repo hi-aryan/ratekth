@@ -25,3 +25,7 @@
 html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
+
+button {
+  cursor: pointer;
+}
