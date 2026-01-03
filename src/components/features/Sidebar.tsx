@@ -13,12 +13,14 @@ interface SidebarProps {
 export const Sidebar = ({ children, className }: SidebarProps) => {
     return (
         <aside className={cn(
-            "group relative overflow-hidden bg-white rounded-lg shadow-[0_0_3px_rgba(0,0,0,0.15)] p-6",
+            "relative bg-white rounded-lg shadow-[0_0_3px_rgba(0,0,0,0.15)] p-6",
             className
         )}>
-            {/* Background Icon */}
-            <div className="absolute -bottom-16 -right-12 text-carbon opacity-[0.04] pointer-events-none select-none z-0 rotate-[-12deg]">
-                <GraduationCap className="w-64 h-64" strokeWidth={1} />
+            {/* Background Icon - clipped to sidebar bounds */}
+            <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
+                <div className="absolute -bottom-16 -right-12 text-carbon opacity-[0.04] select-none rotate-[-12deg]">
+                    <GraduationCap className="w-64 h-64" strokeWidth={1} />
+                </div>
             </div>
 
             {/* Content */}

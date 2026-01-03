@@ -2,7 +2,8 @@ import "server-only";
 import { db } from "@/db";
 import { post, course, user, postTags, tag } from "@/db/schema";
 import { eq, and, desc, inArray } from "drizzle-orm";
-import type { ReviewForDisplay, Tag } from "@/lib/types";
+import type { ReviewForDisplay, Tag, PaginatedResult } from "@/lib/types";
+import { FEED_PAGE_SIZE } from "@/lib/constants";
 import { computeOverallRating } from "@/lib/utils";
 
 /**
@@ -165,12 +166,19 @@ export const updateReview = async (
 };
 
 /**
- * Service: Get all reviews for a specific course.
+ * Service: Get paginated reviews for a specific course.
  * Returns reviews with author info, tags, and computed overall rating.
  * Sorted by newest first.
  */
-export const getReviewsForCourse = async (courseId: number): Promise<ReviewForDisplay[]> => {
-    // Fetch reviews with author info
+export const getReviewsForCourse = async (
+    courseId: number,
+    options?: { page?: number; pageSize?: number }
+): Promise<PaginatedResult<ReviewForDisplay>> => {
+    const page = Math.max(1, options?.page ?? 1);
+    const pageSize = options?.pageSize ?? FEED_PAGE_SIZE;
+    const offset = (page - 1) * pageSize;
+
+    // Fetch reviews with author info (limit + 1 for hasMore check)
     const reviews = await db
         .select({
             id: post.id,
@@ -192,14 +200,25 @@ export const getReviewsForCourse = async (courseId: number): Promise<ReviewForDi
         .innerJoin(course, eq(post.courseId, course.id))
         .innerJoin(user, eq(post.userId, user.id))
         .where(eq(post.courseId, courseId))
-        .orderBy(desc(post.datePosted));
+        .orderBy(desc(post.datePosted))
+        .limit(pageSize + 1)
+        .offset(offset);
 
-    if (reviews.length === 0) {
-        return [];
+    // Determine hasMore and trim to pageSize
+    const hasMore = reviews.length > pageSize;
+    const trimmedReviews = hasMore ? reviews.slice(0, pageSize) : reviews;
+
+    if (trimmedReviews.length === 0) {
+        return {
+            items: [],
+            page,
+            pageSize,
+            hasMore: false,
+        };
     }
 
     // Fetch tags for these reviews
-    const reviewIds = reviews.map((r) => r.id);
+    const reviewIds = trimmedReviews.map((r) => r.id);
     const tagsResult = reviewIds.length > 0
         ? await db
             .select({
@@ -226,7 +245,7 @@ export const getReviewsForCourse = async (courseId: number): Promise<ReviewForDi
     });
 
     // Transform to ReviewForDisplay
-    return reviews.map((r) => ({
+    const items: ReviewForDisplay[] = trimmedReviews.map((r) => ({
         id: r.id,
         datePosted: r.datePosted,
         yearTaken: r.yearTaken,
@@ -248,6 +267,13 @@ export const getReviewsForCourse = async (courseId: number): Promise<ReviewForDi
         },
         tags: tagsByReview.get(r.id) ?? [],
     }));
+
+    return {
+        items,
+        page,
+        pageSize,
+        hasMore,
+    };
 };
 
 /**

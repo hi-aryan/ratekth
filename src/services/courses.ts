@@ -6,18 +6,32 @@ import type { CourseWithStats } from "@/lib/types";
 
 /**
  * Service to fetch a course by its KTH course code.
- * Ensures encapsulation of database logic away from UI components.
+ * Returns course with review statistics.
  */
-export const getCourseByCode = async (code: string) => {
-    try {
-        const result = await db.query.course.findFirst({
-            where: eq(course.code, code),
-        });
-        return result;
-    } catch (error) {
-        console.error(`Error fetching course with code ${code}:`, error);
-        throw new Error("Failed to fetch course");
-    }
+export const getCourseByCode = async (code: string): Promise<CourseWithStats | null> => {
+    const result = await db
+        .select({
+            id: course.id,
+            name: course.name,
+            code: course.code,
+            reviewCount: count(post.id),
+            averageRating: avg(
+                sql`(${post.ratingProfessor} + ${post.ratingMaterial} + ${post.ratingPeers}) / 3.0`
+            ),
+        })
+        .from(course)
+        .leftJoin(post, eq(course.id, post.courseId))
+        .where(eq(course.code, code))
+        .groupBy(course.id);
+
+    if (result.length === 0) return null;
+
+    const row = result[0];
+    return {
+        ...row,
+        reviewCount: Number(row.reviewCount),
+        averageRating: row.averageRating ? Number(row.averageRating) : undefined,
+    };
 };
 
 /**
@@ -47,6 +61,49 @@ export const getCourseById = async (id: number): Promise<CourseWithStats | null>
         reviewCount: Number(row.reviewCount),
         averageRating: row.averageRating ? Number(row.averageRating) : undefined,
     };
+};
+
+/**
+ * Service: Search courses by name or code.
+ * Returns up to 10 matching courses with review stats.
+ * Case-insensitive search using ILIKE.
+ * Returns empty array if query is less than 2 characters.
+ */
+export const searchCourses = async (query: string): Promise<CourseWithStats[]> => {
+    const trimmedQuery = query.trim();
+
+    // Reject queries that are too short
+    if (trimmedQuery.length < 2) {
+        return [];
+    }
+
+    // Use ILIKE for case-insensitive partial matching
+    const searchPattern = `%${trimmedQuery}%`;
+
+    const results = await db
+        .select({
+            id: course.id,
+            name: course.name,
+            code: course.code,
+            reviewCount: count(post.id),
+            averageRating: avg(
+                sql`(${post.ratingProfessor} + ${post.ratingMaterial} + ${post.ratingPeers}) / 3.0`
+            ),
+        })
+        .from(course)
+        .leftJoin(post, eq(course.id, post.courseId))
+        .where(
+            sql`${course.name} ILIKE ${searchPattern} OR ${course.code} ILIKE ${searchPattern}`
+        )
+        .groupBy(course.id)
+        .orderBy(course.code)
+        .limit(10);
+
+    return results.map(row => ({
+        ...row,
+        reviewCount: Number(row.reviewCount),
+        averageRating: row.averageRating ? Number(row.averageRating) : undefined,
+    }));
 };
 
 /**

@@ -40,7 +40,7 @@ const sizeStyles: Record<ButtonSize, string> = {
  * - Three sizes: sm, md, lg
  * - Built-in loading state via useFormStatus() for form submissions
  * - Universal active:scale-[0.97] effect on all variants
- * - Light sweep hover effect on primary variant only
+ * - Light sweep hover effect on primary variant only (scoped to button hover)
  * 
  * Usage:
  * - Form submit: <Button size="lg" className="w-full">Submit</Button>
@@ -66,7 +66,7 @@ export const Button = ({
             disabled={isPending || props.disabled}
             className={cn(
                 // Base styles
-                "group relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-lg whitespace-nowrap transition-all duration-150",
+                "group/btn relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-lg whitespace-nowrap transition-all duration-150",
                 // Universal active effect
                 "active:scale-[0.97]",
                 // Disabled state
@@ -78,9 +78,9 @@ export const Button = ({
                 className
             )}
         >
-            {/* Light sweep effect - primary variant only */}
+            {/* Light sweep effect - primary variant only, scoped to button hover */}
             {isPrimary && (
-                <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-800 ease-out group-hover:translate-x-[300%] overflow-hidden" />
+                <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-800 ease-out group-hover/btn:translate-x-[300%] overflow-hidden" />
             )}
 
             {isPending ? (
