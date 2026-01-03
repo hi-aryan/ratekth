@@ -61,7 +61,7 @@ export default async function ReviewDetailPage({ params }: PageProps) {
     const WorkloadIcon = workloadIcons[review.ratingWorkload];
 
     return (
-        <div className="max-w-3xl mx-auto px-4 py-6">
+        <div className="max-w-3xl mx-auto px-4 py-4">
             {/* Back link */}
             <BackLink href="/" className="mb-6" />
 

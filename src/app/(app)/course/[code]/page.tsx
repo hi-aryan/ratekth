@@ -45,11 +45,11 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-6">
+        <div className="max-w-5xl mx-auto px-4 py-4">
             {/* Back link */}
             <BackLink href="/" className="mb-6" />
 
-            <div className="flex gap-6">
+            <div className="flex gap-4">
                 {/* Feed Column */}
                 <div className="flex-1 min-w-0">
                     {reviewsResult.items.length > 0 ? (

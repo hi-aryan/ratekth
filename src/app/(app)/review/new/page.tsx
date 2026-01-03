@@ -35,7 +35,7 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
     const userReviews = await getUserReviewedCourseIds(session.user.id);
 
     return (
-        <div className="max-w-3xl mx-auto px-4 py-6">
+        <div className="max-w-3xl mx-auto px-4 py-4">
             <BackLink href="/" className="mb-6" />
             <Card className="p-6">
                 <h1 className="text-xl font-bold text-carbon mb-6">

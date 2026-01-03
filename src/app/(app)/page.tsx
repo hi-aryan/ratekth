@@ -37,7 +37,7 @@ export default async function Home({ searchParams }: PageProps) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      <div className="flex gap-6">
+      <div className="flex gap-4">
         {/* Feed Column */}
         <div className="flex-1 min-w-0">
           {feed.items.length > 0 ? (

@@ -34,7 +34,7 @@ export default async function EditReviewPage({ params }: PageProps) {
     const tags = await getAllTags();
 
     return (
-        <div className="max-w-3xl mx-auto px-4 py-6">
+        <div className="max-w-3xl mx-auto px-4 py-4">
             <BackLink href={`/review/${reviewId}`} label="Back to Review" className="mb-6" />
             <Card className="p-6">
                 <h1 className="text-xl font-bold text-carbon mb-6">

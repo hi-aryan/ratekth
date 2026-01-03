@@ -21,6 +21,7 @@ export const FLASH_MESSAGES = {
     "reset-link-invalid": "Invalid or expired reset link. Please request a new one.",
     "logout-failed": "Something went wrong while logging out. Please try again.",
     "review-not-found": "Review not found or you don't have permission to edit it.",
+    "course-not-found": "Course not found.",
 } as const;
 
 export type FlashMessageKey = keyof typeof FLASH_MESSAGES;
