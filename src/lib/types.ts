@@ -105,6 +105,7 @@ export interface UserWithPassword extends SafeUser {
 export interface UserWithEligibility {
     id: string
     email: string
+    username: string | null
     programId: number | null
     programCredits: number | null          // 180, 300, or 120
     programName: string | null

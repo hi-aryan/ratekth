@@ -34,90 +34,132 @@ export default async function AccountPage() {
     const mastersDegrees = canSelectMasters ? await getMastersDegrees() : [];
 
     return (
-        <div className="max-w-2xl mx-auto px-4 py-4">
-            <BackLink href="/" label="Home" className="mb-4" />
+        <div className="max-w-3xl mx-auto px-6 py-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <BackLink href="/" label="Home" className="mb-8" />
 
-            <h1 className="text-2xl font-bold text-carbon mb-6">Your Account</h1>
-
-            {/* Profile Info Card */}
-            <Card className="mb-6">
-                <div className="space-y-4">
-                    <h2 className="font-semibold text-carbon text-lg">Profile</h2>
-
-                    {/* Email */}
-                    <div>
-                        <p className="text-sm text-carbon/60">Email</p>
-                        <p className="text-carbon">{user.email}</p>
-                    </div>
-
-                    {/* Base Program */}
-                    {user.programCode && user.programName && (
-                        <div>
-                            <p className="text-sm text-carbon/60">Base Program</p>
-                            <p className="text-carbon">
-                                [{user.programCode}] {user.programName}
-                                <span className="text-carbon/50 ml-1">
-                                    ({user.programCredits}hp)
-                                </span>
-                            </p>
-                        </div>
-                    )}
-
-                    {/* Master's Degree (if selected) */}
-                    {user.mastersDegree && (
-                        <div>
-                            <p className="text-sm text-carbon/60">Master&apos;s Degree</p>
-                            <p className="text-carbon flex items-center gap-2">
-                                [{user.mastersDegree.code}] {user.mastersDegree.name}
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                                    </svg>
-                                    Locked
-                                </span>
-                            </p>
-                        </div>
-                    )}
-
-                    {/* Specialization (if selected) */}
-                    {user.specialization && (
-                        <div>
-                            <p className="text-sm text-carbon/60">Specialization</p>
-                            <p className="text-carbon">{user.specialization.name}</p>
-                        </div>
-                    )}
+            <div className="flex items-end justify-between mb-8">
+                <div>
+                    <h1 className="text-4xl font-extrabold tracking-tight text-carbon">
+                        My Account
+                    </h1>
                 </div>
-            </Card>
+            </div>
 
-            {/* Academic Selection Section */}
-            {canSelectMasters && (
-                <Card className="mb-6">
-                    <AccountMastersForm mastersDegrees={mastersDegrees} />
+            <div className="grid gap-8">
+                {/* Profile Card */}
+                <Card className="p-8">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                        <div className="space-y-6 flex-1">
+                            {/* Header */}
+                            <div className="flex items-center gap-3">
+                                <div className="h-12 w-12 rounded-full bg-carbon flex items-center justify-center text-white font-bold text-xl">
+                                    {user.email.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                    <p className="text-xs uppercase tracking-wider font-bold text-carbon/40 mb-0.5">
+                                        Username
+                                    </p>
+                                    <h2 className="text-xl font-bold text-carbon">
+                                        {user.username || "Anonymous"}
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4 pt-2">
+                                {/* Program Info */}
+                                <div className="bg-porcelain rounded-xl p-4">
+                                    <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-2">
+                                        Enrolled Program
+                                    </p>
+                                    {user.programCode && user.programName ? (
+                                        <div>
+                                            <div className="flex items-baseline gap-2">
+                                                <span className="text-sm font-black text-kth-blue bg-kth-blue/10 px-2 py-0.5 rounded-md">
+                                                    {user.programCode}
+                                                </span>
+                                                <span className="text-lg font-bold text-carbon">
+                                                    {user.programName}
+                                                </span>
+                                            </div>
+                                            <p className="text-carbon/60 text-sm mt-1">
+                                                {user.programCredits}hp Base Program
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <p className="text-carbon/60 italic">No program registered</p>
+                                    )}
+                                </div>
+
+                                {/* Track Info (Master's / Spec) */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="bg-porcelain rounded-xl p-4">
+                                        <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
+                                            Master&apos;s Track
+                                        </p>
+                                        {user.mastersDegree ? (
+                                            <p className="font-semibold text-carbon">
+                                                {user.mastersDegree.name}
+                                            </p>
+                                        ) : (
+                                            <p className="text-carbon/40 italic text-sm">Not selected</p>
+                                        )}
+                                    </div>
+                                    <div className="bg-porcelain rounded-xl p-4">
+                                        <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
+                                            Specialization
+                                        </p>
+                                        {user.specialization ? (
+                                            <p className="font-semibold text-carbon">
+                                                {user.specialization.name}
+                                            </p>
+                                        ) : (
+                                            <p className="text-carbon/40 italic text-sm">None</p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </Card>
-            )}
 
-            {/* Not Eligible Message */}
-            {!isEligible && !hasSelectedMasters && (
-                <Card className="mb-6">
-                    <div className="text-center py-4">
+                {/* Academic Selection Section */}
+                {canSelectMasters && (
+                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+                        <Card className="border-l-4 border-l-kth-blue overflow-hidden relative">
+                            <div className="bg-slate-50 border-b border-carbon/5 p-6 md:p-8">
+                                <h3 className="text-xl font-bold text-carbon mb-2">Academic Selection</h3>
+                                <p className="text-carbon/60 leading-relaxed">
+                                    Please select your Master's degree track. This will tailor your course feed to show only relevant courses.
+                                </p>
+                            </div>
+                            <div className="p-6 md:p-8">
+                                <AccountMastersForm mastersDegrees={mastersDegrees} />
+                            </div>
+                        </Card>
+                    </div>
+                )}
+
+                {/* Not Eligible Message */}
+                {!isEligible && !hasSelectedMasters && (
+                    <div className="bg-slate-50 rounded-xl p-6 border border-carbon/10 text-center">
                         <p className="text-carbon/60">
                             Master&apos;s degree selection is only available for students in base programs (180hp Bachelor or 300hp Master).
                         </p>
                     </div>
-                </Card>
-            )}
+                )}
 
-            {/* Logout Section */}
-            <div className="pt-6 border-t border-carbon/10">
-                <form action={logoutAction}>
-                    <Button
-                        type="submit"
-                        variant="secondary"
-                        className="w-full"
-                    >
-                        Log Out
-                    </Button>
-                </form>
+                {/* Logout Button */}
+                <div className="pt-8 border-t border-carbon/10 flex justify-end">
+                    <form action={logoutAction} className="w-full md:w-auto">
+                        <Button
+                            type="submit"
+                            size="lg"
+                            className="w-full md:w-auto min-w-[140px] font-bold shadow-lg shadow-kth-blue/20"
+                        >
+                            Log Out
+                        </Button>
+                    </form>
+                </div>
             </div>
         </div>
     );

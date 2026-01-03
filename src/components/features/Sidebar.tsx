@@ -13,7 +13,7 @@ interface SidebarProps {
 export const Sidebar = ({ children, className }: SidebarProps) => {
     return (
         <aside className={cn(
-            "relative bg-white rounded-lg shadow-[0_0_3px_rgba(0,0,0,0.15)] p-6",
+            "relative bg-white rounded-lg shadow-[0_0_4px_rgba(0,0,0,0.15)] p-6",
             className
         )}>
             {/* Background Icon - clipped to sidebar bounds */}

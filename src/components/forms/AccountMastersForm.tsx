@@ -72,10 +72,10 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
         (!specializationRequired || selectedSpecializationId)
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-1">
-                <h3 className="font-semibold text-carbon">Select Your Master&apos;s Degree</h3>
-                <p className="text-sm text-carbon/60">
+                <h3 className="font-semibold text-carbon text-lg">Select Your Master&apos;s Degree</h3>
+                <p className="text-carbon/60">
                     Choose the master&apos;s track you&apos;re pursuing.
                 </p>
             </div>
@@ -87,6 +87,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
                     value={selectedMastersDegreeId}
                     onChange={(e) => handleMastersDegreeChange(e.target.value)}
                     disabled={isSubmitting}
+                    className="transition-all focus:ring-2 focus:ring-kth-blue/20"
                 >
                     <option value="">Select your degree...</option>
                     {mastersDegrees.map((p) => (
@@ -99,79 +100,107 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
 
             {/* Specialization Selection (if applicable) */}
             {isLoadingSpecs && (
-                <p className="text-xs text-carbon/50">Loading specializations...</p>
+                <div className="animate-in fade-in duration-300 pl-1">
+                    <p className="text-sm text-kth-blue font-medium flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-kth-blue border-t-transparent rounded-full animate-spin"></span>
+                        Loading specializations...
+                    </p>
+                </div>
             )}
 
             {!isLoadingSpecs && specializations.length > 0 && (
-                <FormField label="Specialization">
-                    <Select
-                        name="specializationId"
-                        value={selectedSpecializationId}
-                        onChange={(e) => {
-                            setSelectedSpecializationId(e.target.value)
-                            setIsConfirmed(false)
-                        }}
-                        disabled={isSubmitting}
-                    >
-                        <option value="">Select a specialization...</option>
-                        {specializations.map((s) => (
-                            <option key={s.id} value={s.id}>
-                                {s.name}
-                            </option>
-                        ))}
-                    </Select>
-                </FormField>
+                <div className="animate-in slide-in-from-top-2 fade-in duration-300">
+                    <FormField label="Specialization">
+                        <Select
+                            name="specializationId"
+                            value={selectedSpecializationId}
+                            onChange={(e) => {
+                                setSelectedSpecializationId(e.target.value)
+                                setIsConfirmed(false)
+                            }}
+                            disabled={isSubmitting}
+                            className="transition-all focus:ring-2 focus:ring-kth-blue/20"
+                        >
+                            <option value="">Select a specialization...</option>
+                            {specializations.map((s) => (
+                                <option key={s.id} value={s.id}>
+                                    {s.name}
+                                </option>
+                            ))}
+                        </Select>
+                    </FormField>
+                </div>
             )}
 
-            {/* Confirmation Section */}
+            {/* Confirmation Section - Only visible when selection is valid */}
             {hasValidSelection && (
-                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg space-y-3">
-                    <div className="flex items-start gap-2">
-                        <svg
-                            className="w-5 h-5 text-amber-600 mt-0.5 shrink-0"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                            />
-                        </svg>
-                        <p className="text-sm text-amber-800">
-                            <strong>This selection is permanent.</strong> Once saved, you cannot change your master&apos;s degree or specialization.
-                        </p>
+                <div className="animate-in zoom-in-95 fade-in duration-500 delay-100 ease-out">
+                    <div className="p-5 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/60 rounded-xl space-y-4 shadow-sm">
+                        <div className="flex items-start gap-3">
+                            <div className="p-2 bg-amber-100/50 rounded-lg shrink-0">
+                                <svg
+                                    className="w-5 h-5 text-amber-700"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                    />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-amber-900 text-sm mb-1">Confirm Permanently</h4>
+                                <p className="text-sm text-amber-800/80 leading-relaxed">
+                                    This selection is <strong>permanent</strong>. Once saved, you cannot change your master&apos;s degree or specialization without contacting support.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="pt-2">
+                            <label className="flex items-center gap-3 cursor-pointer group select-none">
+                                <div className="relative flex items-center justify-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={isConfirmed}
+                                        onChange={(e) => setIsConfirmed(e.target.checked)}
+                                        disabled={isSubmitting}
+                                        className="peer w-5 h-5 text-kth-blue rounded border-carbon/30 focus:ring-kth-blue transition-colors cursor-pointer"
+                                    />
+                                </div>
+                                <span className="text-sm font-medium text-carbon group-hover:text-black transition-colors">
+                                    I understand and want to save this selection
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                            type="checkbox"
-                            checked={isConfirmed}
-                            onChange={(e) => setIsConfirmed(e.target.checked)}
-                            disabled={isSubmitting}
-                            className="w-4 h-4 text-kth-blue rounded border-carbon/30 focus:ring-kth-blue"
-                        />
-                        <span className="text-sm text-carbon">
-                            I understand and want to proceed
-                        </span>
-                    </label>
                 </div>
             )}
 
             {/* Error Display */}
-            {error && <Alert variant="error">{error}</Alert>}
+            {error && (
+                <div className="animate-in shake fade-in">
+                    <Alert variant="error">{error}</Alert>
+                </div>
+            )}
 
-            {/* Submit Button */}
-            <Button
-                type="submit"
-                size="lg"
-                className="w-full"
-                disabled={!hasValidSelection || !isConfirmed || isSubmitting}
-                loading={isSubmitting}
-            >
-                Save Academic Selection
-            </Button>
+            {/* Submit Button - Only visible when confirmed */}
+            {hasValidSelection && isConfirmed && (
+                <div className="animate-in slide-in-from-bottom-2 fade-in duration-300">
+                    <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full font-bold shadow-lg shadow-kth-blue/20 hover:shadow-kth-blue/30 transition-all active:scale-[0.98]"
+                        disabled={isSubmitting}
+                        loading={isSubmitting}
+                    >
+                        Save Academic Selection
+                    </Button>
+                </div>
+            )}
         </form>
     )
 }

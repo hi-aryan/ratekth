@@ -14,6 +14,7 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
         .select({
             id: userTable.id,
             email: userTable.email,
+            username: userTable.username,
             programId: userTable.programId,
             programCredits: programTable.credits,
             programName: programTable.name,
@@ -56,6 +57,7 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
     return {
         id: row.id,
         email: row.email,
+        username: row.username,
         programId: row.programId,
         programCredits: row.programCredits,
         programName: row.programName,
