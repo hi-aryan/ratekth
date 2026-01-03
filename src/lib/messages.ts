@@ -12,6 +12,7 @@ export const FLASH_MESSAGES = {
     "logged-out": "Successfully logged out.",
     "review-posted": "Your review has been published!",
     "review-updated": "Your review has been updated!",
+    "review-deleted": "Your review has been deleted.",
     "password-reset": "Password reset successfully! You can now log in with your new password.",
 
     // Error Messages
