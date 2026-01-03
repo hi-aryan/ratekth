@@ -88,12 +88,8 @@ export default async function Home({ searchParams }: PageProps) {
                 <div className="pt-4 border-t border-carbon/10">
                   {/* Search */}
                   <SearchBar />
-                </div>
-
-                {/* Info */}
-                <div className="pt-4 border-t border-carbon/10">
-                  <p className="text-sm text-carbon/50 leading-relaxed">
-                    Discover course reviews from KTH students.
+                  <p className="mt-2 text-xs text-carbon/40">
+                    Enter at least 2 characters to search.
                   </p>
                 </div>
               </div>
