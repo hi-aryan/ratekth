@@ -17,10 +17,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * All variants share the same active effect (scale down).
  */
 const variantStyles: Record<ButtonVariant, string> = {
-    primary: "bg-carbon text-porcelain",
-    secondary: "bg-blue text-white hover:bg-blue/90",
+    primary: "bg-carbon text-porcelain shadow-[0_0_6px_rgba(0,0,0,0.25)]",
+    secondary: "bg-blue text-porcelain hover:translate-y-[2px]",
     ghost: "bg-transparent text-carbon/70 hover:bg-carbon/5 hover:text-carbon",
-    destructive: "bg-coral text-white hover:bg-coral/90",
+    destructive: "bg-coral/90 text-porcelain hover:bg-coral",
 }
 
 /**

@@ -94,8 +94,11 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                     </div>
 
                     {/* Sort & Search */}
-                    <div className="p-4 space-y-4">
+                    <div className="p-4">
                         <SortDropdown />
+                    </div>
+                    <div className="w-full border-b border-carbon/10" />
+                    <div className="p-4">
                         <SearchBar />
                     </div>
                 </div>
