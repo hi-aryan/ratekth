@@ -10,14 +10,13 @@ import Link from "next/link"
 
 interface MobileSidebarProps {
     isAuthenticated: boolean
-    logoutAction?: () => Promise<void>
 }
 
 /**
  * MobileSidebar: Toggle button + overlay sidebar for mobile view.
  * Contains nav actions + sort + search. Only visible on mobile.
  */
-export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarProps) => {
+export const MobileSidebar = ({ isAuthenticated }: MobileSidebarProps) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const handleClose = () => setIsOpen(false)
@@ -78,13 +77,9 @@ export const MobileSidebar = ({ isAuthenticated, logoutAction }: MobileSidebarPr
                         {isAuthenticated ? (
                             <>
                                 <WriteReviewButton onClick={handleClose} className="w-full" />
-                                {logoutAction && (
-                                    <form action={logoutAction}>
-                                        <Button type="submit" size="lg" className="w-full">
-                                            Logout
-                                        </Button>
-                                    </form>
-                                )}
+                                <Link href="/account" onClick={handleClose} className="block">
+                                    <Button size="lg" className="w-full">Account</Button>
+                                </Link>
                             </>
                         ) : (
                             <Link href="/login" onClick={handleClose} className="block">

@@ -14,6 +14,7 @@ export const FLASH_MESSAGES = {
     "review-updated": "Your review has been updated!",
     "review-deleted": "Your review has been deleted.",
     "password-reset": "Password reset successfully! You can now log in with your new password.",
+    "academic-updated": "Academic selection saved! Please log in again.",
 
     // Error Messages
     "verification-failed": "Invalid or expired verification link. Please request a new one.",

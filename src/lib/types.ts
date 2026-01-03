@@ -99,6 +99,23 @@ export interface UserWithPassword extends SafeUser {
 }
 
 /**
+ * DTO: User with eligibility info for account page.
+ * Includes program details for determining master's degree selection eligibility.
+ */
+export interface UserWithEligibility {
+    id: string
+    email: string
+    programId: number | null
+    programCredits: number | null          // 180, 300, or 120
+    programName: string | null
+    programCode: string | null
+    mastersDegreeId: number | null         // null = eligible for selection
+    mastersDegree: { name: string; code: string } | null
+    specializationId: number | null
+    specialization: { name: string } | null
+}
+
+/**
  * Domain Type: Tag for reviews with sentiment.
  */
 export interface Tag {

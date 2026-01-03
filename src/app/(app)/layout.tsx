@@ -1,5 +1,4 @@
 import { auth } from "@/services/auth";
-import { logoutAction } from "@/actions/auth";
 import { Button } from "@/components/ui/Button";
 import { WriteReviewButton } from "@/components/ui/WriteReviewButton";
 import { MobileSidebar } from "@/components/features/MobileSidebar";
@@ -25,9 +24,9 @@ export default async function AppLayout({
           {session ? (
             <div className="hidden md:flex items-center gap-3">
               <WriteReviewButton />
-              <form action={logoutAction}>
-                <Button type="submit">Logout</Button>
-              </form>
+              <Link href="/account">
+                <Button>Account</Button>
+              </Link>
             </div>
           ) : (
             <Link href="/login" className="hidden md:block">
@@ -36,7 +35,7 @@ export default async function AppLayout({
           )}
 
           {/* Mobile Sidebar Toggle */}
-          <MobileSidebar isAuthenticated={!!session} logoutAction={logoutAction} />
+          <MobileSidebar isAuthenticated={!!session} />
         </div>
       </header>
 
