@@ -68,14 +68,10 @@ export default async function ReviewDetailPage({ params }: PageProps) {
             <Card className="p-6">
                 {/* Header: Course info and overall rating */}
                 <div className="flex items-start justify-between gap-4 mb-6">
-                    <div>
-                        <h1 className="text-2xl font-bold text-carbon">
-                            {review.course.code}
-                        </h1>
-                        <p className="text-carbon/60">
-                            {review.course.name}
-                        </p>
-                    </div>
+                    <h1 className="text-2xl font-bold text-carbon">
+                        {review.course.code}
+                        <span className="font-normal text-carbon/60"> — {review.course.name}</span>
+                    </h1>
                     <div className="flex items-center gap-1.5 shrink-0">
                         <StarRating value={Math.round(review.overallRating)} size="lg" />
                     </div>

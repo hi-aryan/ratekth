@@ -48,14 +48,10 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
         <Link href={`/review/${review.id}`} className="block group">
             <Card className="p-6 group-hover:translate-x-[4px] transition-transform duration-200 ease-in-out">
                 <div className="flex items-start justify-between gap-4 mb-4">
-                    <div>
-                        <h3 className="text-lg font-semibold text-carbon">
-                            {review.course.code}
-                        </h3>
-                        <p className="text-sm text-carbon/60">
-                            {review.course.name}
-                        </p>
-                    </div>
+                    <h3 className="text-lg font-semibold text-carbon">
+                        {review.course.code}
+                        <span className="font-normal text-carbon/60"> — {review.course.name}</span>
+                    </h3>
                     <div className="flex items-center gap-1.5 shrink-0">
                         <StarRating value={Math.round(review.overallRating)} size="md" />
                     </div>
