@@ -31,6 +31,8 @@ export const SearchBar = () => {
 
     // Fetch results when debounced query changes
     useEffect(() => {
+        let isCancelled = false
+
         const fetchResults = async () => {
             if (debouncedQuery.trim().length < 2) {
                 setResults([])
@@ -43,6 +45,9 @@ export const SearchBar = () => {
             setError(null)
 
             const response = await searchCoursesAction(debouncedQuery)
+
+            // Ignore stale responses if a newer request has been made
+            if (isCancelled) return
 
             if ("error" in response) {
                 setError(response.error)
@@ -58,6 +63,10 @@ export const SearchBar = () => {
         }
 
         fetchResults()
+
+        return () => {
+            isCancelled = true
+        }
     }, [debouncedQuery])
 
     // Close dropdown when clicking outside
@@ -146,8 +155,8 @@ export const SearchBar = () => {
                                         type="button"
                                         onClick={() => handleSelect(course)}
                                         className={`w-full px-4 py-3 text-left transition-all ${index === selectedIndex
-                                                ? "bg-carbon/5"
-                                                : "hover:translate-x-[3px]"
+                                            ? "bg-carbon/5"
+                                            : "hover:translate-x-[3px]"
                                             }`}
                                     >
                                         <div className="flex items-center justify-between">
