@@ -1,7 +1,7 @@
 import "server-only";
 import { db } from "@/db";
 import { post, course, user, postTags, tag } from "@/db/schema";
-import { eq, and, desc, inArray } from "drizzle-orm";
+import { eq, and, desc, inArray, count } from "drizzle-orm";
 import type { ReviewForDisplay, Tag, PaginatedResult } from "@/lib/types";
 import { FEED_PAGE_SIZE } from "@/lib/constants";
 import { computeOverallRating } from "@/lib/utils";
@@ -457,4 +457,17 @@ export const deleteReview = async (reviewId: number, userId: string): Promise<vo
 
     // Delete the review (tags deleted via CASCADE)
     await db.delete(post).where(eq(post.id, reviewId));
+};
+
+/**
+ * Service: Get the total number of reviews a user has written.
+ * Efficient COUNT(*) query for sidebar display.
+ */
+export const getUserReviewCount = async (userId: string): Promise<number> => {
+    const result = await db
+        .select({ count: count() })
+        .from(post)
+        .where(eq(post.userId, userId));
+
+    return result[0]?.count ?? 0;
 };

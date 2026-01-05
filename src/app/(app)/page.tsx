@@ -1,8 +1,10 @@
 import { auth } from "@/services/auth";
 import { getStudentFeed } from "@/services/feed";
+import { getUserReviewCount } from "@/services/reviews";
 import { ReviewCard } from "@/components/features/ReviewCard";
 import { SortDropdown } from "@/components/features/SortDropdown";
 import { Sidebar } from "@/components/features/Sidebar";
+import { SidebarStats } from "@/components/features/SidebarStats";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { Pagination } from "@/components/ui/Pagination";
 import { Card } from "@/components/ui/Card";
@@ -34,6 +36,11 @@ export default async function Home({ searchParams }: PageProps) {
     session?.user?.specializationId,
     { page: currentPage, sortBy: currentSort }
   );
+
+  // Get user's review count for sidebar (only if authenticated)
+  const userReviewCount = session?.user?.id
+    ? await getUserReviewCount(session.user.id)
+    : null;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
@@ -92,6 +99,11 @@ export default async function Home({ searchParams }: PageProps) {
                     Enter at least 2 characters to search.
                   </p>
                 </div>
+
+                {/* User Stats - only for authenticated users */}
+                {userReviewCount !== null && (
+                  <SidebarStats reviewCount={userReviewCount} />
+                )}
               </div>
             </Sidebar>
           </div>
