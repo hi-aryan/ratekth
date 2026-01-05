@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/services/auth";
+import { getVisibleCourseIds } from "@/services/courses";
 import { reviewSchema } from "@/lib/validation";
 import { createReview, updateReview, deleteReview, getUserReviewForCourse } from "@/services/reviews";
 import { ActionState } from "@/lib/types";
@@ -40,6 +41,19 @@ export async function submitReviewAction(
     const { courseId, yearTaken, ratingProfessor, ratingMaterial, ratingPeers, ratingWorkload, content } = result.data;
 
     try {
+        // Authorization: verify course is in user's visible courses
+        const visibleCourseIds = await getVisibleCourseIds(
+            session.user.programId,
+            session.user.mastersDegreeId,
+            session.user.specializationId
+        );
+
+        // If visibleCourseIds is null (guest/no academic info), allow all courses
+        // Otherwise, check if courseId is in the visible list
+        if (visibleCourseIds !== null && !visibleCourseIds.includes(courseId)) {
+            return { error: "This course is not available in your curriculum." };
+        }
+
         // Check if user already reviewed this course
         const existingReview = await getUserReviewForCourse(session.user.id, courseId);
         if (existingReview) {

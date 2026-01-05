@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/services/auth";
-import { getCourseByCode } from "@/services/courses";
+import { getCourseByCode, getVisibleCourseIds } from "@/services/courses";
 import { getReviewsForCourse, getUserReviewForCourse } from "@/services/reviews";
 import { ReviewCard } from "@/components/features/ReviewCard";
 import { Sidebar } from "@/components/features/Sidebar";
@@ -39,9 +39,21 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
 
     // Check if authenticated user has already reviewed this course
     let userReviewId: number | null = null;
+    let isCourseInCurriculum = false;
+
     if (session?.user?.id) {
         const existingReview = await getUserReviewForCourse(session.user.id, course.id);
         userReviewId = existingReview?.id ?? null;
+
+        // Check if course is in user's visible courses
+        const visibleCourseIds = await getVisibleCourseIds(
+            session.user.programId,
+            session.user.mastersDegreeId,
+            session.user.specializationId
+        );
+        // null means no filtering (guest-like behavior) — allow all
+        // otherwise check if course.id is in the list
+        isCourseInCurriculum = visibleCourseIds === null || visibleCourseIds.includes(course.id);
     }
 
     return (
@@ -72,10 +84,15 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                             <p className="text-carbon/60 mb-4">
                                 No reviews for this course yet.
                             </p>
-                            {session && !userReviewId && (
+                            {session && !userReviewId && isCourseInCurriculum && (
                                 <Link href={`/review/new?course_id=${course.id}`}>
                                     <Button variant="secondary">Be the first to review</Button>
                                 </Link>
+                            )}
+                            {session && !userReviewId && !isCourseInCurriculum && (
+                                <p className="text-sm text-carbon/40 italic">
+                                    This course is not in your curriculum.
+                                </p>
                             )}
                             {!session && (
                                 <Link href="/login">
@@ -133,12 +150,16 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                                                     Edit Your Review
                                                 </Button>
                                             </Link>
-                                        ) : (
+                                        ) : isCourseInCurriculum ? (
                                             <Link href={`/review/new?course_id=${course.id}`} className="block">
                                                 <Button variant="primary" className="w-full">
                                                     Write a Review
                                                 </Button>
                                             </Link>
+                                        ) : (
+                                            <p className="text-sm text-carbon/40 italic text-center">
+                                                This course is not in your curriculum.
+                                            </p>
                                         )}
                                     </div>
                                 )}
