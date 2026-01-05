@@ -16,12 +16,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Variant styles - background, text, and hover effects.
- * All variants share the same active effect (scale down).
+ * Variant styles - background and text only.
+ * Hover/active effects are centralized in base styles.
  */
 const variantStyles: Record<ButtonVariant, string> = {
     primary: "bg-carbon text-porcelain shadow-[0_0_6px_rgba(0,0,0,0.15)]",
-    secondary: "bg-blue text-porcelain hover:translate-y-[2px]",
+    secondary: "bg-blue text-porcelain",
     ghost: "bg-transparent text-carbon/70 hover:bg-carbon/5 hover:text-carbon",
     destructive: "bg-coral/90 text-porcelain hover:bg-coral",
 }
@@ -42,8 +42,8 @@ const sizeStyles: Record<ButtonSize, string> = {
  * - Four variants: primary (carbon), secondary (blue), ghost, destructive (coral)
  * - Three sizes: sm, md, lg
  * - Built-in loading state via useFormStatus() for form submissions
- * - Universal active:scale-[0.97] effect on all variants
- * - Light sweep hover effect on primary variant only (scoped to button hover)
+ * - Universal hover and active effects on all variants
+ * - Optional BorderBeam effect via showBeam prop
  * 
  * Usage:
  * - Form submit: <Button size="lg" className="w-full">Submit</Button>
@@ -62,19 +62,17 @@ export const Button = ({
     const { pending } = useFormStatus()
     const isPending = pending || loading
 
-    const isPrimary = variant === "primary"
-
     return (
         <button
             {...props}
             disabled={isPending || props.disabled}
             className={cn(
                 // Base styles
-                "group/btn relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-full whitespace-nowrap transition-all duration-150",
-                // Universal active effect
-                "active:scale-[0.97]",
+                "group/btn relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-full whitespace-nowrap transition-all",
+                // Universal hover/active effects
+                "hover:translate-y-[-1px] active:scale-[0.95]",
                 // Disabled state
-                "disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100",
+                "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:active:scale-100",
                 // Variant-specific styles
                 variantStyles[variant],
                 // Size-specific styles
@@ -82,11 +80,6 @@ export const Button = ({
                 className
             )}
         >
-            {/* Light sweep effect - primary variant only, scoped to button hover */}
-            {isPrimary && (
-                <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-800 ease-out group-hover/btn:translate-x-[300%] overflow-hidden" />
-            )}
-
             {isPending ? (
                 <span className="relative mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current/20 border-t-current" />
             ) : null}

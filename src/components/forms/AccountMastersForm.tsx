@@ -194,7 +194,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
                     <Button
                         type="submit"
                         size="lg"
-                        className="w-full font-bold shadow-lg shadow-blue/20 hover:shadow-blue/30 transition-all active:scale-[0.98]"
+                        className="w-full font-bold"
                         disabled={isSubmitting}
                         loading={isSubmitting}
                     >
