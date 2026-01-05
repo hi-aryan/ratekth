@@ -59,6 +59,19 @@ export async function registerAction(_prevState: ActionState, formData: FormData
 }
 
 /**
+ * Validate callbackUrl to prevent open redirect attacks.
+ * Only allows internal paths (starting with / but not //).
+ */
+const getSafeRedirectUrl = (callbackUrl: string | null): string => {
+    if (!callbackUrl) return "/";
+    // Must start with / (internal path) and NOT start with // (protocol-relative URL)
+    if (callbackUrl.startsWith("/") && !callbackUrl.startsWith("//")) {
+        return callbackUrl;
+    }
+    return "/";
+};
+
+/**
  * Action: Handles user login.
  * Role: Controller - Password-based login for verified users.
  */
@@ -74,6 +87,7 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
     }
 
     const { email, password } = result.data;
+    const callbackUrl = formData.get("callbackUrl") as string | null;
 
     try {
         const user = await findUserByEmail(email);
@@ -102,8 +116,8 @@ export async function loginAction(_prevState: ActionState, formData: FormData): 
         return { error: "Something went wrong. Please try again later." };
     }
 
-    // Redirect on success (outside try/catch, consistent with registerAction)
-    redirect("/");
+    // Redirect to callbackUrl or home (outside try/catch, consistent with registerAction)
+    redirect(getSafeRedirectUrl(callbackUrl));
 }
 
 /**

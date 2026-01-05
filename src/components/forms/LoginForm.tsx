@@ -1,6 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
+import { useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginAction } from "@/actions/auth"
@@ -13,7 +14,9 @@ import { FormFooterLink } from "@/components/ui/FormFooterLink"
 
 export const LoginForm = () => {
     const [isPending, startTransition] = useTransition()
-    
+    const searchParams = useSearchParams()
+    const callbackUrl = searchParams.get("callbackUrl")
+
     const form = useForm<LoginInput>({
         resolver: zodResolver(loginSchema),
         defaultValues: { email: "", password: "" }
@@ -24,9 +27,10 @@ export const LoginForm = () => {
             const formData = new FormData()
             formData.append("email", data.email)
             formData.append("password", data.password)
-            
+            if (callbackUrl) formData.append("callbackUrl", callbackUrl)
+
             const result = await loginAction(null, formData)
-            
+
             if (result?.fieldErrors) {
                 Object.entries(result.fieldErrors).forEach(([field, errors]) => {
                     if (errors?.[0]) {
