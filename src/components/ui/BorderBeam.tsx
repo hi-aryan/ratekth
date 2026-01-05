@@ -44,8 +44,8 @@ export const BorderBeam = ({
     size = 50,
     delay = 0,
     duration = 6,
-    colorFrom = "#1F5BAE",  // Your blue token
-    colorTo = "#1F5BAE",    // Same blue for monochrome effect
+    colorFrom = "#1F5BAE",
+    colorTo = "#1F5BAE",
     transition,
     style,
     reverse = false,

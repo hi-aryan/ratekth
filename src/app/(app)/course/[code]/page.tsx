@@ -74,7 +74,7 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                             </p>
                             {session && !userReviewId && (
                                 <Link href={`/review/new?course_id=${course.id}`}>
-                                    <Button variant="primary">Be the first to review</Button>
+                                    <Button variant="secondary">Be the first to review</Button>
                                 </Link>
                             )}
                             {!session && (

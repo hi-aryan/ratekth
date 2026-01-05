@@ -48,7 +48,7 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
         <Link href={`/review/${review.id}`} className="block group">
             <Card className="p-6 group-hover:translate-x-[4px] transition-transform duration-200 ease-in-out">
                 <div className="flex items-start justify-between gap-4 mb-4">
-                    <h3 className="text-lg font-semibold text-carbon">
+                    <h3 className="text-lg font-bold text-carbon">
                         {review.course.code}
                         <span className="font-normal text-carbon/60"> — {review.course.name}</span>
                     </h3>

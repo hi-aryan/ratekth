@@ -72,12 +72,12 @@ export default async function Home({ searchParams }: PageProps) {
               </p>
               {!session && (
                 <Link href="/login">
-                  <Button variant="secondary">Sign In</Button>
+                  <Button>Sign In</Button>
                 </Link>
               )}
               {session && currentPage > 1 && (
                 <Link href="/">
-                  <Button variant="secondary">Back to First Page</Button>
+                  <Button>Back to First Page</Button>
                 </Link>
               )}
             </Card>

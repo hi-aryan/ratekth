@@ -20,8 +20,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * Hover/active effects are centralized in base styles.
  */
 const variantStyles: Record<ButtonVariant, string> = {
-    primary: "bg-carbon text-porcelain shadow-[0_0_6px_rgba(0,0,0,0.15)]",
-    secondary: "bg-blue text-porcelain",
+    primary: "bg-carbon text-porcelain shadow-[0_0_8px_rgba(0,0,0,0.25)]",
+    secondary: "bg-blue text-porcelain shadow-[0_0_8px_rgba(0,0,0,0.25)]",
     ghost: "bg-transparent text-carbon/70 hover:bg-carbon/5 hover:text-carbon",
     destructive: "bg-coral/90 text-porcelain hover:bg-coral",
 }
