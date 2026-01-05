@@ -66,7 +66,7 @@ export const Button = ({
             disabled={isPending || props.disabled}
             className={cn(
                 // Base styles
-                "group/btn relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-lg whitespace-nowrap transition-all duration-150",
+                "group/btn relative overflow-hidden inline-flex items-center justify-center font-semibold rounded-full whitespace-nowrap transition-all duration-150",
                 // Universal active effect
                 "active:scale-[0.97]",
                 // Disabled state
