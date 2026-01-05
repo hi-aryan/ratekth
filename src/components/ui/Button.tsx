@@ -2,6 +2,7 @@
 
 import { useFormStatus } from "react-dom"
 import { cn } from "@/lib/utils"
+import { BorderBeam } from "@/components/ui/BorderBeam"
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive"
 type ButtonSize = "sm" | "md" | "lg"
@@ -10,6 +11,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant
     size?: ButtonSize
     loading?: boolean
+    /** Show animated BorderBeam effect */
+    showBeam?: boolean
 }
 
 /**
@@ -17,7 +20,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * All variants share the same active effect (scale down).
  */
 const variantStyles: Record<ButtonVariant, string> = {
-    primary: "bg-carbon text-porcelain shadow-[0_0_6px_rgba(0,0,0,0.25)]",
+    primary: "bg-carbon text-porcelain shadow-[0_0_6px_rgba(0,0,0,0.15)]",
     secondary: "bg-blue text-porcelain hover:translate-y-[2px]",
     ghost: "bg-transparent text-carbon/70 hover:bg-carbon/5 hover:text-carbon",
     destructive: "bg-coral/90 text-porcelain hover:bg-coral",
@@ -53,6 +56,7 @@ export const Button = ({
     variant = "primary",
     size = "md",
     loading,
+    showBeam,
     ...props
 }: ButtonProps) => {
     const { pending } = useFormStatus()
@@ -87,6 +91,13 @@ export const Button = ({
                 <span className="relative mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current/20 border-t-current" />
             ) : null}
             <span className="relative inline-flex items-center">{children}</span>
+
+            {/* BorderBeam effect - opt-in via showBeam prop */}
+            {showBeam && <BorderBeam size={30} duration={4} colorFrom="#FFFFFF" colorTo="#FFFFFF" borderWidth={2} transition={{
+                type: "spring",
+                stiffness: 20,
+                damping: 6,
+            }} />}
         </button>
     )
 }

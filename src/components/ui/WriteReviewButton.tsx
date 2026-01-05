@@ -22,7 +22,7 @@ export const WriteReviewButton = ({ className, onClick }: WriteReviewButtonProps
 
     return (
         <Link href="/review/new" onClick={onClick} className="block">
-            <Button className={className}>Write Review</Button>
+            <Button showBeam className={className}>Write Review</Button>
         </Link>
     )
 }

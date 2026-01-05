@@ -59,7 +59,7 @@ export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps
     })
 
     return (
-        <form ref={formRef} onSubmit={onSubmit} className="space-y-4">
+        <form ref={formRef} onSubmit={onSubmit} className="space-y-6">
             <FormField
                 label="KTH Email"
                 error={form.formState.errors.email?.message}

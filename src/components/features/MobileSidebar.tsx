@@ -83,7 +83,7 @@ export const MobileSidebar = ({ isAuthenticated }: MobileSidebarProps) => {
                             </>
                         ) : (
                             <Link href="/login" onClick={handleClose} className="block">
-                                <Button size="lg" className="w-full">Sign In</Button>
+                                <Button showBeam size="lg" className="w-full">Sign In</Button>
                             </Link>
                         )}
                     </div>
