@@ -3,6 +3,7 @@ import { ResendVerificationForm } from "@/components/forms/ResendVerificationFor
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { Card } from "@/components/ui/Card";
 import { BackLink } from "@/components/ui/BackLink";
+import { BorderBeam } from "@/components/ui/BorderBeam";
 
 /** force-dynamic: Ensures fresh session check on each request */
 export const dynamic = "force-dynamic";
@@ -15,8 +16,9 @@ export default function LoginPage() {
                 <h1 className="text-2xl font-bold">Welcome Back</h1>
                 <p className="text-carbon/60 mt-2">Login with your rateKTH credentials.</p>
             </div>
-            <Card>
+            <Card className="relative overflow-hidden">
                 <LoginForm />
+                <BorderBeam duration={8} size={200} />
             </Card>
 
             <Card className="p-6 space-y-4">
