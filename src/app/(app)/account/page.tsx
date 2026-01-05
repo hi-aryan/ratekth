@@ -73,17 +73,14 @@ export default async function AccountPage() {
                                     </p>
                                     {user.programCode && user.programName ? (
                                         <div>
-                                            <div className="flex items-baseline gap-2">
-                                                <span className="text-sm font-black text-kth-blue bg-kth-blue/10 px-2 py-0.5 rounded-md">
+                                            <div className="flex items-baseline gap-2 justify-center">
+                                                <span className="text-sm font-black text-blue bg-blue/10 py-0.5 px-2 rounded-md">
                                                     {user.programCode}
                                                 </span>
                                                 <span className="text-lg font-bold text-carbon">
                                                     {user.programName}
                                                 </span>
                                             </div>
-                                            <p className="text-carbon/60 text-sm mt-1">
-                                                {user.programCredits}hp Base Program
-                                            </p>
                                         </div>
                                     ) : (
                                         <p className="text-carbon/60 italic">No program registered</p>
@@ -92,7 +89,7 @@ export default async function AccountPage() {
 
                                 {/* Track Info (Master's / Spec) */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="bg-porcelain rounded-xl p-4">
+                                    <div className="bg-porcelain rounded-xl p-4 text-center">
                                         <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
                                             Master&apos;s Track
                                         </p>
@@ -104,7 +101,7 @@ export default async function AccountPage() {
                                             <p className="text-carbon/40 italic text-sm">Not selected</p>
                                         )}
                                     </div>
-                                    <div className="bg-porcelain rounded-xl p-4">
+                                    <div className="bg-porcelain rounded-xl p-4 text-center">
                                         <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
                                             Specialization
                                         </p>
@@ -125,7 +122,7 @@ export default async function AccountPage() {
                 {/* Academic Selection Section */}
                 {canSelectMasters && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                        <Card className="border-l-4 border-l-kth-blue overflow-hidden relative">
+                        <Card className="border-l-4 border-l-blue overflow-hidden relative">
                             <div className="bg-slate-50 border-b border-carbon/5 p-6 md:p-8">
                                 <h3 className="text-xl font-bold text-carbon mb-2">Academic Selection</h3>
                                 <p className="text-carbon/60 leading-relaxed">
@@ -154,7 +151,7 @@ export default async function AccountPage() {
                         <Button
                             type="submit"
                             size="lg"
-                            className="w-full md:w-auto min-w-[140px] font-bold shadow-lg shadow-kth-blue/20"
+                            className="w-full md:w-auto min-w-[140px] font-bold"
                         >
                             Log Out
                         </Button>

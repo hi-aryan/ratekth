@@ -69,6 +69,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
     // Determine if specialization is required
     const specializationRequired = specializations.length > 0
     const hasValidSelection = selectedMastersDegreeId &&
+        !isLoadingSpecs &&
         (!specializationRequired || selectedSpecializationId)
 
     return (
@@ -87,7 +88,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
                     value={selectedMastersDegreeId}
                     onChange={(e) => handleMastersDegreeChange(e.target.value)}
                     disabled={isSubmitting}
-                    className="transition-all focus:ring-2 focus:ring-kth-blue/20"
+                    className="transition-all"
                 >
                     <option value="">Select your degree...</option>
                     {mastersDegrees.map((p) => (
@@ -101,8 +102,8 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
             {/* Specialization Selection (if applicable) */}
             {isLoadingSpecs && (
                 <div className="animate-in fade-in duration-300 pl-1">
-                    <p className="text-sm text-kth-blue font-medium flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-kth-blue border-t-transparent rounded-full animate-spin"></span>
+                    <p className="text-sm text-blue font-medium flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-blue border-t-transparent rounded-full animate-spin"></span>
                         Loading specializations...
                     </p>
                 </div>
@@ -119,7 +120,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
                                 setIsConfirmed(false)
                             }}
                             disabled={isSubmitting}
-                            className="transition-all focus:ring-2 focus:ring-kth-blue/20"
+                            className="transition-all"
                         >
                             <option value="">Select a specialization...</option>
                             {specializations.map((s) => (
@@ -168,7 +169,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
                                         checked={isConfirmed}
                                         onChange={(e) => setIsConfirmed(e.target.checked)}
                                         disabled={isSubmitting}
-                                        className="peer w-5 h-5 text-kth-blue rounded border-carbon/30 focus:ring-kth-blue transition-colors cursor-pointer"
+                                        className="peer w-5 h-5 text-blue rounded border-carbon/30 focus:ring-blue transition-colors cursor-pointer"
                                     />
                                 </div>
                                 <span className="text-sm font-medium text-carbon group-hover:text-black transition-colors">
@@ -189,11 +190,11 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
 
             {/* Submit Button - Only visible when confirmed */}
             {hasValidSelection && isConfirmed && (
-                <div className="animate-in slide-in-from-bottom-2 fade-in duration-300">
+                <div className="animate-in slide-in-from-bottom-2 fade-in duration-300 transition-all">
                     <Button
                         type="submit"
                         size="lg"
-                        className="w-full font-bold shadow-lg shadow-kth-blue/20 hover:shadow-kth-blue/30 transition-all active:scale-[0.98]"
+                        className="w-full font-bold shadow-lg shadow-blue/20 hover:shadow-blue/30 transition-all active:scale-[0.98]"
                         disabled={isSubmitting}
                         loading={isSubmitting}
                     >
