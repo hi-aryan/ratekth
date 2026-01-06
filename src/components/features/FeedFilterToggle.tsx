@@ -32,21 +32,21 @@ export const FeedFilterToggle = () => {
     }
 
     return (
-        <div className="flex gap-1 p-1 bg-carbon/5 rounded-lg">
+        <div className="flex gap-1 px-2 py-1.5 bg-carbon/4 rounded-lg">
             <button
                 onClick={() => handleFilterChange("all")}
-                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${currentFilter === "all"
+                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ease-in-out ${currentFilter === "all"
                     ? "bg-white text-carbon shadow-sm scale-[1.02]"
-                    : "text-carbon/60 hover:text-carbon"
+                    : "text-carbon/60 hover:text-carbon active:scale-[0.95]"
                     }`}
             >
                 All Reviews
             </button>
             <button
                 onClick={() => handleFilterChange("my-program")}
-                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${currentFilter === "my-program"
+                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ease-in-out ${currentFilter === "my-program"
                     ? "bg-white text-carbon shadow-sm scale-[1.02]"
-                    : "text-carbon/60 hover:text-carbon"
+                    : "text-carbon/60 hover:text-carbon active:scale-[0.95]"
                     }`}
             >
                 My Program
