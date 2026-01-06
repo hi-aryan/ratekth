@@ -18,11 +18,14 @@
 
 /* Animation for AnimatedShinyText shimmer effect (from Magic UI) */
 @theme inline {
-  --animate-gradient: gradient 8s linear infinite;
+  --animate-gradient: gradient 18s linear infinite;
 
   @keyframes gradient {
+    from {
+      background-position: var(--bg-size, 300%) 0; /* 300% is fallback */
+    }
     to {
-      background-position: var(--bg-size, 300%) 0;
+      background-position: 0 0;
     }
   }
 }
