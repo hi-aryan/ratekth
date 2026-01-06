@@ -13,7 +13,7 @@ export const SidebarStats = ({ reviewCount }: SidebarStatsProps) => {
         <div className="pt-4 border-t border-carbon/10">
             <div className="flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-carbon/40" />
-                <span className="text-sm text-carbon/50">Reviews Written</span>
+                <span className="text-sm text-carbon/50">Reviews written</span>
                 <span className="text-sm font-black text-blue bg-blue/10 py-0.5 px-2 rounded-md">
                     {reviewCount}
                 </span>

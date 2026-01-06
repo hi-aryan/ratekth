@@ -152,8 +152,8 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                                             </Link>
                                         ) : isCourseInCurriculum ? (
                                             <Link href={`/review/new?course_id=${course.id}`} className="block">
-                                                <Button variant="primary" className="w-full">
-                                                    Write a Review
+                                                <Button variant="secondary" className="w-full">
+                                                    Review this course
                                                 </Button>
                                             </Link>
                                         ) : (
