@@ -28,6 +28,7 @@ interface ProgramSeed {
     name: string;
     type: 'bachelor' | 'master';
     credits: 180 | 300 | 120;
+    hasIntegratedMasters?: boolean; // true for 300hp programs with no separate master's track
 }
 
 interface SpecializationSeed {
@@ -92,9 +93,12 @@ const PROGRAMS: ProgramSeed[] = [
     { code: 'TIDAB', name: 'Computer Engineering', type: 'bachelor', credits: 180 },
     { code: 'TIDAA', name: 'Industrial Engineering and Management', type: 'bachelor', credits: 180 },
 
-    // 5-year Master programs (300hp)
+    // 5-year Master programs (300hp) - with separate master's track
     { code: 'CDATE', name: 'Computer Science and Engineering', type: 'master', credits: 300 },
     { code: 'CELTE', name: 'Electrical Engineering', type: 'master', credits: 300 },
+
+    // 5-year Master programs (300hp) - integrated (no separate master's)
+    { code: 'ARKIT', name: 'Architecture', type: 'master', credits: 300, hasIntegratedMasters: true },
 
     // 2-year Master programs (120hp)
     { code: 'TCSCM', name: 'Computer Science', type: 'master', credits: 120 },
@@ -145,6 +149,12 @@ const COURSES: CourseSeed[] = [
     { code: 'ME1003', name: 'Industriell ekonomi' },
     { code: 'ME1004', name: 'Produktutveckling' },
 
+    // Architecture courses (for ARKIT)
+    { code: 'A11HIB', name: 'History and Theory of Architecture 1' },
+    { code: 'A11P1B', name: 'Architecture Project 1:1 Assemblies, Geometries, Scales' },
+    { code: 'A11TEB', name: 'Architectural Technology 1' },
+    { code: 'A21P1C', name: 'Architecture Project 2:1 Structure, Place, Activity' },
+
     // Zero-review courses (for edge case testing - one per program)
     { code: 'ID1021', name: 'Avancerad programmering' },
     { code: 'ID1022', name: 'Webbutveckling' },
@@ -155,6 +165,7 @@ const COURSES: CourseSeed[] = [
     { code: 'EL2001', name: 'Advanced Embedded Systems' },
     { code: 'ME2001', name: 'Supply Chain Management' },
     { code: 'EL2002', name: 'Smart Grids' },
+    { code: 'A31EXA', name: 'Degree Project in Architecture' },
 ];
 
 const COURSE_PROGRAM_LINKS: CourseProgramLink[] = [
@@ -220,6 +231,13 @@ const COURSE_PROGRAM_LINKS: CourseProgramLink[] = [
     { courseCode: 'EL2001', programCode: 'TEBSM' },
     { courseCode: 'ME2001', programCode: 'TIDEM' },
     { courseCode: 'EL2002', programCode: 'TELPM' },
+    { courseCode: 'A31EXA', programCode: 'ARKIT' },
+
+    // ARKIT courses (300hp integrated - no separate master's)
+    { courseCode: 'A11HIB', programCode: 'ARKIT' },
+    { courseCode: 'A11P1B', programCode: 'ARKIT' },
+    { courseCode: 'A11TEB', programCode: 'ARKIT' },
+    { courseCode: 'A21P1C', programCode: 'ARKIT' },
 ];
 
 const COURSE_SPECIALIZATION_LINKS: CourseSpecializationLink[] = [
@@ -370,9 +388,14 @@ async function seedPrograms(tx: Transaction): Promise<Map<string, { id: number; 
             code: program.code,
             programType: program.type,
             credits: program.credits,
+            hasIntegratedMasters: program.hasIntegratedMasters ?? false,
         }).onConflictDoUpdate({
             target: schema.program.code,
-            set: { name: program.name, credits: program.credits }
+            set: {
+                name: program.name,
+                credits: program.credits,
+                hasIntegratedMasters: program.hasIntegratedMasters ?? false,
+            }
         }).returning();
 
         programMap.set(program.code, { id: inserted.id, code: inserted.code });

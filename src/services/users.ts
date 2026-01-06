@@ -19,6 +19,7 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
             programCredits: programTable.credits,
             programName: programTable.name,
             programCode: programTable.code,
+            programHasIntegratedMasters: programTable.hasIntegratedMasters,
             mastersDegreeId: userTable.mastersDegreeId,
             specializationId: userTable.specializationId,
         })
@@ -62,6 +63,7 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
         programCredits: row.programCredits,
         programName: row.programName,
         programCode: row.programCode,
+        programHasIntegratedMasters: row.programHasIntegratedMasters,
         mastersDegreeId: row.mastersDegreeId,
         mastersDegree,
         specializationId: row.specializationId,
@@ -88,13 +90,14 @@ export const updateUserAcademicInfo = async (
     specializationId?: number
 ): Promise<void> => {
     await db.transaction(async (tx) => {
-        // 1. Fetch user with program credits
+        // 1. Fetch user with program info
         const userResult = await tx
             .select({
                 id: userTable.id,
                 programId: userTable.programId,
                 mastersDegreeId: userTable.mastersDegreeId,
                 programCredits: programTable.credits,
+                programHasIntegratedMasters: programTable.hasIntegratedMasters,
             })
             .from(userTable)
             .leftJoin(programTable, eq(userTable.programId, programTable.id))
@@ -109,6 +112,11 @@ export const updateUserAcademicInfo = async (
         // 2. Check eligibility: must be base program (180hp or 300hp)
         if (!user.programCredits || (user.programCredits !== 180 && user.programCredits !== 300)) {
             throw new Error("Not eligible for master's degree selection");
+        }
+
+        // 2.5 Check integrated masters: cannot select separate master's
+        if (user.programHasIntegratedMasters) {
+            throw new Error("This program has an integrated master's track");
         }
 
         // 3. Check if already selected (one-time enforcement)

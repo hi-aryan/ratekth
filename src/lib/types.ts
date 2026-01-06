@@ -51,6 +51,7 @@ export interface Program {
     code: string
     credits: number
     programType: 'bachelor' | 'master'
+    hasIntegratedMasters?: boolean
 }
 
 /**
@@ -110,6 +111,7 @@ export interface UserWithEligibility {
     programCredits: number | null          // 180, 300, or 120
     programName: string | null
     programCode: string | null
+    programHasIntegratedMasters: boolean | null  // true = cannot select master's
     mastersDegreeId: number | null         // null = eligible for selection
     mastersDegree: { name: string; code: string } | null
     specializationId: number | null

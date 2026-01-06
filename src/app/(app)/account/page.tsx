@@ -30,8 +30,9 @@ export default async function AccountPage() {
 
     // Determine eligibility: base program (180hp or 300hp) with no selection yet
     const isEligible = user.programCredits === 180 || user.programCredits === 300;
+    const isIntegratedProgram = user.programHasIntegratedMasters === true;
     const hasSelectedMasters = user.mastersDegreeId !== null;
-    const canSelectMasters = isEligible && !hasSelectedMasters;
+    const canSelectMasters = isEligible && !hasSelectedMasters && !isIntegratedProgram;
 
     // Fetch master's degrees only if user can select
     const mastersDegrees = canSelectMasters ? await getMastersDegrees() : [];

@@ -1,4 +1,4 @@
-import { pgTable, varchar, uniqueIndex, index, serial, foreignKey, unique, timestamp, integer, text, primaryKey, pgEnum, check } from "drizzle-orm/pg-core"
+import { pgTable, varchar, uniqueIndex, index, serial, foreignKey, unique, timestamp, integer, text, primaryKey, pgEnum, check, boolean } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 export const programType = pgEnum("program_type", ['bachelor', 'master'])
@@ -69,6 +69,7 @@ export const program = pgTable("program", {
 	code: varchar("code", { length: 20 }).notNull(),
 	programType: programType("program_type").notNull(),
 	credits: integer("credits").notNull(),
+	hasIntegratedMasters: boolean("has_integrated_masters").notNull().default(false),
 }, (table) => [
 	unique("program_code_key").on(table.code),
 ]);
