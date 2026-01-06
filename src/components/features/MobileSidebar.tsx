@@ -60,7 +60,7 @@ export const MobileSidebar = ({ isAuthenticated }: MobileSidebarProps) => {
 
                     {/* Header with close button */}
                     <div className="flex items-center justify-between p-4 border-b border-carbon/10">
-                        <span className="text-sm font-medium text-carbon/60">Menu</span>
+                        <span className="text-sm font-medium text-carbon/60"></span>
                         <Button
                             variant="ghost"
                             size="sm"

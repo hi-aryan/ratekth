@@ -3,6 +3,7 @@ import { getStudentFeed } from "@/services/feed";
 import { getUserReviewCount } from "@/services/reviews";
 import { ReviewCard } from "@/components/features/ReviewCard";
 import { SortDropdown } from "@/components/features/SortDropdown";
+import { FeedFilterToggle } from "@/components/features/FeedFilterToggle";
 import { Sidebar } from "@/components/features/Sidebar";
 import { SidebarStats } from "@/components/features/SidebarStats";
 import { SearchBar } from "@/components/ui/SearchBar";
@@ -13,11 +14,11 @@ import { SORT_OPTIONS, type FeedSortOption } from "@/lib/constants";
 import Link from "next/link";
 
 interface PageProps {
-  searchParams: Promise<{ page?: string; sortBy?: string }>;
+  searchParams: Promise<{ page?: string; sortBy?: string; filter?: string }>;
 }
 
 export default async function Home({ searchParams }: PageProps) {
-  const { page, sortBy } = await searchParams;
+  const { page, sortBy, filter } = await searchParams;
 
   // Parse and validate page number (default 1, minimum 1)
   const currentPage = Math.max(1, parseInt(page ?? "1", 10) || 1);
@@ -29,11 +30,14 @@ export default async function Home({ searchParams }: PageProps) {
 
   const session = await auth();
 
-  // Get feed based on user's visibility (or all reviews if guest)
+  // Filter logic: default is "all" reviews, "my-program" filters to user's courses
+  const isMyProgramFilter = filter === "my-program" && session?.user;
+
+  // Get feed based on filter (all reviews by default, or filtered to user's program)
   const feed = await getStudentFeed(
-    session?.user?.programId,
-    session?.user?.mastersDegreeId,
-    session?.user?.specializationId,
+    isMyProgramFilter ? session?.user?.programId : null,
+    isMyProgramFilter ? session?.user?.mastersDegreeId : null,
+    isMyProgramFilter ? session?.user?.specializationId : null,
     { page: currentPage, sortBy: currentSort }
   );
 
@@ -67,7 +71,9 @@ export default async function Home({ searchParams }: PageProps) {
                 {session
                   ? currentPage > 1
                     ? "No more reviews on this page."
-                    : "No reviews for your courses yet."
+                    : isMyProgramFilter
+                      ? "No reviews for your program's courses yet."
+                      : "No reviews yet. Be the first to review a course!"
                   : "No reviews yet. Sign in to see reviews for your program!"}
               </p>
               {!session && (
@@ -89,6 +95,9 @@ export default async function Home({ searchParams }: PageProps) {
           <div className="sticky top-18">
             <Sidebar>
               <div className="space-y-4">
+                {/* Filter Toggle - only for authenticated users */}
+                {session && <FeedFilterToggle />}
+
                 {/* Sort */}
                 <SortDropdown currentSort={currentSort} />
 
