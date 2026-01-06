@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom"
 import { cn } from "@/lib/utils"
-import { BorderBeam } from "@/components/ui/BorderBeam"
+import { AnimatedShinyText } from "@/components/ui/AnimatedShinyText"
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive"
 type ButtonSize = "sm" | "md" | "lg"
@@ -11,8 +11,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant
     size?: ButtonSize
     loading?: boolean
-    /** Show animated BorderBeam effect */
-    showBeam?: boolean
+    /** Show animated shiny text shimmer effect */
+    showShine?: boolean
 }
 
 /**
@@ -43,7 +43,7 @@ const sizeStyles: Record<ButtonSize, string> = {
  * - Three sizes: sm, md, lg
  * - Built-in loading state via useFormStatus() for form submissions
  * - Universal hover and active effects on all variants
- * - Optional BorderBeam effect via showBeam prop
+ * - Optional shiny text effect via showShine prop
  * 
  * Usage:
  * - Form submit: <Button size="lg" className="w-full">Submit</Button>
@@ -56,7 +56,7 @@ export const Button = ({
     variant = "primary",
     size = "md",
     loading,
-    showBeam,
+    showShine,
     ...props
 }: ButtonProps) => {
     const { pending } = useFormStatus()
@@ -83,14 +83,9 @@ export const Button = ({
             {isPending ? (
                 <span className="relative mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current/20 border-t-current" />
             ) : null}
-            <span className="relative inline-flex items-center">{children}</span>
-
-            {/* BorderBeam effect - opt-in via showBeam prop */}
-            {showBeam && <BorderBeam size={30} duration={4} colorFrom="#FFFFFF" colorTo="#FFFFFF" borderWidth={2} transition={{
-                type: "spring",
-                stiffness: 20,
-                damping: 6,
-            }} />}
+            <span className="relative inline-flex items-center">
+                {showShine ? <AnimatedShinyText>{children}</AnimatedShinyText> : children}
+            </span>
         </button>
     )
 }

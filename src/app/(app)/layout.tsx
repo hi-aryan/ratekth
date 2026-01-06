@@ -30,7 +30,7 @@ export default async function AppLayout({
             </div>
           ) : (
             <Link href="/login" className="hidden md:block">
-              <Button showBeam>Sign In</Button>
+              <Button showShine>Sign In</Button>
             </Link>
           )}
 

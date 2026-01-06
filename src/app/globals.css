@@ -16,6 +16,17 @@
   --color-white: #FFFFFF; /* card bg */
 }
 
+/* Animation for AnimatedShinyText shimmer effect (from Magic UI) */
+@theme inline {
+  --animate-gradient: gradient 8s linear infinite;
+
+  @keyframes gradient {
+    to {
+      background-position: var(--bg-size, 300%) 0;
+    }
+  }
+}
+
 /* html {
   scrollbar-gutter: stable;
 } */
