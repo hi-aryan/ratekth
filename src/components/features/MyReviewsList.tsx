@@ -15,13 +15,13 @@ export const MyReviewsList = ({ reviews }: MyReviewsListProps) => {
     if (reviews.length === 0) {
         return (
             <div className="text-center py-8">
-                <BookOpen className="w-10 h-10 mx-auto mb-3 text-carbon/20" />
+                <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-20" />
                 <p className="text-carbon/50 text-sm">
                     You haven&apos;t written any reviews yet.
                 </p>
                 <Link
                     href="/"
-                    className="inline-block mt-3 text-sm font-semibold text-blue hover:text-blue/80 transition-colors"
+                    className="inline-block mt-3 text-sm font-semibold text-blue hover:translate-y-[-1px] transition-all active:scale-[0.98]"
                 >
                     Explore courses to review
                 </Link>
@@ -35,7 +35,7 @@ export const MyReviewsList = ({ reviews }: MyReviewsListProps) => {
                 <li key={review.id}>
                     <Link
                         href={`/review/${review.id}`}
-                        className="group flex items-center gap-4 py-3.5 px-4 -mx-4 rounded-lg transition-all hover:bg-carbon/[0.03] active:scale-[0.995]"
+                        className="group flex items-center gap-4 py-3.5 px-4 -mx-4 rounded-lg transition-all hover:bg-carbon/[0.03] active:scale-[0.98]"
                     >
                         {/* Course Info */}
                         <div className="flex-1 min-w-0">
