@@ -169,6 +169,7 @@ export default async function AccountPage() {
                         <Button
                             type="submit"
                             size="lg"
+                            loadingText="Logging Out..."
                             className="w-full md:w-auto min-w-[140px] font-bold"
                         >
                             Log Out

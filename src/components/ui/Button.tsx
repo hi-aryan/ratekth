@@ -11,6 +11,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant
     size?: ButtonSize
     loading?: boolean
+    /** Custom text to display during loading state */
+    loadingText?: string
     /** Show animated shiny text shimmer effect */
     showShine?: boolean
 }
@@ -56,6 +58,7 @@ export const Button = ({
     variant = "primary",
     size = "md",
     loading,
+    loadingText,
     showShine,
     ...props
 }: ButtonProps) => {
@@ -84,7 +87,7 @@ export const Button = ({
                 <span className="relative mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current/20 border-t-current" />
             ) : null}
             <span className="relative inline-flex items-center">
-                {showShine ? <AnimatedShinyText>{children}</AnimatedShinyText> : children}
+                {showShine ? <AnimatedShinyText>{isPending && loadingText ? loadingText : children}</AnimatedShinyText> : (isPending && loadingText ? loadingText : children)}
             </span>
         </button>
     )

@@ -75,7 +75,7 @@ export const LoginForm = () => {
                 <Alert variant="error">{form.formState.errors.root.message}</Alert>
             )}
 
-            <Button type="submit" size="lg" loading={isPending} className="w-full">
+            <Button type="submit" size="lg" loading={isPending} loadingText="Signing In..." className="w-full">
                 Login
             </Button>
 

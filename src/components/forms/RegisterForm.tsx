@@ -108,7 +108,7 @@ export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps
                 <Alert variant="error">{form.formState.errors.root.message}</Alert>
             )}
 
-            <Button type="submit" size="lg" loading={isPending} className="w-full">
+            <Button type="submit" size="lg" loading={isPending} loadingText="Creating Account..." className="w-full">
                 Create Account
             </Button>
 
