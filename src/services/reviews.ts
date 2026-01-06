@@ -299,6 +299,51 @@ export const getUserReviewedCourseIds = async (userId: string): Promise<Array<{ 
 };
 
 /**
+ * Service Output: Light review data for "My Reviews" listing.
+ */
+export interface ReviewListItem {
+    id: number;
+    overallRating: number;
+    datePosted: Date;
+    course: {
+        code: string;
+        name: string;
+    };
+}
+
+/**
+ * Service: Get all reviews by a user for the "My Reviews" listing.
+ * Returns minimal data needed for display: id, overall rating, and course info.
+ * Sorted by newest first.
+ */
+export const getUserReviews = async (userId: string): Promise<ReviewListItem[]> => {
+    const reviews = await db
+        .select({
+            id: post.id,
+            datePosted: post.datePosted,
+            ratingProfessor: post.ratingProfessor,
+            ratingMaterial: post.ratingMaterial,
+            ratingPeers: post.ratingPeers,
+            courseCode: course.code,
+            courseName: course.name,
+        })
+        .from(post)
+        .innerJoin(course, eq(post.courseId, course.id))
+        .where(eq(post.userId, userId))
+        .orderBy(desc(post.datePosted));
+
+    return reviews.map((r) => ({
+        id: r.id,
+        datePosted: r.datePosted,
+        overallRating: computeOverallRating(r.ratingProfessor, r.ratingMaterial, r.ratingPeers),
+        course: {
+            code: r.courseCode,
+            name: r.courseName,
+        },
+    }));
+};
+
+/**
  * Service: Get review data for editing.
  * Validates ownership before returning.
  * Returns null if review not found or user doesn't own it.

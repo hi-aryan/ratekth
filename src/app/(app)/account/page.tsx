@@ -2,7 +2,9 @@ import { auth } from "@/services/auth";
 import { logoutAction } from "@/actions/auth";
 import { getUserWithProgramCredits } from "@/services/users";
 import { getMastersDegrees } from "@/services/programs";
+import { getUserReviews } from "@/services/reviews";
 import { AccountMastersForm } from "@/components/forms/AccountMastersForm";
+import { MyReviewsList } from "@/components/features/MyReviewsList";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { BackLink } from "@/components/ui/BackLink";
@@ -32,6 +34,9 @@ export default async function AccountPage() {
 
     // Fetch master's degrees only if user can select
     const mastersDegrees = canSelectMasters ? await getMastersDegrees() : [];
+
+    // Fetch user's reviews for My Reviews section
+    const userReviews = await getUserReviews(session.user.id);
 
     return (
         <div className="max-w-3xl mx-auto px-6 py-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -67,14 +72,14 @@ export default async function AccountPage() {
 
                             <div className="space-y-4 pt-2">
                                 {/* Program Info */}
-                                <div className="bg-porcelain rounded-xl p-4">
+                                <div className="bg-porcelain rounded-lg p-4">
                                     <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-2">
                                         Enrolled Program
                                     </p>
                                     {user.programCode && user.programName ? (
                                         <div>
                                             <div className="flex items-baseline gap-2 justify-center">
-                                                <span className="text-sm font-black text-blue bg-blue/10 py-0.5 px-2 rounded-md">
+                                                <span className="text-sm font-black text-blue bg-blue/10 py-0.5 px-2 rounded-lg">
                                                     {user.programCode}
                                                 </span>
                                                 <span className="text-lg font-bold text-carbon">
@@ -89,7 +94,7 @@ export default async function AccountPage() {
 
                                 {/* Track Info (Master's / Spec) */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="bg-porcelain rounded-xl p-4 text-center">
+                                    <div className="bg-porcelain rounded-lg p-4 text-center">
                                         <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
                                             Master&apos;s Track
                                         </p>
@@ -101,7 +106,7 @@ export default async function AccountPage() {
                                             <p className="text-carbon/40 italic text-sm">Not selected</p>
                                         )}
                                     </div>
-                                    <div className="bg-porcelain rounded-xl p-4 text-center">
+                                    <div className="bg-porcelain rounded-lg p-4 text-center">
                                         <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
                                             Specialization
                                         </p>
@@ -118,6 +123,23 @@ export default async function AccountPage() {
                         </div>
                     </div>
                 </Card>
+
+                {/* My Reviews Section */}
+                <div id="my-reviews" className="scroll-mt-24 animate-in fade-in slide-in-from-bottom-6 duration-600 delay-100">
+                    <Card className="overflow-hidden">
+                        <div className="bg-slate-50 border-b border-carbon/5 px-6 py-4">
+                            <h3 className="text-lg font-bold text-carbon">My Reviews</h3>
+                            <p className="text-sm text-carbon/50">
+                                {userReviews.length === 0
+                                    ? "Share your experiences with courses"
+                                    : `${userReviews.length} review${userReviews.length !== 1 ? "s" : ""} written`}
+                            </p>
+                        </div>
+                        <div className="p-6">
+                            <MyReviewsList reviews={userReviews} />
+                        </div>
+                    </Card>
+                </div>
 
                 {/* Academic Selection Section */}
                 {canSelectMasters && (
@@ -138,7 +160,7 @@ export default async function AccountPage() {
 
                 {/* Not Eligible Message */}
                 {!isEligible && !hasSelectedMasters && (
-                    <div className="bg-slate-50 rounded-xl p-6 border border-carbon/10 text-center">
+                    <div className="bg-slate-50 rounded-lg p-6 border border-carbon/10 text-center">
                         <p className="text-carbon/60">
                             Master&apos;s degree selection is only available for students in base programs (180hp Bachelor or 300hp Master).
                         </p>
