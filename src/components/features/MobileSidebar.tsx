@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button"
 import { WriteReviewButton } from "@/components/ui/WriteReviewButton"
 import { SearchBar } from "@/components/ui/SearchBar"
 import { SortDropdown } from "@/components/features/SortDropdown"
+import { FeedFilterToggle } from "@/components/features/FeedFilterToggle"
 import Link from "next/link"
 
 interface MobileSidebarProps {
@@ -88,8 +89,9 @@ export const MobileSidebar = ({ isAuthenticated }: MobileSidebarProps) => {
                         )}
                     </div>
 
-                    {/* Sort & Search */}
-                    <div className="p-4">
+                    {/* Filter & Sort */}
+                    <div className="p-4 space-y-3">
+                        {isAuthenticated && <FeedFilterToggle />}
                         <SortDropdown />
                     </div>
                     <div className="w-full border-b border-carbon/10" />

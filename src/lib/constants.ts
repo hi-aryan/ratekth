@@ -8,6 +8,9 @@ export const FEED_PAGE_SIZE = 10 as const
 export const SORT_OPTIONS = ['newest', 'top-rated', 'professor', 'material', 'peers'] as const
 export type FeedSortOption = typeof SORT_OPTIONS[number]
 
+export const FILTER_OPTIONS = ['all', 'my-program'] as const
+export type FeedFilterOption = typeof FILTER_OPTIONS[number]
+
 /**
  * Rating Constraints
  */

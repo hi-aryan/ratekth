@@ -1,6 +1,7 @@
 "use client"
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
+import type { FeedFilterOption } from "@/lib/constants"
 
 /**
  * FeedFilterToggle Component
@@ -15,7 +16,7 @@ export const FeedFilterToggle = () => {
 
     const currentFilter = searchParams.get("filter") ?? "all"
 
-    const handleFilterChange = (filter: "all" | "my-program") => {
+    const handleFilterChange = (filter: FeedFilterOption) => {
         const params = new URLSearchParams(searchParams.toString())
 
         if (filter === "all") {
@@ -34,18 +35,18 @@ export const FeedFilterToggle = () => {
         <div className="flex gap-1 p-1 bg-carbon/5 rounded-lg">
             <button
                 onClick={() => handleFilterChange("all")}
-                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${currentFilter === "all"
-                        ? "bg-white text-carbon shadow-sm"
-                        : "text-carbon/60 hover:text-carbon"
+                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${currentFilter === "all"
+                    ? "bg-white text-carbon shadow-sm scale-[1.02]"
+                    : "text-carbon/60 hover:text-carbon"
                     }`}
             >
                 All Reviews
             </button>
             <button
                 onClick={() => handleFilterChange("my-program")}
-                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${currentFilter === "my-program"
-                        ? "bg-white text-carbon shadow-sm"
-                        : "text-carbon/60 hover:text-carbon"
+                className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${currentFilter === "my-program"
+                    ? "bg-white text-carbon shadow-sm scale-[1.02]"
+                    : "text-carbon/60 hover:text-carbon"
                     }`}
             >
                 My Program
