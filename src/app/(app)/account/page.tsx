@@ -94,33 +94,35 @@ export default async function AccountPage() {
                                     )}
                                 </div>
 
-                                {/* Track Info (Master's / Spec) */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="bg-blue/3 rounded-lg p-4 text-center">
-                                        <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
-                                            Master&apos;s Track
-                                        </p>
-                                        {user.mastersDegree ? (
-                                            <p className="font-semibold text-carbon">
-                                                {user.mastersDegree.name}
+                                {/* Track Info (Master's / Spec) - Only show for non-integrated programs */}
+                                {!isIntegratedProgram && (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="bg-blue/3 rounded-lg p-4 text-center">
+                                            <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
+                                                Master&apos;s Track
                                             </p>
-                                        ) : (
-                                            <p className="text-carbon/40 italic text-sm">Not selected</p>
-                                        )}
-                                    </div>
-                                    <div className="bg-blue/3 rounded-lg p-4 text-center">
-                                        <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
-                                            Specialization
-                                        </p>
-                                        {user.specialization ? (
-                                            <p className="font-semibold text-carbon">
-                                                {user.specialization.name}
+                                            {user.mastersDegree ? (
+                                                <p className="font-semibold text-carbon">
+                                                    {user.mastersDegree.name}
+                                                </p>
+                                            ) : (
+                                                <p className="text-carbon/40 italic text-sm">Not selected</p>
+                                            )}
+                                        </div>
+                                        <div className="bg-blue/3 rounded-lg p-4 text-center">
+                                            <p className="text-xs font-semibold text-carbon/40 uppercase tracking-wide mb-1">
+                                                Specialization
                                             </p>
-                                        ) : (
-                                            <p className="text-carbon/40 italic text-sm">None</p>
-                                        )}
+                                            {user.specialization ? (
+                                                <p className="font-semibold text-carbon">
+                                                    {user.specialization.name}
+                                                </p>
+                                            ) : (
+                                                <p className="text-carbon/40 italic text-sm">None</p>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
