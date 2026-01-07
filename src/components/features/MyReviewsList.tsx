@@ -20,10 +20,10 @@ export const MyReviewsList = ({ reviews }: MyReviewsListProps) => {
                     You haven&apos;t written any reviews yet.
                 </p>
                 <Link
-                    href="/"
+                    href="/review/new"
                     className="inline-block mt-3 text-sm font-semibold text-blue hover:translate-y-[-1px] transition-all active:scale-[0.98]"
                 >
-                    Explore courses to review
+                    Write your first review
                 </Link>
             </div>
         );
