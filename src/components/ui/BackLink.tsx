@@ -17,7 +17,7 @@ export const BackLink = ({ href, label = "Back", className }: BackLinkProps) => 
         <Link
             href={href}
             className={cn(
-                "inline-flex items-center gap-1.5 text-sm text-carbon/60 hover:translate-x-[-3px] transition-all duration-200 ease-in-out",
+                "inline-flex items-center gap-1.5 text-sm text-carbon/60 hover:translate-x-[-3px] active:scale-95 transition-all duration-200 ease-in-out",
                 className
             )}
         >
