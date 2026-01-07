@@ -130,7 +130,7 @@ export const SearchBar = () => {
                         if (results.length > 0 || error) setIsOpen(true)
                     }}
                     placeholder="Search courses..."
-                    className="peer w-full rounded-lg border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 bg-white pl-10 pr-4 py-2 text-sm text-carbon placeholder:text-carbon/50 focus:border-carbon/70 focus:outline-none focus:shadow-[0_0_4px_rgba(31,91,174,0.2)]"
+                    className="peer w-full rounded-lg border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 bg-white pl-10 pr-4 py-2 text-sm text-carbon placeholder:text-carbon/70 focus:border-carbon/70 focus:outline-none focus:shadow-[0_0_4px_rgba(31,91,174,0.2)]"
                 />
                 {/* Icon: Search or Loading */}
                 {isLoading ? (

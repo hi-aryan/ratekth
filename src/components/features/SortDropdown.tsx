@@ -70,7 +70,7 @@ export const SortDropdown = ({ currentSort: propSort }: SortDropdownProps) => {
                     value={currentSort}
                     onChange={handleChange}
                     disabled={isPending}
-                    className={`w-full min-w-0 px-3 py-2 text-sm text-carbon/80 bg-white border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 rounded-lg focus:outline-none focus:border-carbon cursor-pointer appearance-none ${isPending ? 'opacity-50' : ''}`}
+                    className={`w-full min-w-0 px-3 py-2 text-sm text-carbon/70 bg-white border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 rounded-lg focus:outline-none focus:border-carbon cursor-pointer appearance-none ${isPending ? 'opacity-50' : ''}`}
                 >
                     {SORT_OPTIONS.map((option) => (
                         <option key={option} value={option}>
