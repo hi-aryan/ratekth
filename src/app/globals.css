@@ -33,7 +33,7 @@
 /* html {
   scrollbar-gutter: stable;
 } */
- html {
+html {
   scrollbar-width: none; /* Firefox */
 }
 html::-webkit-scrollbar {
@@ -42,4 +42,12 @@ html::-webkit-scrollbar {
 
 button {
   cursor: pointer;
+}
+
+/* Utility: Hide scrollbar while keeping scroll functionality */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }

@@ -181,13 +181,13 @@ export const MasterSearchBar = ({
 
             {/* Dropdown */}
             {isOpen && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg border border-carbon/20 shadow-lg z-50 overflow-hidden">
+                <div className="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-lg border border-carbon/20 shadow-lg z-50 overflow-hidden">
                     {error ? (
                         <div className="px-4 py-3 text-sm text-coral/80">
                             {error}
                         </div>
                     ) : results.length > 0 ? (
-                        <ul className="max-h-64 overflow-y-auto">
+                        <ul className="max-h-64 overflow-y-auto scrollbar-hide">
                             {results.map((program, index) => (
                                 <li key={program.id}>
                                     <button
