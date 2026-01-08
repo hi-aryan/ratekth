@@ -2,6 +2,7 @@ import { auth } from "@/services/auth";
 import { Button } from "@/components/ui/Button";
 import { WriteReviewButton } from "@/components/ui/WriteReviewButton";
 import { MobileSidebar } from "@/components/features/MobileSidebar";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function AppLayout({
@@ -16,8 +17,15 @@ export default async function AppLayout({
       {/* Header - gradient fade from white to transparent */}
       <header className="sticky top-0 z-40 bg-gradient-to-b from-white via-white/90 to-transparent">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-carbon">
-            rateKTH
+          <Link href="/">
+            <Image
+              src="/ratekth-new-logo-1.png"
+              alt="rateKTH"
+              width={120}
+              height={32}
+              className="h-8 w-auto -my-2"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav - hidden on mobile */}
