@@ -23,7 +23,7 @@ export default async function AppLayout({
               alt="rateKTH"
               width={120}
               height={32}
-              className="h-8 w-auto -my-2"
+              className="h-8 w-auto -my-2 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
               priority
             />
           </Link>
