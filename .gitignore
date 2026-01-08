@@ -45,3 +45,5 @@ next-env.d.ts
 notes/notes.md
 
 data/
+
+.vscode/
