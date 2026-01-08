@@ -76,7 +76,10 @@ export const Combobox = <T,>({
 
     const debouncedQuery = useDebounce(query, 300)
     const isServerMode = !!onSearch
-    const getSearchText = getSearchValue ?? getDisplayValue
+    const getSearchText = useMemo(
+        () => getSearchValue ?? getDisplayValue,
+        [getSearchValue, getDisplayValue]
+    )
 
     // Client-side filter when query changes
     useEffect(() => {
