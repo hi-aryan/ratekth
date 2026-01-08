@@ -277,18 +277,18 @@ export const Combobox = <T,>({
                     aria-expanded={isOpen}
                     aria-haspopup="listbox"
                     aria-autocomplete="list"
-                    className="peer w-full rounded-lg border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 bg-white pl-10 pr-10 py-2.5 text-sm text-carbon placeholder:text-carbon/50 focus:border-carbon/70 focus:outline-none focus:shadow-[0_0_4px_rgba(31,91,174,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="peer w-full rounded-lg border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 bg-white pl-10 pr-10 py-2.5 text-sm text-carbon placeholder:text-carbon/50 focus:border-carbon/70 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                 />
                 {/* Left icon */}
                 {isLoading ? (
                     <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon opacity-60 animate-spin" />
                 ) : (
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon opacity-40 pointer-events-none" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon opacity-40 pointer-events-none transition-all duration-200 peer-focus:text-carbon peer-focus:opacity-80 peer-hover:scale-115 peer-hover:opacity-60" />
                 )}
                 {/* Right icon */}
                 <ChevronDown
                     className={cn(
-                        "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon opacity-40 pointer-events-none transition-transform",
+                        "absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-carbon opacity-40 pointer-events-none transition-all duration-200",
                         isOpen && "rotate-180"
                     )}
                 />
