@@ -148,7 +148,7 @@ export const SearchBar = () => {
                             {error}
                         </div>
                     ) : results.length > 0 ? (
-                        <ul className="max-h-64 overflow-y-auto">
+                        <ul className="max-h-64 overflow-y-auto scrollbar-hide">
                             {results.map((course, index) => (
                                 <li key={course.id}>
                                     <button
