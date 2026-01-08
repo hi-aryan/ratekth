@@ -13,6 +13,7 @@ import { Select } from "@/components/ui/Select"
 import { FormField } from "@/components/ui/FormField"
 import { Alert } from "@/components/ui/Alert"
 import { StarRatingInput } from "@/components/ui/StarRatingInput"
+import { CourseCombobox } from "@/components/forms/CourseCombobox"
 import { cn } from "@/lib/utils"
 import { computeOverallRating } from "@/lib/utils"
 import { MAX_TAGS_PER_REVIEW } from "@/lib/constants"
@@ -34,6 +35,13 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
     const isEditMode = !!initialData
     const [isPending, startTransition] = useTransition()
     const [existingReviewId, setExistingReviewId] = useState<number | null>(null)
+
+    // Find initial selected course for combobox
+    const initialCourse = useMemo(() => {
+        const courseId = initialData?.courseId ?? defaultCourseId
+        return courseId ? courses.find(c => c.id === courseId) ?? null : null
+    }, [courses, initialData?.courseId, defaultCourseId])
+    const [selectedCourse, setSelectedCourse] = useState<CourseWithStats | null>(initialCourse)
 
     const form = useForm<ReviewFormInput>({
         resolver: zodResolver(reviewFormSchema),
@@ -129,36 +137,28 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                         {initialData.courseCode} - {initialData.courseName}
                     </div>
                 ) : (
-                    <Controller
-                        name="courseId"
-                        control={form.control}
-                        render={({ field }) => (
-                            <Select
-                                value={field.value || ""}
-                                onChange={(e) => {
-                                    const value = parseInt(e.target.value, 10) || 0
-                                    field.onChange(value)
-                                    handleCourseChange(value)
-                                }}
-                            >
-                                <option value="">Select a course...</option>
-                                {courses.filter(c => !reviewIdByCourseId.has(c.id)).map(course => (
-                                    <option key={course.id} value={course.id}>
-                                        {course.code} - {course.name}
-                                    </option>
-                                ))}
-                                {reviewIdByCourseId.size > 0 && (
-                                    <optgroup label="Already Reviewed">
-                                        {courses.filter(c => reviewIdByCourseId.has(c.id)).map(course => (
-                                            <option key={course.id} value={course.id}>
-                                                {course.code} - {course.name}
-                                            </option>
-                                        ))}
-                                    </optgroup>
-                                )}
-                            </Select>
-                        )}
-                    />
+                    <>
+                        <Controller
+                            name="courseId"
+                            control={form.control}
+                            render={({ field }) => (
+                                <CourseCombobox
+                                    courses={courses}
+                                    selected={selectedCourse}
+                                    onSelect={(course) => {
+                                        setSelectedCourse(course)
+                                        field.onChange(course.id)
+                                    }}
+                                    onClear={() => {
+                                        setSelectedCourse(null)
+                                        field.onChange(0)
+                                    }}
+                                    disabled={isPending}
+                                    reviewedCourseIds={new Set(reviewIdByCourseId.keys())}
+                                />
+                            )}
+                        />
+                    </>
                 )}
             </FormField>
 

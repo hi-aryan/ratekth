@@ -4,7 +4,7 @@ import { useState, useTransition } from "react"
 import { Program, Specialization } from "@/lib/types"
 import { getSpecializationsAction } from "@/actions/academic"
 import { updateAcademicAction } from "@/actions/users"
-import { MasterSearchBar } from "@/components/forms/MasterSearchBar"
+import { MastersCombobox } from "@/components/forms/MastersCombobox"
 import { FormField } from "@/components/ui/FormField"
 import { Select } from "@/components/ui/Select"
 import { Button } from "@/components/ui/Button"
@@ -14,7 +14,7 @@ import { Alert } from "@/components/ui/Alert"
  * AccountMastersForm Component
  * 
  * One-time master's degree + specialization selection form for eligible users.
- * Uses search bar for degree selection (instead of dropdown).
+ * Uses combobox for degree selection (search-based).
  * Includes mandatory confirmation step before submission.
  */
 
@@ -30,7 +30,7 @@ export const AccountMastersForm = () => {
     const [isLoadingSpecs, startLoadingSpecs] = useTransition()
     const [isSubmitting, startSubmitting] = useTransition()
 
-    // Handle program selection from search bar
+    // Handle program selection from combobox
     const handleProgramSelect = (program: Program) => {
         setSelectedProgram(program)
         setSelectedSpecializationId("")
@@ -93,14 +93,13 @@ export const AccountMastersForm = () => {
                 </p>
             </div>
 
-            {/* Master's Degree Search Bar */}
+            {/* Master's Degree Combobox */}
             <FormField label="Master's Degree">
-                <MasterSearchBar
+                <MastersCombobox
+                    selected={selectedProgram}
                     onSelect={handleProgramSelect}
-                    selectedProgram={selectedProgram}
                     onClear={handleClearSelection}
                     disabled={isSubmitting}
-                    placeholder="Search by program code or name..."
                 />
                 {/* Hidden input for FormData */}
                 {selectedProgram && (
