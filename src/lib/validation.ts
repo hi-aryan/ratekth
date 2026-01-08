@@ -118,3 +118,16 @@ export type RegisterFormInput = z.infer<typeof registerFormSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 export type ReviewInput = z.infer<typeof reviewSchema>;
 export type ReviewFormInput = z.infer<typeof reviewFormSchema>;
+
+/**
+ * Feedback Schema: Validates feedback submission.
+ * Enforces minimum and maximum content length.
+ */
+export const feedbackSchema = z.object({
+  content: z.string()
+    .trim()
+    .min(10, "Feedback must be at least 10 characters")
+    .max(2000, "Feedback must be under 2000 characters"),
+});
+
+export type FeedbackInput = z.infer<typeof feedbackSchema>;
