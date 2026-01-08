@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { NotificationListener } from "@/components/NotificationListener";
+import { FeedbackWidget } from "@/components/features/FeedbackWidget";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function RootLayout({
         />
         <NotificationListener />
         {children}
+        <FeedbackWidget />
       </body>
     </html>
   );
