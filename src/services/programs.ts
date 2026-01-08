@@ -1,7 +1,8 @@
 import "server-only";
 import { db } from "@/db";
 import { program } from "@/db/schema";
-import { asc, eq, or } from "drizzle-orm";
+import { asc, eq, or, and, sql } from "drizzle-orm";
+import type { Program } from "@/lib/types";
 
 /**
  * Service: Fetch all academic programs.
@@ -47,4 +48,43 @@ export const getProgramCodeById = async (programId: number): Promise<string | nu
         columns: { code: true },
     });
     return result?.code ?? null;
+};
+
+/**
+ * Service: Search master's degrees (120hp programs) by code or name.
+ * Returns up to 10 matching programs.
+ * Case-insensitive search using ILIKE.
+ * Returns empty array if query is less than 2 characters.
+ */
+export const searchMastersDegrees = async (query: string): Promise<Program[]> => {
+    const trimmedQuery = query.trim();
+
+    // Reject queries that are too short
+    if (trimmedQuery.length < 2) {
+        return [];
+    }
+
+    // Use ILIKE for case-insensitive partial matching
+    const searchPattern = `%${trimmedQuery}%`;
+
+    const results = await db
+        .select({
+            id: program.id,
+            name: program.name,
+            code: program.code,
+            credits: program.credits,
+            programType: program.programType,
+            hasIntegratedMasters: program.hasIntegratedMasters,
+        })
+        .from(program)
+        .where(
+            and(
+                eq(program.credits, 120),
+                sql`(${program.name} ILIKE ${searchPattern} OR ${program.code} ILIKE ${searchPattern})`
+            )
+        )
+        .orderBy(asc(program.name))
+        .limit(10);
+
+    return results;
 };

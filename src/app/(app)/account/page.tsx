@@ -1,7 +1,7 @@
 import { auth } from "@/services/auth";
 import { logoutAction } from "@/actions/auth";
 import { getUserWithProgramCredits } from "@/services/users";
-import { getMastersDegrees } from "@/services/programs";
+
 import { getUserReviews } from "@/services/reviews";
 import { AccountMastersForm } from "@/components/forms/AccountMastersForm";
 import { MyReviewsList } from "@/components/features/MyReviewsList";
@@ -34,8 +34,7 @@ export default async function AccountPage() {
     const hasSelectedMasters = user.mastersDegreeId !== null;
     const canSelectMasters = isEligible && !hasSelectedMasters && !isIntegratedProgram;
 
-    // Fetch master's degrees only if user can select
-    const mastersDegrees = canSelectMasters ? await getMastersDegrees() : [];
+
 
     // Fetch user's reviews for My Reviews section
     const userReviews = await getUserReviews(session.user.id);
@@ -143,7 +142,7 @@ export default async function AccountPage() {
                 {/* Academic Selection Section */}
                 {canSelectMasters && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                        <Card className="border-l-4 border-l-blue overflow-hidden relative">
+                        <Card className="border-l-4 border-l-blue relative">
                             <div className="bg-blue/3 rounded-lg p-6 md:p-8">
                                 <h3 className="text-xl font-bold text-carbon mb-2">Academic Selection</h3>
                                 <p className="text-carbon/60 leading-relaxed">
@@ -151,7 +150,7 @@ export default async function AccountPage() {
                                 </p>
                             </div>
                             <div className="p-6 md:p-8">
-                                <AccountMastersForm mastersDegrees={mastersDegrees} />
+                                <AccountMastersForm />
                             </div>
                         </Card>
                     </div>

@@ -4,6 +4,7 @@ import { useState, useTransition } from "react"
 import { Program, Specialization } from "@/lib/types"
 import { getSpecializationsAction } from "@/actions/academic"
 import { updateAcademicAction } from "@/actions/users"
+import { MasterSearchBar } from "@/components/forms/MasterSearchBar"
 import { FormField } from "@/components/ui/FormField"
 import { Select } from "@/components/ui/Select"
 import { Button } from "@/components/ui/Button"
@@ -13,16 +14,13 @@ import { Alert } from "@/components/ui/Alert"
  * AccountMastersForm Component
  * 
  * One-time master's degree + specialization selection form for eligible users.
+ * Uses search bar for degree selection (instead of dropdown).
  * Includes mandatory confirmation step before submission.
  */
 
-interface AccountMastersFormProps {
-    mastersDegrees: Program[]
-}
-
-export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) => {
+export const AccountMastersForm = () => {
     // Form state
-    const [selectedMastersDegreeId, setSelectedMastersDegreeId] = useState<string>("")
+    const [selectedProgram, setSelectedProgram] = useState<Program | null>(null)
     const [selectedSpecializationId, setSelectedSpecializationId] = useState<string>("")
     const [specializations, setSpecializations] = useState<Specialization[]>([])
     const [isConfirmed, setIsConfirmed] = useState(false)
@@ -32,21 +30,27 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
     const [isLoadingSpecs, startLoadingSpecs] = useTransition()
     const [isSubmitting, startSubmitting] = useTransition()
 
-    // Handle master's degree change: fetch specializations
-    const handleMastersDegreeChange = (value: string) => {
-        setSelectedMastersDegreeId(value)
+    // Handle program selection from search bar
+    const handleProgramSelect = (program: Program) => {
+        setSelectedProgram(program)
         setSelectedSpecializationId("")
         setIsConfirmed(false)
         setError(null)
 
-        if (value) {
-            startLoadingSpecs(async () => {
-                const specs = await getSpecializationsAction(Number(value))
-                setSpecializations(specs)
-            })
-        } else {
-            setSpecializations([])
-        }
+        // Fetch specializations for this program
+        startLoadingSpecs(async () => {
+            const specs = await getSpecializationsAction(program.id)
+            setSpecializations(specs)
+        })
+    }
+
+    // Handle clearing selection
+    const handleClearSelection = () => {
+        setSelectedProgram(null)
+        setSelectedSpecializationId("")
+        setSpecializations([])
+        setIsConfirmed(false)
+        setError(null)
     }
 
     // Handle form submission
@@ -68,7 +72,7 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
 
     // Determine if specialization is required
     const specializationRequired = specializations.length > 0
-    const hasValidSelection = selectedMastersDegreeId &&
+    const hasValidSelection = selectedProgram &&
         !isLoadingSpecs &&
         (!specializationRequired || selectedSpecializationId)
 
@@ -76,27 +80,36 @@ export const AccountMastersForm = ({ mastersDegrees }: AccountMastersFormProps) 
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-1">
                 <h3 className="font-semibold text-carbon text-lg">Select Your Master&apos;s Degree</h3>
-                <p className="text-carbon/60">
-                    Choose the master&apos;s track you&apos;re pursuing.
+                <p className="text-carbon/60 text-sm">
+                    Search for the master&apos;s track you&apos;re pursuing. 
+                    <a 
+                        href="https://www.kth.se/student/kurser/program" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="ml-1 text-blue hover:underline"
+                    >
+                        Not sure? Check KTH
+                    </a>
                 </p>
             </div>
 
-            {/* Master's Degree Selection */}
+            {/* Master's Degree Search Bar */}
             <FormField label="Master's Degree">
-                <Select
-                    name="mastersDegreeId"
-                    value={selectedMastersDegreeId}
-                    onChange={(e) => handleMastersDegreeChange(e.target.value)}
+                <MasterSearchBar
+                    onSelect={handleProgramSelect}
+                    selectedProgram={selectedProgram}
+                    onClear={handleClearSelection}
                     disabled={isSubmitting}
-                    className="transition-all"
-                >
-                    <option value="">Select your degree...</option>
-                    {mastersDegrees.map((p) => (
-                        <option key={p.id} value={p.id}>
-                            [{p.code}] {p.name}
-                        </option>
-                    ))}
-                </Select>
+                    placeholder="Search by program code or name..."
+                />
+                {/* Hidden input for FormData */}
+                {selectedProgram && (
+                    <input 
+                        type="hidden" 
+                        name="mastersDegreeId" 
+                        value={selectedProgram.id} 
+                    />
+                )}
             </FormField>
 
             {/* Specialization Selection (if applicable) */}
