@@ -19,7 +19,7 @@ export default async function AppLayout({
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
             <Image
-              src="/ratekth-new-logo-1.png"
+              src="/ratekth-new-logo.png"
               alt="rateKTH"
               width={120}
               height={32}
