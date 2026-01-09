@@ -18,7 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased font-sans">
         <Toaster 
-          style={{ zIndex: 9999 }}
           duration={5000} 
           position="top-center" 
           expand={false}
