@@ -33,19 +33,21 @@ export default async function Home({ searchParams }: PageProps) {
   // Filter logic: default is "all" reviews, "my-program" filters to user's courses
   const isMyProgramFilter = filter === "my-program" && session?.user;
 
-  // Get feed based on filter (all reviews by default, or filtered to user's program)
-  const feed = await getStudentFeed(
-    isMyProgramFilter ? session?.user?.programId : null,
-    isMyProgramFilter ? session?.user?.mastersDegreeId : null,
-    isMyProgramFilter ? session?.user?.specializationId : null,
-    isMyProgramFilter ? session?.user?.programSpecializationId : null,
-    { page: currentPage, sortBy: currentSort }
-  );
-
-  // Get user's review count for sidebar (only if authenticated)
-  const userReviewCount = session?.user?.id
-    ? await getUserReviewCount(session.user.id)
-    : null;
+  // Parallelize independent queries (feed + review count)
+  const [feed, userReviewCount] = await Promise.all([
+    // Get feed based on filter (all reviews by default, or filtered to user's program)
+    getStudentFeed(
+      isMyProgramFilter ? session?.user?.programId : null,
+      isMyProgramFilter ? session?.user?.mastersDegreeId : null,
+      isMyProgramFilter ? session?.user?.specializationId : null,
+      isMyProgramFilter ? session?.user?.programSpecializationId : null,
+      { page: currentPage, sortBy: currentSort }
+    ),
+    // Get user's review count for sidebar (only if authenticated)
+    session?.user?.id
+      ? getUserReviewCount(session.user.id)
+      : Promise.resolve(null),
+  ]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">

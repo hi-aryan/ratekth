@@ -61,6 +61,7 @@ export const courseProgram = pgTable("course__program", {
 		name: "course__program_program_id_fkey"
 	}).onDelete("cascade"),
 	unique("unique_course_program").on(table.courseId, table.programId),
+	index("ix_course_program_program_id").on(table.programId),
 ]);
 
 export const program = pgTable("program", {
@@ -186,6 +187,7 @@ export const courseSpecialization = pgTable("course__specialization", {
 		name: "course__specialization_specialization_id_fkey"
 	}).onDelete("cascade"),
 	unique("unique_course_specialization").on(table.courseId, table.specializationId),
+	index("ix_course_specialization_specialization_id").on(table.specializationId),
 ]);
 
 export const postTags = pgTable("post_tags", {
