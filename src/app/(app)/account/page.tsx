@@ -165,8 +165,8 @@ export default async function AccountPage() {
                 {/* Program Specialization Section */}
                 {canSelectProgramSpec && programSpecializations.length > 0 && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                        <Card className="border-l-4 border-l-green-500 relative">
-                            <div className="bg-green-50/50 rounded-lg p-6 md:p-8">
+                        <Card className="border-l-4 border-l-green relative">
+                            <div className="bg-green/5 rounded-lg p-6 md:p-8">
                                 <h3 className="text-xl font-bold text-carbon mb-2">Program Specialization</h3>
                                 <p className="text-carbon/60 leading-relaxed">
                                     Select your year-3 specialization track. This will tailor your course feed to show additional courses for your specialization.

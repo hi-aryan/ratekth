@@ -161,25 +161,31 @@ export const AccountMastersForm = () => {
 
             {/* Error Display */}
             {error && (
-                <div className="animate-in shake fade-in">
+                <div className="animate-in shake fade-in mt-4">
                     <Alert variant="error">{error}</Alert>
                 </div>
             )}
 
-            {/* Submit Button - Only visible when confirmed */}
-            {hasValidSelection && isConfirmed && (
-                <div className="animate-in slide-in-from-bottom-2 fade-in duration-300 transition-all">
+            {/* Submit Button + Animation (minor DRY violation) */}
+            <div className={`grid transition-all duration-300 ease-in-out ${
+                hasValidSelection && isConfirmed 
+                    ? "grid-rows-[1fr] opacity-100 mt-2" 
+                    : "grid-rows-[0fr] opacity-0 mt-0"
+            }`}>
+                <div className="overflow-hidden">
                     <Button
                         type="submit"
                         size="lg"
                         className="w-full font-bold"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !isConfirmed}
                         loading={isSubmitting}
+                        tabIndex={isConfirmed ? 0 : -1}
+                        aria-hidden={!isConfirmed}
                     >
                         Save Academic Selection
                     </Button>
                 </div>
-            )}
+            </div>
         </form>
     )
 }
