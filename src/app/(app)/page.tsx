@@ -38,6 +38,7 @@ export default async function Home({ searchParams }: PageProps) {
     isMyProgramFilter ? session?.user?.programId : null,
     isMyProgramFilter ? session?.user?.mastersDegreeId : null,
     isMyProgramFilter ? session?.user?.specializationId : null,
+    isMyProgramFilter ? session?.user?.programSpecializationId : null,
     { page: currentPage, sortBy: currentSort }
   );
 

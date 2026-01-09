@@ -22,6 +22,7 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
             programHasIntegratedMasters: programTable.hasIntegratedMasters,
             mastersDegreeId: userTable.mastersDegreeId,
             specializationId: userTable.specializationId,
+            programSpecializationId: userTable.programSpecializationId,
         })
         .from(userTable)
         .leftJoin(programTable, eq(userTable.programId, programTable.id))
@@ -55,6 +56,18 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
         }
     }
 
+    // If user has a program specialization selected, fetch its details
+    let programSpecializationData: { name: string } | null = null;
+    if (row.programSpecializationId) {
+        const progSpecResult = await db.query.specialization.findFirst({
+            where: eq(specialization.id, row.programSpecializationId),
+            columns: { name: true },
+        });
+        if (progSpecResult) {
+            programSpecializationData = progSpecResult;
+        }
+    }
+
     return {
         id: row.id,
         email: row.email,
@@ -68,6 +81,8 @@ export const getUserWithProgramCredits = async (userId: string): Promise<UserWit
         mastersDegree,
         specializationId: row.specializationId,
         specialization: specializationData,
+        programSpecializationId: row.programSpecializationId,
+        programSpecialization: programSpecializationData,
     };
 };
 
@@ -171,6 +186,76 @@ export const updateUserAcademicInfo = async (
                 mastersDegreeId,
                 specializationId: specializationId ?? null,
             })
+            .where(eq(userTable.id, userId));
+    });
+};
+
+/**
+ * Service: Update user's base-program specialization.
+ * 
+ * Validates:
+ * - User exists
+ * - User has a base program (180hp or 300hp)
+ * - Program has specializations available
+ * - User hasn't already selected (programSpecializationId is null)
+ * - Specialization belongs to the base program
+ * 
+ * Uses transaction for atomicity.
+ */
+export const updateBaseProgramSpecialization = async (
+    userId: string,
+    programSpecializationId: number
+): Promise<void> => {
+    await db.transaction(async (tx) => {
+        // 1. Fetch user with program info
+        const userResult = await tx
+            .select({
+                id: userTable.id,
+                programId: userTable.programId,
+                programSpecializationId: userTable.programSpecializationId,
+                programCredits: programTable.credits,
+            })
+            .from(userTable)
+            .leftJoin(programTable, eq(userTable.programId, programTable.id))
+            .where(eq(userTable.id, userId));
+
+        if (userResult.length === 0) {
+            throw new Error("User not found");
+        }
+
+        const user = userResult[0];
+
+        // 2. Check eligibility: must have base program with 180hp or 300hp
+        if (!user.programId || !user.programCredits) {
+            throw new Error("No base program registered");
+        }
+
+        if (user.programCredits !== 180 && user.programCredits !== 300) {
+            throw new Error("Not eligible for program specialization selection");
+        }
+
+        // 3. Check if already selected (one-time enforcement)
+        if (user.programSpecializationId !== null) {
+            throw new Error("Program specialization already selected");
+        }
+
+        // 4. Validate specialization exists and belongs to user's base program
+        const spec = await tx.query.specialization.findFirst({
+            where: eq(specialization.id, programSpecializationId),
+            columns: { id: true, programId: true },
+        });
+
+        if (!spec) {
+            throw new Error("Specialization not found");
+        }
+
+        if (spec.programId !== user.programId) {
+            throw new Error("Specialization does not belong to your program");
+        }
+
+        // 5. Update user
+        await tx.update(userTable)
+            .set({ programSpecializationId })
             .where(eq(userTable.id, userId));
     });
 };

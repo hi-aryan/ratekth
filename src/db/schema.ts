@@ -85,6 +85,7 @@ export const user = pgTable("user", {
 	programId: integer("program_id"),
 	mastersDegreeId: integer("masters_degree_id"),
 	specializationId: integer("specialization_id"),
+	programSpecializationId: integer("program_specialization_id"),
 }, (table) => [
 	foreignKey({
 		columns: [table.programId],
@@ -100,6 +101,11 @@ export const user = pgTable("user", {
 		columns: [table.mastersDegreeId],
 		foreignColumns: [program.id],
 		name: "user_masters_degree_id_fkey"
+	}),
+	foreignKey({
+		columns: [table.programSpecializationId],
+		foreignColumns: [specialization.id],
+		name: "user_program_specialization_id_fkey"
 	}),
 	unique("user_username_key").on(table.username),
 	unique("user_email_key").on(table.email),

@@ -115,10 +115,11 @@ export const searchCourses = async (query: string): Promise<CourseWithStats[]> =
 export const getVisibleCourseIds = async (
     programId?: number | null,
     mastersDegreeId?: number | null,
-    specializationId?: number | null
+    specializationId?: number | null,
+    programSpecializationId?: number | null
 ): Promise<number[] | null> => {
     // If no academic info, don't filter (show all)
-    if (!programId && !mastersDegreeId && !specializationId) {
+    if (!programId && !mastersDegreeId && !specializationId && !programSpecializationId) {
         return null;
     }
 
@@ -134,12 +135,13 @@ export const getVisibleCourseIds = async (
         programCourses.forEach(row => courseIds.add(row.courseId));
     }
 
-    // Courses from Specialization
-    if (specializationId) {
+    // Courses from Specializations (master's + base-program)
+    const specIds = [specializationId, programSpecializationId].filter((id): id is number => id != null);
+    if (specIds.length > 0) {
         const specCourses = await db
             .select({ courseId: courseSpecialization.courseId })
             .from(courseSpecialization)
-            .where(eq(courseSpecialization.specializationId, specializationId));
+            .where(inArray(courseSpecialization.specializationId, specIds));
         specCourses.forEach(row => courseIds.add(row.courseId));
     }
 
@@ -151,17 +153,19 @@ export const getVisibleCourseIds = async (
  * Returns the UNION of courses from:
  * 1. Base Program (programId)
  * 2. Master's Degree (mastersDegreeId)
- * 3. Specialization (specializationId)
+ * 3. Master's Specialization (specializationId)
+ * 4. Program Specialization (programSpecializationId)
  *
  * If no academic IDs provided, returns all courses (for guests).
  */
 export const getAvailableCourses = async (
     programId?: number | null,
     mastersDegreeId?: number | null,
-    specializationId?: number | null
+    specializationId?: number | null,
+    programSpecializationId?: number | null
 ): Promise<CourseWithStats[]> => {
     // Use shared visibility logic
-    const visibleCourseIds = await getVisibleCourseIds(programId, mastersDegreeId, specializationId);
+    const visibleCourseIds = await getVisibleCourseIds(programId, mastersDegreeId, specializationId, programSpecializationId);
 
     // If no courses found (guest user or no academic affiliation), return all courses
     if (visibleCourseIds === null) {

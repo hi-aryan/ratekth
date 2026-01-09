@@ -39,6 +39,7 @@ export const getStudentFeed = async (
     programId?: number | null,
     mastersDegreeId?: number | null,
     specializationId?: number | null,
+    programSpecializationId?: number | null,
     options?: { page?: number; pageSize?: number; sortBy?: FeedSortOption }
 ): Promise<PaginatedResult<ReviewForDisplay>> => {
     const page = Math.max(1, options?.page ?? 1);
@@ -47,7 +48,7 @@ export const getStudentFeed = async (
     const offset = (page - 1) * pageSize;
 
     // Get visible course IDs (null = no filter)
-    const visibleCourseIds = await getVisibleCourseIds(programId, mastersDegreeId, specializationId);
+    const visibleCourseIds = await getVisibleCourseIds(programId, mastersDegreeId, specializationId, programSpecializationId);
 
     // Build WHERE clause
     const whereClause = visibleCourseIds !== null && visibleCourseIds.length > 0

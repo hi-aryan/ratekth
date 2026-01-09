@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/services/auth";
-import { updateUserAcademicInfo } from "@/services/users";
+import { updateUserAcademicInfo, updateBaseProgramSpecialization } from "@/services/users";
 import { ActionState } from "@/lib/types";
 
 /**
@@ -68,4 +68,57 @@ export async function updateAcademicAction(
 
     // Redirect to login with success message
     redirect("/login?success=academic-updated");
+}
+
+/**
+ * Action: Update user's base-program specialization.
+ * 
+ * Flow:
+ * 1. Verify session
+ * 2. Parse FormData for programSpecializationId
+ * 3. Call service to validate and update
+ * 4. Force logout to refresh JWT
+ * 5. Redirect to login with success message
+ */
+export async function updateBaseProgramSpecializationAction(
+    _prevState: ActionState,
+    formData: FormData
+): Promise<ActionState> {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return { error: "You must be logged in to perform this action." };
+    }
+
+    const programSpecializationIdRaw = formData.get("programSpecializationId");
+
+    // Parse and validate programSpecializationId (required)
+    if (!programSpecializationIdRaw || programSpecializationIdRaw === "") {
+        return { error: "Please select a specialization." };
+    }
+
+    const programSpecializationId = parseInt(programSpecializationIdRaw as string, 10);
+    if (isNaN(programSpecializationId) || programSpecializationId <= 0) {
+        return { error: "Invalid specialization selection." };
+    }
+
+    try {
+        await updateBaseProgramSpecialization(session.user.id, programSpecializationId);
+    } catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message };
+        }
+        console.error("[updateBaseProgramSpecializationAction] Error:", error);
+        return { error: "Something went wrong. Please try again." };
+    }
+
+    // Force logout to refresh JWT
+    try {
+        await signOut({ redirect: false });
+    } catch (error) {
+        console.error("[updateBaseProgramSpecializationAction] Logout error:", error);
+    }
+
+    // Redirect to login with success message
+    redirect("/login?success=program-specialization-updated");
 }

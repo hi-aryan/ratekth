@@ -67,6 +67,7 @@ export const findUserByEmail = async (email: string): Promise<SafeUser | null> =
       programId: true,
       mastersDegreeId: true,
       specializationId: true,
+      programSpecializationId: true,
       // password: EXCLUDED
     },
   });
@@ -312,6 +313,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           programId: user.programId,
           mastersDegreeId: user.mastersDegreeId,
           specializationId: user.specializationId,
+          programSpecializationId: user.programSpecializationId,
         } as User;
       }
     })
@@ -341,6 +343,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.programId = user.programId;
         token.mastersDegreeId = user.mastersDegreeId;
         token.specializationId = user.specializationId;
+        token.programSpecializationId = user.programSpecializationId;
       }
       return token;
     },
@@ -350,6 +353,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.programId = token.programId as number | null | undefined;
         session.user.mastersDegreeId = token.mastersDegreeId as number | null | undefined;
         session.user.specializationId = token.specializationId as number | null | undefined;
+        session.user.programSpecializationId = token.programSpecializationId as number | null | undefined;
       }
       return session;
     }

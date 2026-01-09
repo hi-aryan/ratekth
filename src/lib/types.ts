@@ -21,6 +21,7 @@ declare module "next-auth" {
         programId?: number | null
         mastersDegreeId?: number | null
         specializationId?: number | null
+        programSpecializationId?: number | null
     }
 
     interface Session {
@@ -29,6 +30,7 @@ declare module "next-auth" {
             programId?: number | null
             mastersDegreeId?: number | null
             specializationId?: number | null
+            programSpecializationId?: number | null
         } & DefaultSession["user"]
     }
 }
@@ -38,6 +40,7 @@ declare module "@auth/core/jwt" {
         programId?: number | null
         mastersDegreeId?: number | null
         specializationId?: number | null
+        programSpecializationId?: number | null
     }
 }
 
@@ -89,6 +92,7 @@ export interface SafeUser {
     programId?: number | null
     mastersDegreeId?: number | null
     specializationId?: number | null
+    programSpecializationId?: number | null
 }
 
 /**
@@ -116,6 +120,8 @@ export interface UserWithEligibility {
     mastersDegree: { name: string; code: string } | null
     specializationId: number | null
     specialization: { name: string } | null
+    programSpecializationId: number | null
+    programSpecialization: { name: string } | null
 }
 
 /**

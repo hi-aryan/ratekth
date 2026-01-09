@@ -28,7 +28,13 @@ export const userRelations = relations(user, ({ one, many }) => ({
 	}),
 	specialization: one(specialization, {
 		fields: [user.specializationId],
-		references: [specialization.id]
+		references: [specialization.id],
+		relationName: "user_mastersSpecialization"
+	}),
+	programSpecialization: one(specialization, {
+		fields: [user.programSpecializationId],
+		references: [specialization.id],
+		relationName: "user_programSpecialization"
 	}),
 	mastersDegree: one(program, {
 		fields: [user.mastersDegreeId],
@@ -60,7 +66,8 @@ export const programRelations = relations(program, ({ many }) => ({
 }));
 
 export const specializationRelations = relations(specialization, ({ one, many }) => ({
-	users: many(user),
+	mastersSpecUsers: many(user, { relationName: "user_mastersSpecialization" }),
+	programSpecUsers: many(user, { relationName: "user_programSpecialization" }),
 	program: one(program, {
 		fields: [specialization.programId],
 		references: [program.id]
