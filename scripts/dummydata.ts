@@ -105,6 +105,18 @@ const PROGRAMS: ProgramSeed[] = [
     { code: 'TEBSM', name: 'Embedded Systems', type: 'master', credits: 120 },
     { code: 'TIDEM', name: 'Industrial Engineering and Management', type: 'master', credits: 120 },
     { code: 'TELPM', name: 'Electrical Engineering', type: 'master', credits: 120 },
+
+    // TEMPORARY: Test programs for dropdown scroll testing
+    { code: 'TEMB1', name: 'Embedded Systems Advanced', type: 'master', credits: 120 },
+    { code: 'TEMB2', name: 'Embedded Systems Design', type: 'master', credits: 120 },
+    { code: 'TEMB3', name: 'Embedded Software Engineering', type: 'master', credits: 120 },
+    { code: 'TEMB4', name: 'Embedded Hardware Systems', type: 'master', credits: 120 },
+    { code: 'TEMB5', name: 'Embedded AI Systems', type: 'master', credits: 120 },
+    { code: 'TEMB6', name: 'Embedded Real-Time Systems', type: 'master', credits: 120 },
+    { code: 'TEMB7', name: 'Embedded IoT Systems', type: 'master', credits: 120 },
+    { code: 'TEMB8', name: 'Embedded Control Systems', type: 'master', credits: 120 },
+    { code: 'TEMB9', name: 'Embedded Automotive Systems', type: 'master', credits: 120 },
+    { code: 'TEMBA', name: 'Embedded Robotics', type: 'master', credits: 120 },
 ];
 
 const SPECIALIZATIONS: SpecializationSeed[] = [
