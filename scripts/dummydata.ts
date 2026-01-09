@@ -61,7 +61,8 @@ interface UserSeed {
     email: string;
     programCode?: string; // Base program (180hp or 300hp)
     mastersDegreeCode?: string; // Master's degree (120hp)
-    specializationName?: string; // Requires mastersDegreeCode
+    specializationName?: string; // Requires mastersDegreeCode (master's spec)
+    programSpecializationName?: string; // Requires programCode (base-program spec)
 }
 
 interface ReviewSeed {
@@ -120,6 +121,7 @@ const PROGRAMS: ProgramSeed[] = [
 ];
 
 const SPECIALIZATIONS: SpecializationSeed[] = [
+    // Master's degree (120hp) specializations
     { name: 'Machine Learning', programCode: 'TCSCM' },
     { name: 'Computer Systems', programCode: 'TCSCM' },
     { name: 'Theoretical Computer Science', programCode: 'TCSCM' },
@@ -128,6 +130,17 @@ const SPECIALIZATIONS: SpecializationSeed[] = [
     { name: 'Operations Management', programCode: 'TIDEM' },
     { name: 'Product Development', programCode: 'TIDEM' },
     { name: 'Power Systems', programCode: 'TELPM' },
+
+    // Base-program (300hp) specializations - for year 3
+    { name: 'Software Engineering', programCode: 'CDATE' },
+    { name: 'Data Science', programCode: 'CDATE' },
+    { name: 'Cyber Security', programCode: 'CDATE' },
+    { name: 'Power Electronics', programCode: 'CELTE' },
+    { name: 'Communication Systems', programCode: 'CELTE' },
+
+    // Base-program (180hp) specializations - for year 3
+    { name: 'Network Engineering', programCode: 'TCOMK' },
+    { name: 'Mobile Development', programCode: 'TCOMK' },
 ];
 
 const COURSES: CourseSeed[] = [
@@ -166,6 +179,26 @@ const COURSES: CourseSeed[] = [
     { code: 'A11P1B', name: 'Architecture Project 1:1 Assemblies, Geometries, Scales' },
     { code: 'A11TEB', name: 'Architectural Technology 1' },
     { code: 'A21P1C', name: 'Architecture Project 2:1 Structure, Place, Activity' },
+
+    // Base-program specialization courses (CDATE year 3)
+    { code: 'DD2480', name: 'Software Engineering Fundamentals' },
+    { code: 'DD2481', name: 'Software Testing' },
+    { code: 'DD2440', name: 'Advanced Algorithms' },
+    { code: 'DD2441', name: 'Semantic Web' },
+    { code: 'DD2460', name: 'Cybersecurity Basics' },
+    { code: 'DD2461', name: 'Secure Systems' },
+
+    // Base-program specialization courses (CELTE year 3)
+    { code: 'EL2500', name: 'Power Electronics' },
+    { code: 'EL2501', name: 'Electric Drives' },
+    { code: 'EL2600', name: 'Wireless Communications' },
+    { code: 'EL2601', name: 'Network Protocols' },
+
+    // Base-program specialization courses (TCOMK year 3)
+    { code: 'IK2200', name: 'Network Design' },
+    { code: 'IK2201', name: 'Cloud Networking' },
+    { code: 'ID2216', name: 'Mobile App Development' },
+    { code: 'ID2217', name: 'Cross-Platform Development' },
 
     // Zero-review courses (for edge case testing - one per program)
     { code: 'ID1021', name: 'Avancerad programmering' },
@@ -253,6 +286,7 @@ const COURSE_PROGRAM_LINKS: CourseProgramLink[] = [
 ];
 
 const COURSE_SPECIALIZATION_LINKS: CourseSpecializationLink[] = [
+    // Master's specialization courses (120hp programs)
     { courseCode: 'DD2421', specializationName: 'Machine Learning', programCode: 'TCSCM' },
     { courseCode: 'DD2424', specializationName: 'Machine Learning', programCode: 'TCSCM' },
     { courseCode: 'DD2431', specializationName: 'Machine Learning', programCode: 'TCSCM' },
@@ -263,6 +297,26 @@ const COURSE_SPECIALIZATION_LINKS: CourseSpecializationLink[] = [
     { courseCode: 'ME1003', specializationName: 'Operations Management', programCode: 'TIDEM' },
     { courseCode: 'ME1004', specializationName: 'Product Development', programCode: 'TIDEM' },
     { courseCode: 'EL1001', specializationName: 'Power Systems', programCode: 'TELPM' },
+
+    // Base-program specialization courses (CDATE 300hp year 3)
+    { courseCode: 'DD2480', specializationName: 'Software Engineering', programCode: 'CDATE' },
+    { courseCode: 'DD2481', specializationName: 'Software Engineering', programCode: 'CDATE' },
+    { courseCode: 'DD2440', specializationName: 'Data Science', programCode: 'CDATE' },
+    { courseCode: 'DD2441', specializationName: 'Data Science', programCode: 'CDATE' },
+    { courseCode: 'DD2460', specializationName: 'Cyber Security', programCode: 'CDATE' },
+    { courseCode: 'DD2461', specializationName: 'Cyber Security', programCode: 'CDATE' },
+
+    // Base-program specialization courses (CELTE 300hp year 3)
+    { courseCode: 'EL2500', specializationName: 'Power Electronics', programCode: 'CELTE' },
+    { courseCode: 'EL2501', specializationName: 'Power Electronics', programCode: 'CELTE' },
+    { courseCode: 'EL2600', specializationName: 'Communication Systems', programCode: 'CELTE' },
+    { courseCode: 'EL2601', specializationName: 'Communication Systems', programCode: 'CELTE' },
+
+    // Base-program specialization courses (TCOMK 180hp year 3)
+    { courseCode: 'IK2200', specializationName: 'Network Engineering', programCode: 'TCOMK' },
+    { courseCode: 'IK2201', specializationName: 'Network Engineering', programCode: 'TCOMK' },
+    { courseCode: 'ID2216', specializationName: 'Mobile Development', programCode: 'TCOMK' },
+    { courseCode: 'ID2217', specializationName: 'Mobile Development', programCode: 'TCOMK' },
 ];
 
 const TAGS: TagSeed[] = [
@@ -281,24 +335,37 @@ const TAGS: TagSeed[] = [
 ];
 
 const USERS: UserSeed[] = [
-    // Bachelor students (base program only)
+    // Bachelor students (180hp) - no program spec selected yet
     { email: 'student1@kth.se', programCode: 'TCOMK' },
     { email: 'student2@kth.se', programCode: 'TIDAB' },
     { email: 'student3@kth.se', programCode: 'TIDAA' },
 
-    // 5-year master students (base program only, haven't selected master's yet)
+    // Bachelor students (180hp) - WITH program specialization selected
+    { email: 'bspec1@kth.se', programCode: 'TCOMK', programSpecializationName: 'Network Engineering' },
+    { email: 'bspec2@kth.se', programCode: 'TCOMK', programSpecializationName: 'Mobile Development' },
+
+    // 5-year master students (300hp) - no selections yet
     { email: 'master1@kth.se', programCode: 'CDATE' },
     { email: 'master2@kth.se', programCode: 'CELTE' },
 
-    // 5-year master students (base program + master's degree selected)
+    // 5-year master students (300hp) - program spec selected, no master's yet
+    { email: 'pspec1@kth.se', programCode: 'CDATE', programSpecializationName: 'Software Engineering' },
+    { email: 'pspec2@kth.se', programCode: 'CDATE', programSpecializationName: 'Data Science' },
+    { email: 'pspec3@kth.se', programCode: 'CELTE', programSpecializationName: 'Communication Systems' },
+
+    // 5-year master students (300hp) - master's degree selected, no program spec
     { email: 'master3@kth.se', programCode: 'CDATE', mastersDegreeCode: 'TCSCM' },
     { email: 'master4@kth.se', programCode: 'CDATE', mastersDegreeCode: 'TCSCM' },
 
-    // Direct master's students (no specialization yet)
+    // 5-year master students (300hp) - BOTH program spec AND master's selected (most complete)
+    { email: 'full1@kth.se', programCode: 'CDATE', programSpecializationName: 'Software Engineering', mastersDegreeCode: 'TCSCM', specializationName: 'Machine Learning' },
+    { email: 'full2@kth.se', programCode: 'CDATE', programSpecializationName: 'Cyber Security', mastersDegreeCode: 'TCSCM', specializationName: 'Computer Systems' },
+
+    // Direct master's students (120hp) - no specialization yet
     { email: 'ms1@kth.se', mastersDegreeCode: 'TCSCM' },
     { email: 'ms2@kth.se', mastersDegreeCode: 'TEBSM' },
 
-    // Direct master's students (with specialization)
+    // Direct master's students (120hp) - with master's specialization
     { email: 'ms3@kth.se', mastersDegreeCode: 'TCSCM', specializationName: 'Machine Learning' },
     { email: 'ms4@kth.se', mastersDegreeCode: 'TCSCM', specializationName: 'Computer Systems' },
     { email: 'ms5@kth.se', mastersDegreeCode: 'TEBSM', specializationName: 'Embedded Systems' },
@@ -583,6 +650,7 @@ async function seedUsers(
         let programId: number | undefined;
         let mastersDegreeId: number | undefined;
         let specializationId: number | undefined;
+        let programSpecializationId: number | undefined;
 
         if (userSeed.programCode) {
             const program = programMap.get(userSeed.programCode);
@@ -591,6 +659,17 @@ async function seedUsers(
                 continue;
             }
             programId = program.id;
+
+            // Validate program specialization if provided (base-program spec)
+            if (userSeed.programSpecializationName) {
+                const specKey = `${userSeed.programCode}:${userSeed.programSpecializationName}`;
+                const programSpec = specializationMap.get(specKey);
+                if (!programSpec) {
+                    console.warn(`⚠ Skipping user ${userSeed.email} - program specialization ${userSeed.programSpecializationName} not found`);
+                    continue;
+                }
+                programSpecializationId = programSpec.id;
+            }
         }
 
         if (userSeed.mastersDegreeCode) {
@@ -601,7 +680,7 @@ async function seedUsers(
             }
             mastersDegreeId = mastersProgram.id;
 
-            // Validate specialization if provided
+            // Validate master's specialization if provided
             if (userSeed.specializationName) {
                 const specKey = `${userSeed.mastersDegreeCode}:${userSeed.specializationName}`;
                 const specialization = specializationMap.get(specKey);
@@ -619,6 +698,7 @@ async function seedUsers(
             programId: programId ?? null,
             mastersDegreeId: mastersDegreeId ?? null,
             specializationId: specializationId ?? null,
+            programSpecializationId: programSpecializationId ?? null,
             emailVerified: new Date(),
             password: hashedPassword,
         }).returning();
