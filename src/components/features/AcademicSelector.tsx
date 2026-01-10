@@ -11,8 +11,8 @@ import { ToggleButton } from "@/components/ui/ToggleButton"
  * AcademicSelector Component
  * 
  * Reusable component for selecting academic enrollment path:
- * - Case 1: Base Program (Bachelor 180hp / Master 300hp)
- * - Case 2: Direct Master's Degree (120hp) + optional Specialization
+ * - Case 1: Degree Programme (Bachelor 180hp / Master 300hp)
+ * - Case 2: Direct Master's Degree (120hp only) + optional Specialization
  * 
  * Encapsulates all conditional logic and syncs values to hidden inputs for form submission.
  */
@@ -69,26 +69,37 @@ export const AcademicSelector = ({
         <div className="space-y-4">
             {/* Enrollment Type Toggle */}
             <FormField label="I am enrolling in a...">
+                {/* Toggle buttons */}
                 <div className="flex gap-2">
                     <ToggleButton
                         isActive={enrollmentType === "base"}
                         onClick={() => handleEnrollmentTypeChange("base")}
                     >
-                        Base Program
+                        Degree Programme
                     </ToggleButton>
                     <ToggleButton
                         isActive={enrollmentType === "masters"}
                         onClick={() => handleEnrollmentTypeChange("masters")}
                     >
-                        Master's Degree
+                        Master&apos;s Degree
                     </ToggleButton>
+                </div>
+                {/* Clarification - collapses to 0 height when not selected */}
+                <div className={`grid transition-all duration-300 ease-out ${
+                    enrollmentType === "masters" 
+                        ? "grid-rows-[1fr] opacity-100 mt-2" 
+                        : "grid-rows-[0fr] opacity-0 mt-0"
+                }`}>
+                    <p className="overflow-hidden text-xs text-carbon/50 text-right">
+                        Only for standalone master&apos;s (120hp)
+                    </p>
                 </div>
             </FormField>
 
             {/* Case 1: Base Program Selection */}
             {enrollmentType === "base" && (
                 <FormField
-                    label="Your Base Program"
+                    label="Your Degree Programme"
                     error={fieldErrors?.programId?.[0]}
                 >
                     <Select

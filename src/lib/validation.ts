@@ -44,7 +44,7 @@ export const registerSchema = z.object({
   if (!data.programId && !data.mastersDegreeId) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Please select either a Base Program or a Master's Degree.",
+      message: "Please select either a Degree Programme or a Master's Degree.",
       path: ["programId"],
     });
   }
