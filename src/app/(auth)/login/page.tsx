@@ -21,7 +21,7 @@ export default function LoginPage() {
                 <BorderBeam duration={8} size={200} />
             </Card>
 
-            <Card className="p-6 space-y-4">
+            <Card className="space-y-4">
                 <details>
                     <summary className="cursor-pointer text-sm font-medium text-carbon/60 hover:text-carbon">
                         Forgot password?

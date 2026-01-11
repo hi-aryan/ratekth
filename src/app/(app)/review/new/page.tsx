@@ -37,7 +37,7 @@ export default async function NewReviewPage({ searchParams }: PageProps) {
     return (
         <div className="max-w-3xl mx-auto px-4 py-4">
             <BackLink href="/" className="mb-6" />
-            <Card className="p-6">
+            <Card>
                 <h1 className="text-xl font-bold text-carbon mb-6">
                     Write a Review
                 </h1>

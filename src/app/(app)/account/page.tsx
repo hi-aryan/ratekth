@@ -64,7 +64,7 @@ export default async function AccountPage() {
 
             <div className="grid gap-8">
                 {/* Profile Card */}
-                <Card className="p-8">
+                <Card>
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                         <div className="space-y-6 flex-1">
                             {/* Header */}

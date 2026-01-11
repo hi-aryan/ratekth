@@ -41,7 +41,7 @@ export const ReviewCard = ({
     const sectionMargin = isFeed ? 'mb-4' : 'mb-6'
 
     const cardContent = (
-        <Card className={`p-6 ${isFeed ? 'group-hover:translate-x-[4px] transition-transform duration-200 ease-in-out' : ''}`}>
+        <Card className={isFeed ? 'group-hover:translate-x-[4px] transition-transform duration-200 ease-in-out' : ''}>
             {/* Header: Course info and overall rating */}
             <div className={`flex items-start justify-between gap-4 ${sectionMargin}`}>
                 <h3 className={`${titleClass} font-bold text-carbon`}>

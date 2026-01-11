@@ -36,7 +36,7 @@ export default async function EditReviewPage({ params }: PageProps) {
     return (
         <div className="max-w-3xl mx-auto px-4 py-4">
             <BackLink href={`/review/${reviewId}`} label="Back to Review" className="mb-6" />
-            <Card className="p-6">
+            <Card>
                 <h1 className="text-xl font-bold text-carbon mb-6">
                     Edit Review
                 </h1>
