@@ -6,7 +6,29 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "rateKTH",
-  description: "Course reviews for KTH students",
+  description: "Course reviews for KTH Royal Institute of Technology students",
+  openGraph: {
+    title: "rateKTH",
+    description: "Course reviews for KTH Royal Institute of Technology students",
+    url: "https://ratekth.se",
+    siteName: "rateKTH",
+    images: [
+      {
+        url: "/ratekth-new-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "rateKTH Logo",
+      },
+    ],
+    locale: "en_SE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "rateKTH",
+    description: "Course reviews for KTH Royal Institute of Technology students",
+    images: ["/ratekth-new-logo.png"],
+  },
 };
 
 export default function RootLayout({
