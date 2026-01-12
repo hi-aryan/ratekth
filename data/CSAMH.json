@@ -2,8 +2,8 @@
   "program": {
     "code": "CSAMH",
     "name": "Civil Engineering and Urban Management",
-    "programType": "bachelor",
-    "credits": 180,
+    "programType": "master",
+    "credits": 300,
     "hasIntegratedMasters": false
   },
   "specializations": [
