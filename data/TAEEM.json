@@ -1,0 +1,391 @@
+{
+    "program": {
+        "code": "TAEEM",
+        "name": "Aerospace Engineering",
+        "programType": "master",
+        "credits": 120
+    },
+    "specializations": [
+        "Aeronautics",
+        "Lightweight Structures",
+        "Space",
+        "Systems Engineering"
+    ],
+    "courses": [
+        {
+            "code": "SD2411",
+            "name": "Lightweight Structures and FEM"
+        },
+        {
+            "code": "SD2601",
+            "name": "Fundamentals of Flight"
+        },
+        {
+            "code": "SD2900",
+            "name": "Fundamentals of Spaceflight"
+        },
+        {
+            "code": "AK2030",
+            "name": "Theory and Methodology of Science (Natural and Technological Science)"
+        },
+        {
+            "code": "SF2863",
+            "name": "Systems Engineering"
+        },
+        {
+            "code": "AH2923",
+            "name": "Global Navigation Satellite Systems (GNSS)",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EL2810",
+            "name": "Machine Learning Theory",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SD2413",
+            "name": "Fibre Composites - Analysis and Design",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD2414",
+            "name": "Fibre Composites - Materials and Manufacturing",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD2432",
+            "name": "Lightweight Design",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD2805",
+            "name": "Flight Mechanics",
+            "specializations": [
+                "Aeronautics",
+                "Space"
+            ]
+        },
+        {
+            "code": "SD2905",
+            "name": "Human Spaceflight",
+            "specializations": [
+                "Aeronautics",
+                "Space",
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SD2910",
+            "name": "Spacecraft Dynamics",
+            "specializations": [
+                "Aeronautics",
+                "Space"
+            ]
+        },
+        {
+            "code": "SD2920",
+            "name": "System Integration for Space Technology, Part 1",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "SE2139",
+            "name": "Fracture Mechanics",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SG2212",
+            "name": "Computational Fluid Dynamics",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "SG2215",
+            "name": "Compressible Flow",
+            "specializations": [
+                "Aeronautics",
+                "Space"
+            ]
+        },
+        {
+            "code": "SH1003",
+            "name": "Introductory Astronomy for Engineers",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2262",
+            "name": "Data Handling Systems for Satellites",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2264",
+            "name": "Operation of Space Systems",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EL2450",
+            "name": "Hybrid and Embedded Control Systems",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "EL2520",
+            "name": "Control Theory and Practice, Advanced Course",
+            "specializations": [
+                "Aeronautics",
+                "Space",
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "MJ2246",
+            "name": "Rocket Propulsion",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "SF2812",
+            "name": "Applied Linear Optimization",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SF2822",
+            "name": "Applied Nonlinear Optimization",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SF2842",
+            "name": "Geometric Control Theory",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "AG1321",
+            "name": "Remote Sensing Technology",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2240",
+            "name": "Space Physics",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2243",
+            "name": "Solar System Physics",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2260",
+            "name": "Space Environment and Spacecraft Engineering",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EL2620",
+            "name": "Nonlinear Control",
+            "specializations": [
+                "Space",
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "EL2805",
+            "name": "Reinforcement Learning",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "EL2820",
+            "name": "Modelling of Dynamical Systems",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "HL2035",
+            "name": "Biomechanics and Neuronics",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "MJ2523",
+            "name": "Aircraft Propulsion, General Course",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "MJ2524",
+            "name": "Aircraft Propulsion, Advanced Course",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "SD2415",
+            "name": "Process Modelling for Composite Manufacturing",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD2416",
+            "name": "Structural Optimisation and Sandwich Design",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD2806",
+            "name": "Transonic and supersonic aircraft aerodynamics",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "SD2810",
+            "name": "Aeroelasticity",
+            "specializations": [
+                "Aeronautics",
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD2830",
+            "name": "Aircraft Performance and Air Traffic Management",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "SD2925",
+            "name": "System Integration for Space Technology, Part 2",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "SF2832",
+            "name": "Mathematical Systems Theory",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SF2852",
+            "name": "Optimal Control Theory",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SF2866",
+            "name": "Applied Systems Engineering",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SF2935",
+            "name": "Modern Methods of Statistical Learning",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SM2001",
+            "name": "Data-driven Methods in Engineering Mechanics",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "EH2720",
+            "name": "Management of Projects",
+            "specializations": [
+                "Aeronautics",
+                "Lightweight Structures",
+                "Space",
+                "Systems Engineering"
+            ]
+        },
+        {
+            "code": "SD281X",
+            "name": "Degree Project in Aeronautics, Second Cycle",
+            "specializations": [
+                "Aeronautics"
+            ]
+        },
+        {
+            "code": "SD241X",
+            "name": "Degree Project in Lightweight Structures, Second Cycle",
+            "specializations": [
+                "Lightweight Structures"
+            ]
+        },
+        {
+            "code": "SD291X",
+            "name": "Degree Project in Space Technology, Second Cycle",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2200",
+            "name": "Plasma Physics",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "EF2245",
+            "name": "Space Physics II",
+            "specializations": [
+                "Space"
+            ]
+        },
+        {
+            "code": "SF281X",
+            "name": "Degree Project in Systems Engineering, Second Cycle",
+            "specializations": [
+                "Systems Engineering"
+            ]
+        }
+    ]
+}

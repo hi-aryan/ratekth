@@ -1,0 +1,36 @@
+{
+  "program": {
+    "code": "CDATE",
+    "name": "Computer Science and Engineering",
+    "programType": "master",
+    "credits": 300,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "DA1600", "name": "Writing in the Engineering Profession" },
+    { "code": "DD1337", "name": "Programming" },
+    { "code": "DD1338", "name": "Algorithms and Data Structures" },
+    { "code": "DD1349", "name": "Project in Introduction to Computer Science" },
+    { "code": "DD1351", "name": "Logic for Computer Scientists" },
+    { "code": "DD1366", "name": "Programming Paradigms" },
+    { "code": "DD1367", "name": "Software Engineering in Project Form" },
+    { "code": "DD1368", "name": "Database Technology" },
+    { "code": "DD1390", "name": "Programme Integrating Course in Computer Science Engineering" },
+    { "code": "DD1396", "name": "Parallel and Concurrent Programming in Introduction to Computer Science" },
+    { "code": "DD2350", "name": "Algorithms, Data Structures and Complexity" },
+    { "code": "DH1623", "name": "Human-Computer Interaction, Basic theory" },
+    { "code": "SF1547", "name": "Numerical Methods, Basic Course" },
+    { "code": "SF1624", "name": "Algebra and Geometry" },
+    { "code": "SF1625", "name": "Calculus in One Variable" },
+    { "code": "SF1626", "name": "Calculus in Several Variables" },
+    { "code": "SF1671", "name": "Mathematics, Basic course, with Discrete Mathematics" },
+    { "code": "SF1688", "name": "Discrete Mathematics" },
+    { "code": "SF1935", "name": "Probability Theory and Statistics with Application to Machine Learning" },
+    { "code": "AL1504", "name": "Sustainable Development for Computer Science and Engineering" },
+    { "code": "DA150X", "name": "Degree Project in Computer Science and Engineering, First Cycle" },
+    { "code": "ID1200", "name": "Operating Systems" },
+    { "code": "IS1500", "name": "Computer Organization and Components" },
+    { "code": "ME1010", "name": "Organization and Knowledge-Intensive Work" }
+  ]
+}

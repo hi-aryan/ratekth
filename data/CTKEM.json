@@ -1,0 +1,37 @@
+{
+  "program": {
+    "code": "CTKEM",
+    "name": "Degree Programme in Engineering Chemistry",
+    "programType": "master",
+    "credits": 300,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "BB1050", "name": "Biotechnology" },
+    { "code": "CK1285", "name": "Chemical Equilibrium" },
+    { "code": "CK1295", "name": "Analytical Chemistry with Statistics" },
+    { "code": "KA1030", "name": "Perspectives on Research and Innovation" },
+    { "code": "KD1230", "name": "Organic Chemistry, Basic Concepts and Practice" },
+    { "code": "KE1140", "name": "Engineering Chemistry" },
+    { "code": "SF1624", "name": "Algebra and Geometry" },
+    { "code": "SF1625", "name": "Calculus in One Variable" },
+    { "code": "SF1626", "name": "Calculus in Several Variables" },
+    { "code": "KE1160", "name": "Thermodynamics" },
+    { "code": "SF1552", "name": "Numerical Methods, basic course" },
+    { "code": "SF1633", "name": "Differential Equations I" },
+    { "code": "SK1151", "name": "Elementary Physics" },
+    { "code": "KD1070", "name": "Molecular Structure" },
+    { "code": "KD1080", "name": "Chemical Dynamics" },
+    { "code": "KE1170", "name": "Transport Phenomena" },
+    { "code": "CK1310", "name": "Python Programming for Chemical Sciences" },
+    { "code": "KD1270", "name": "Organic Chemistry, Basic Concepts and Practice 2" },
+    { "code": "CK1030", "name": "Chemistry for Sustainable Development" },
+    { "code": "CK1165", "name": "Materials Chemistry and Properties" },
+    { "code": "CK1175", "name": "Chemical Process Engineering" },
+    { "code": "CK1300", "name": "Electrochemistry" },
+    { "code": "KA103X", "name": "Degree Project in Engineering Chemistry, First Cycle" },
+    { "code": "ME1041", "name": "Industrial Management for Chemistry and Biotechnology" },
+    { "code": "KE1185", "name": "Chemical Engineering Systems" }
+  ]
+}
