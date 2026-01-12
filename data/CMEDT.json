@@ -1,0 +1,37 @@
+{
+  "program": {
+    "code": "CMEDT",
+    "name": "Medical Engineering",
+    "programType": "master",
+    "credits": 300,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "CB1040", "name": "Introduction to Biotechnology" },
+    { "code": "CM1009", "name": "Engineering Introduction" },
+    { "code": "HE1200", "name": "Electrical Principals and Measurement" },
+    { "code": "HI1024", "name": "Computer Programming, Basic Course" },
+    { "code": "HL1001", "name": "Basic Medicine" },
+    { "code": "HL1204", "name": "Thermodynamics, Basic Course" },
+    { "code": "SF1624", "name": "Algebra and Geometry" },
+    { "code": "SF1625", "name": "Calculus in One Variable" },
+    { "code": "SF1626", "name": "Calculus in Several Variables" },
+    { "code": "HE1201", "name": "Business Economics and Entrepreneurship" },
+    { "code": "HL1203", "name": "Medical Instrumentation" },
+    { "code": "SK1114", "name": "Electromagnetism and Waves" },
+    { "code": "HF1201", "name": "Sustainability and Ergonomics" },
+    { "code": "HI1027", "name": "Object Oriented Programming" },
+    { "code": "SF1923", "name": "Probability Theory and Statistics" },
+    { "code": "SG1130", "name": "Mechanics I" },
+    { "code": "CB1180", "name": "Skills for future engineers 1" },
+    { "code": "CB1190", "name": "Skills for future engineers 2" },
+    { "code": "SF1682", "name": "Analytical and Numerical Methods for Differential Equations" },
+    { "code": "SF1683", "name": "Differential Equations and Transforms" },
+    { "code": "EL1010", "name": "Automatic Control, General Course" },
+    { "code": "HL103X", "name": "Degree Project in Medical Engineering, First Cycle" },
+    { "code": "HL1202", "name": "Medical Imaging Systems" },
+    { "code": "SH1011", "name": "Modern Physics" },
+    { "code": "HL2015", "name": "Quality and Regulatory Aspects on Medical Devices" }
+  ]
+}
