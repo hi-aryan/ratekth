@@ -1,0 +1,46 @@
+{
+  "program": {
+    "code": "CITEH",
+    "name": "Industrial Technology and Sustainability",
+    "programType": "master",
+    "credits": 300,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [
+    "Sustainable Energy Engineering",
+    "Industrial Management",
+    "Production Engineering and Management"
+  ],
+  "courses": [
+    { "code": "ML1500", "name": "Introduction to Industrial Technology" },
+    { "code": "ML1501", "name": "Industrial Systems I" },
+    { "code": "ML1502", "name": "Sustainability for Industry" },
+    { "code": "SF1624", "name": "Algebra and Geometry" },
+    { "code": "SF1625", "name": "Calculus in One Variable" },
+    { "code": "SF1626", "name": "Calculus in Several Variables" },
+    { "code": "SG1117", "name": "Engineering Mechanics" },
+    { "code": "SK1117", "name": "Electromagnetism and Waves" },
+    { "code": "DD1310", "name": "Programming Techniques" },
+    { "code": "ME1003", "name": "Industrial Management, Basic Course" },
+    { "code": "MJ1112", "name": "Applied Thermodynamics" },
+    { "code": "ML1503", "name": "Industrial Systems II" },
+    { "code": "ML1504", "name": "Logistics in Production" },
+    { "code": "ML1505", "name": "Industrial Systems III" },
+    { "code": "ML1506", "name": "Adaption course for Industrial Technology" },
+    { "code": "SF1546", "name": "Numerical Methods, Basic Course" },
+    { "code": "SF1633", "name": "Differential Equations I" },
+    { "code": "SF1917", "name": "Probability Theory and Statistics" },
+    { "code": "DD1320", "name": "Applied Computer Science" },
+    { "code": "ML1508", "name": "Dependability and Operational Maintenance" },
+    { "code": "SF1811", "name": "Optimization" },
+    { "code": "ML1507", "name": "Communicating Engineer" },
+    { "code": "ML150X", "name": "Degree Project in Industrial Technology and Sustainability, First Cycle" },
+    { "code": "MJ1401", "name": "Heat Transfer", "specializations": ["Sustainable Energy Engineering", "Industrial Management"] },
+    { "code": "SG1220", "name": "Fluid Mechanics for Engineers", "specializations": ["Sustainable Energy Engineering", "Industrial Management"] },
+    { "code": "ME2016", "name": "Project Management: Leadership and Control", "specializations": ["Industrial Management"] },
+    { "code": "ME2163", "name": "Leading People and Organizations in Different Contexts", "specializations": ["Industrial Management"] },
+    { "code": "MF1017", "name": "Basic Electrical Engineering", "specializations": ["Industrial Management", "Production Engineering and Management"] },
+    { "code": "MG1002", "name": "Automation Technology", "specializations": ["Industrial Management", "Production Engineering and Management"] },
+    { "code": "MG1016", "name": "Manufacturing Technology", "specializations": ["Industrial Management", "Production Engineering and Management"] }
+  ]
+}
