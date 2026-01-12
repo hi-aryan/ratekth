@@ -1,0 +1,46 @@
+{
+  "program": {
+    "code": "CMATD",
+    "name": "Materials Design and Engineering",
+    "programType": "master",
+    "credits": 300,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [
+    "Industrial Management",
+    "Macromolecular Materials",
+    "Nanotechnology",
+    "Production Engineering and Management",
+    "Solid Mechanics",
+    "Engineering Materials Science"
+  ],
+  "courses": [
+    { "code": "CK1260", "name": "Chemistry of Materials" },
+    { "code": "DD1310", "name": "Programming Techniques" },
+    { "code": "MH1030", "name": "Materials Design I" },
+    { "code": "SF1624", "name": "Algebra and Geometry" },
+    { "code": "SF1625", "name": "Calculus in One Variable" },
+    { "code": "SF1626", "name": "Calculus in Several Variables" },
+    { "code": "SG1120", "name": "Mechanics I" },
+    { "code": "SK1117", "name": "Electromagnetism and Waves" },
+    { "code": "MH1035", "name": "Thermodynamics I" },
+    { "code": "SE1021", "name": "Solid Mechanics, Basic Course with computation excercises" },
+    { "code": "SF1551", "name": "Numerical Methods, basic course" },
+    { "code": "SF1633", "name": "Differential Equations I" },
+    { "code": "CK1050", "name": "Polymeric Materials" },
+    { "code": "MH1034", "name": "Metallic Materials" },
+    { "code": "MH1036", "name": "Materials Physics" },
+    { "code": "MH1037", "name": "Fluid Mechanics and Heat Transfer" },
+    { "code": "MH1033", "name": "Gender Equality, Egalitarianism, Diversity and Inclusiveness" },
+    { "code": "MH2054", "name": "Materials Processes I" },
+    { "code": "MH2055", "name": "Materials Structures I" },
+    { "code": "MH2056", "name": "Materials Properties I" },
+    { "code": "MH2057", "name": "Computational Thermodynamics" },
+    { "code": "MH101X", "name": "Degree Project in Materials and Process Design, First Cycle" },
+    { "code": "MH1031", "name": "Ceramic Materials" },
+    { "code": "ME1003", "name": "Industrial Management, Basic Course", "specializations": ["Industrial Management"] },
+    { "code": "KD1230", "name": "Organic Chemistry, Basic Concepts and Practice", "specializations": ["Macromolecular Materials"] },
+    { "code": "MG1024", "name": "Production", "specializations": ["Production Engineering and Management"] },
+    { "code": "SE1025", "name": "FEM for Engineering Applications", "specializations": ["Solid Mechanics"] }
+  ]
+}
