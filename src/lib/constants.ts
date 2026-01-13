@@ -21,3 +21,9 @@ export const RATING_MAX = 5 as const
  * Tag Constraints
  */
 export const MAX_TAGS_PER_REVIEW = 3 as const
+
+/**
+ * Open Entrance Program
+ * Special 300hp program (Year 1 only) that requires upgrade to destination program.
+ */
+export const OPEN_ENTRANCE_PROGRAM_CODE = "COPEN" as const

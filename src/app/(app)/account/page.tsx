@@ -2,17 +2,20 @@ import { auth } from "@/services/auth";
 import { logoutAction } from "@/actions/auth";
 import { getUserWithProgramCredits } from "@/services/users";
 import { getSpecializationsByProgramId } from "@/services/specializations";
+import { getBasePrograms } from "@/services/programs";
 
 import { getUserReviews } from "@/services/reviews";
 import { AccountMastersForm } from "@/components/forms/AccountMastersForm";
 import { AccountProgramSpecForm } from "@/components/forms/AccountProgramSpecForm";
+import { OpenEntranceUpgradeForm } from "@/components/forms/OpenEntranceUpgradeForm";
 import { MyReviewsList } from "@/components/features/MyReviewsList";
 import { CollapsibleSection } from "@/components/ui/CollapsibleSection";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { BackLink } from "@/components/ui/BackLink";
 import { redirect } from "next/navigation";
-import { Specialization } from "@/lib/types";
+import { Specialization, Program } from "@/lib/types";
+import { OPEN_ENTRANCE_PROGRAM_CODE } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -31,11 +34,14 @@ export default async function AccountPage() {
         redirect("/login?error=unauthorized");
     }
 
+    // Detect Open Entrance (COPEN) students
+    const isOpenEntrance = user.programCode === OPEN_ENTRANCE_PROGRAM_CODE;
+
     // Determine eligibility: base program (180hp or 300hp) with no selection yet
     const isEligible = user.programCredits === 180 || user.programCredits === 300;
     const isIntegratedProgram = user.programHasIntegratedMasters === true;
     const hasSelectedMasters = user.mastersDegreeId !== null;
-    const canSelectMasters = isEligible && !hasSelectedMasters && !isIntegratedProgram;
+    const canSelectMasters = isEligible && !hasSelectedMasters && !isIntegratedProgram && !isOpenEntrance;
 
     // Determine if user can select program specialization
     const hasSelectedProgramSpec = user.programSpecializationId !== null;
@@ -45,6 +51,13 @@ export default async function AccountPage() {
     let programSpecializations: Specialization[] = [];
     if (canSelectProgramSpec && user.programId) {
         programSpecializations = await getSpecializationsByProgramId(user.programId);
+    }
+
+    // Fetch destination programs for Open Entrance students
+    let destinationPrograms: Program[] = [];
+    if (isOpenEntrance) {
+        const allBasePrograms = await getBasePrograms();
+        destinationPrograms = allBasePrograms.filter(p => p.code !== OPEN_ENTRANCE_PROGRAM_CODE);
     }
 
     // Fetch user's reviews for My Reviews section
@@ -161,6 +174,23 @@ export default async function AccountPage() {
                         </CollapsibleSection>
                     </Card>
                 </div>
+
+                {/* Open Entrance Upgrade Section */}
+                {isOpenEntrance && (
+                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+                        <Card className="border-l-4 border-l-orange-500 relative">
+                            <div className="bg-orange-500/5 rounded-lg p-6 md:p-8">
+                                <h3 className="text-xl font-bold text-carbon mb-2">Upgrade to Degree Programme</h3>
+                                <p className="text-carbon/60 leading-relaxed">
+                                    You&apos;re currently enrolled in Open Entrance. Select the programme you&apos;re continuing with to unlock its full course feed.
+                                </p>
+                            </div>
+                            <div className="p-6 md:p-8">
+                                <OpenEntranceUpgradeForm destinationPrograms={destinationPrograms} />
+                            </div>
+                        </Card>
+                    </div>
+                )}
 
                 {/* Program Specialization Section */}
                 {canSelectProgramSpec && programSpecializations.length > 0 && (

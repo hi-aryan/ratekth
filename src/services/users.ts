@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { user as userTable, program as programTable, specialization } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import type { UserWithEligibility } from "@/lib/types";
+import { OPEN_ENTRANCE_PROGRAM_CODE } from "@/lib/constants";
 
 /**
  * Service: Get user with program credits for eligibility check.
@@ -256,6 +257,90 @@ export const updateBaseProgramSpecialization = async (
         // 5. Update user
         await tx.update(userTable)
             .set({ programSpecializationId })
+            .where(eq(userTable.id, userId));
+    });
+};
+
+/**
+ * Service: Upgrade user from Open Entrance (COPEN) to a destination program.
+ * 
+ * Validates:
+ * - User exists
+ * - User's current program is COPEN (300hp Open Entrance)
+ * - Destination program is a valid 300hp program (not COPEN)
+ * - If programSpecializationId provided, it belongs to the destination program
+ * 
+ * Uses transaction for atomicity.
+ */
+export const upgradeFromOpenEntrance = async (
+    userId: string,
+    newProgramId: number,
+    programSpecializationId?: number
+): Promise<void> => {
+    await db.transaction(async (tx) => {
+        // 1. Fetch user with current program info
+        const userResult = await tx
+            .select({
+                id: userTable.id,
+                programId: userTable.programId,
+                programCode: programTable.code,
+                programCredits: programTable.credits,
+            })
+            .from(userTable)
+            .leftJoin(programTable, eq(userTable.programId, programTable.id))
+            .where(eq(userTable.id, userId));
+
+        if (userResult.length === 0) {
+            throw new Error("User not found");
+        }
+
+        const user = userResult[0];
+
+        // 2. Validate user is currently on COPEN
+        if (user.programCode !== OPEN_ENTRANCE_PROGRAM_CODE) {
+            throw new Error("This action is only available for Open Entrance students");
+        }
+
+        // 3. Fetch and validate destination program
+        const destinationProgram = await tx.query.program.findFirst({
+            where: eq(programTable.id, newProgramId),
+            columns: { id: true, code: true, credits: true },
+        });
+
+        if (!destinationProgram) {
+            throw new Error("Invalid destination program");
+        }
+
+        if (destinationProgram.credits !== 300) {
+            throw new Error("Destination must be a 300hp degree programme");
+        }
+
+        if (destinationProgram.code === OPEN_ENTRANCE_PROGRAM_CODE) {
+            throw new Error("Cannot select Open Entrance as destination");
+        }
+
+        // 4. If specialization provided, validate it belongs to destination
+        if (programSpecializationId) {
+            const spec = await tx.query.specialization.findFirst({
+                where: eq(specialization.id, programSpecializationId),
+                columns: { id: true, programId: true },
+            });
+
+            if (!spec) {
+                throw new Error("Specialization not found");
+            }
+
+            if (spec.programId !== newProgramId) {
+                throw new Error("Specialization does not belong to the selected program");
+            }
+        }
+
+        // 5. Update user's program
+        await tx.update(userTable)
+            .set({
+                programId: newProgramId,
+                programSpecializationId: programSpecializationId ?? null,
+            })
             .where(eq(userTable.id, userId));
     });
 };

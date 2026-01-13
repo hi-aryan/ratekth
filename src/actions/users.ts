@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/services/auth";
-import { updateUserAcademicInfo, updateBaseProgramSpecialization } from "@/services/users";
+import { updateUserAcademicInfo, updateBaseProgramSpecialization, upgradeFromOpenEntrance } from "@/services/users";
 import { ActionState } from "@/lib/types";
 
 /**
@@ -121,4 +121,67 @@ export async function updateBaseProgramSpecializationAction(
 
     // Redirect to login with success message
     redirect("/login?success=program-specialization-updated");
+}
+
+/**
+ * Action: Upgrade from Open Entrance (COPEN) to a destination program.
+ * 
+ * Flow:
+ * 1. Verify session
+ * 2. Parse FormData for newProgramId and optional programSpecializationId
+ * 3. Call service to validate and update
+ * 4. Force logout to refresh JWT
+ * 5. Redirect to login with success message
+ */
+export async function upgradeFromOpenEntranceAction(
+    _prevState: ActionState,
+    formData: FormData
+): Promise<ActionState> {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return { error: "You must be logged in to perform this action." };
+    }
+
+    const newProgramIdRaw = formData.get("newProgramId");
+    const programSpecializationIdRaw = formData.get("programSpecializationId");
+
+    // Parse and validate newProgramId (required)
+    if (!newProgramIdRaw || newProgramIdRaw === "") {
+        return { error: "Please select a destination program." };
+    }
+
+    const newProgramId = parseInt(newProgramIdRaw as string, 10);
+    if (isNaN(newProgramId) || newProgramId <= 0) {
+        return { error: "Invalid program selection." };
+    }
+
+    // Parse programSpecializationId (optional)
+    let programSpecializationId: number | undefined;
+    if (programSpecializationIdRaw && programSpecializationIdRaw !== "") {
+        programSpecializationId = parseInt(programSpecializationIdRaw as string, 10);
+        if (isNaN(programSpecializationId) || programSpecializationId <= 0) {
+            return { error: "Invalid specialization selection." };
+        }
+    }
+
+    try {
+        await upgradeFromOpenEntrance(session.user.id, newProgramId, programSpecializationId);
+    } catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message };
+        }
+        console.error("[upgradeFromOpenEntranceAction] Error:", error);
+        return { error: "Something went wrong. Please try again." };
+    }
+
+    // Force logout to refresh JWT with new programId
+    try {
+        await signOut({ redirect: false });
+    } catch (error) {
+        console.error("[upgradeFromOpenEntranceAction] Logout error:", error);
+    }
+
+    // Redirect to login with success message
+    redirect("/login?success=program-upgraded");
 }
