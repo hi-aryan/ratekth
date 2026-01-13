@@ -1,0 +1,41 @@
+{
+  "program": {
+    "code": "TIKED",
+    "name": "Degree Programme in Chemical Engineering",
+    "programType": "bachelor",
+    "credits": 180,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "KH1111", "name": "Mathematics" },
+    { "code": "KH1121", "name": "Organic Chemistry" },
+    { "code": "KH1122", "name": "Analytical Chemistry" },
+    { "code": "KH1123", "name": "General Chemistry 1" },
+    { "code": "KH1124", "name": "General Chemistry 2" },
+    { "code": "KH1130", "name": "Chemical Engineering and Technology 1" },
+    { "code": "KH1150", "name": "Engineering Skills" },
+    { "code": "KH0001", "name": "Introductory Course in Mathematics" },
+    { "code": "KH0002", "name": "Introduction to Chemistry" },
+    { "code": "KH1406", "name": "Swedish Writing for Engineers" },
+    { "code": "KH1407", "name": "Practical Training for the Degree Programme in Chemical Engineering" },
+    { "code": "DD1310", "name": "Programming Techniques" },
+    { "code": "KH1212", "name": "Mathematical Statistics" },
+    { "code": "KH1221", "name": "Applied Physical Chemistry" },
+    { "code": "KH1222", "name": "Applied Chemistry" },
+    { "code": "KH1223", "name": "Biotechnology" },
+    { "code": "KH1231", "name": "Chemical Engineering and Technology 2" },
+    { "code": "KH1242", "name": "Sustainable Development and the Chemical Engineer" },
+    { "code": "ME1041", "name": "Industrial Management for Chemistry and Biotechnology" },
+    { "code": "KH1324", "name": "Analytical Chemistry 2" },
+    { "code": "KH1332", "name": "Chemical Engineering and Technology 3" },
+    { "code": "KH1341", "name": "Environmental Technology" },
+    { "code": "KH1353", "name": "Organisational Development and Leadership for Engineers" },
+    { "code": "KH138X", "name": "Degree Project in Chemical Engineering and Technology, First Cycle" },
+    { "code": "BB1190", "name": "Gene Technology" },
+    { "code": "BB1210", "name": "Purification of Biomolecules" },
+    { "code": "CK1165", "name": "Materials Chemistry and Properties" },
+    { "code": "KA1015", "name": "Chemistry for Sustainable Development" },
+    { "code": "SF1514", "name": "Numerical Methods, Basic Course" }
+  ]
+}
