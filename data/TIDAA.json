@@ -1,0 +1,39 @@
+{
+  "program": {
+    "code": "TIDAA",
+    "name": "Computer Engineering",
+    "programType": "bachelor",
+    "credits": 180,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "CM1008", "name": "Project course in Application Development" },
+    { "code": "HE1026", "name": "Digital Electronics" },
+    { "code": "HE1028", "name": "Computer Engineering" },
+    { "code": "HF1005", "name": "Engineering and Information Skills" },
+    { "code": "HF1006", "name": "Linear Algebra and Calculus in One Variable" },
+    { "code": "HF1201", "name": "Sustainability and Ergonomics" },
+    { "code": "HI1024", "name": "Computer Programming, Basic Course" },
+    { "code": "HI1025", "name": "Operating Systems" },
+    { "code": "HE1033", "name": "Communication Networks" },
+    { "code": "HF1012", "name": "Mathematical Statistics" },
+    { "code": "HI1029", "name": "Algorithms and Data Structures" },
+    { "code": "HI1039", "name": "Software Development, Project Course" },
+    { "code": "CM1000", "name": "Discrete mathematics" },
+    { "code": "HE1031", "name": "Economics and Organizational Theory" },
+    { "code": "HI1027", "name": "Object Oriented Programming" },
+    { "code": "HI1030", "name": "Database Technology" },
+    { "code": "HI1031", "name": "Distributed Information Systems" },
+    { "code": "HI1032", "name": "Communication Systems" },
+    { "code": "HI111X", "name": "Degree Project in Computer Engineering, First Cycle" },
+    { "code": "CM1001", "name": "Applied Machine Learning and Data Mining" },
+    { "code": "CM1007", "name": "FullStack Development and DevOps" },
+    { "code": "HI1023", "name": "Network Security" },
+    { "code": "HI1033", "name": "Mobile Applications and Wireless Networks" },
+    { "code": "HI1037", "name": "Internet's Domain Name System" },
+    { "code": "HI2002", "name": "Routing in IP Networks" },
+    { "code": "CM2036", "name": "Microcontroller, part II" },
+    { "code": "HI1036", "name": "Software Engineering, Project Course" }
+  ]
+}

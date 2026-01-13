@@ -1,0 +1,39 @@
+{
+  "program": {
+    "code": "TIDSD",
+    "name": "Computer Engineering – Systems Development and Digital Infrastructure",
+    "programType": "bachelor",
+    "credits": 180,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "HE1026", "name": "Digital Electronics", "specializations": [] },
+    { "code": "HF1005", "name": "Engineering and Information Skills", "specializations": [] },
+    { "code": "HF1006", "name": "Linear Algebra and Calculus in One Variable", "specializations": [] },
+    { "code": "HI1024", "name": "Computer Programming, Basic Course", "specializations": [] },
+    { "code": "CM1008", "name": "Project course in Application Development", "specializations": [] },
+    { "code": "HE1028", "name": "Computer Engineering", "specializations": [] },
+    { "code": "HF1201", "name": "Sustainability and Ergonomics", "specializations": [] },
+    { "code": "HI1025", "name": "Operating Systems", "specializations": [] },
+    { "code": "CM1000", "name": "Discrete mathematics", "specializations": [] },
+    { "code": "HE1031", "name": "Economics and Organizational Theory", "specializations": [] },
+    { "code": "HE1033", "name": "Communication Networks", "specializations": [] },
+    { "code": "HF1012", "name": "Mathematical Statistics", "specializations": [] },
+    { "code": "HI1027", "name": "Object Oriented Programming", "specializations": [] },
+    { "code": "HI1029", "name": "Algorithms and Data Structures", "specializations": [] },
+    { "code": "HI1030", "name": "Database Technology", "specializations": [] },
+    { "code": "HI1039", "name": "Software Development, Project Course", "specializations": [] },
+    { "code": "HI1036", "name": "Software Engineering, Project Course", "specializations": [] },
+    { "code": "HI1031", "name": "Distributed Information Systems", "specializations": [] },
+    { "code": "HI1032", "name": "Communication Systems", "specializations": [] },
+    { "code": "HI111X", "name": "Degree Project in Computer Engineering, First Cycle", "specializations": [] },
+    { "code": "CM1001", "name": "Applied Machine Learning and Data Mining", "specializations": [] },
+    { "code": "CM1007", "name": "FullStack Development and DevOps", "specializations": [] },
+    { "code": "HI1023", "name": "Network Security", "specializations": [] },
+    { "code": "HI1033", "name": "Mobile Applications and Wireless Networks", "specializations": [] },
+    { "code": "HI1037", "name": "Internet's Domain Name System", "specializations": [] },
+    { "code": "HI2002", "name": "Routing in IP Networks", "specializations": [] },
+    { "code": "CM2036", "name": "Microcontroller, part II", "specializations": [] }
+  ]
+}
