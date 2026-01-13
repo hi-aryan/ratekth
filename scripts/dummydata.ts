@@ -101,6 +101,9 @@ const PROGRAMS: ProgramSeed[] = [
     // 5-year Master programs (300hp) - integrated (no separate master's)
     { code: 'ARKIT', name: 'Architecture', type: 'master', credits: 300, hasIntegratedMasters: true },
 
+    // Open Entrance (300hp) - requires upgrade to destination program
+    { code: 'COPEN', name: 'Degree Programme Open Entrance', type: 'master', credits: 300 },
+
     // 2-year Master programs (120hp)
     { code: 'TCSCM', name: 'Computer Science', type: 'master', credits: 120 },
     { code: 'TEBSM', name: 'Embedded Systems', type: 'master', credits: 120 },
@@ -371,6 +374,9 @@ const USERS: UserSeed[] = [
     { email: 'ms5@kth.se', mastersDegreeCode: 'TEBSM', specializationName: 'Embedded Systems' },
     { email: 'ms6@kth.se', mastersDegreeCode: 'TIDEM', specializationName: 'Operations Management' },
     { email: 'ms7@kth.se', mastersDegreeCode: 'TELPM', specializationName: 'Power Systems' },
+
+    // Open Entrance student (COPEN) - for testing upgrade flow
+    { email: 'copentest@kth.se', programCode: 'COPEN' },
 ];
 
 const REVIEWS: ReviewSeed[] = [

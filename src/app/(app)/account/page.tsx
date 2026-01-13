@@ -177,8 +177,8 @@ export default async function AccountPage() {
                 {/* Open Entrance Upgrade Section */}
                 {isOpenEntrance && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                        <Card className="border-l-4 border-l-orange-500 relative">
-                            <div className="bg-orange-500/5 rounded-lg p-6 md:p-8">
+                        <Card className="border-l-4 border-l-coral relative">
+                            <div className="bg-coral/5 rounded-lg p-6 md:p-8">
                                 <h3 className="text-xl font-bold text-carbon mb-2">Upgrade to Degree Programme</h3>
                                 <p className="text-carbon/60 leading-relaxed">
                                     You&apos;re currently enrolled in Open Entrance. Select the programme you&apos;re continuing with to unlock its full course feed.
