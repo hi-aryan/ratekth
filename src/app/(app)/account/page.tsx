@@ -2,7 +2,7 @@ import { auth } from "@/services/auth";
 import { logoutAction } from "@/actions/auth";
 import { getUserWithProgramCredits } from "@/services/users";
 import { getSpecializationsByProgramId } from "@/services/specializations";
-import { getBasePrograms } from "@/services/programs";
+import { getOpenEntranceDestinationPrograms } from "@/services/programs";
 
 import { getUserReviews } from "@/services/reviews";
 import { AccountMastersForm } from "@/components/forms/AccountMastersForm";
@@ -56,8 +56,7 @@ export default async function AccountPage() {
     // Fetch destination programs for Open Entrance students
     let destinationPrograms: Program[] = [];
     if (isOpenEntrance) {
-        const allBasePrograms = await getBasePrograms();
-        destinationPrograms = allBasePrograms.filter(p => p.code !== OPEN_ENTRANCE_PROGRAM_CODE);
+        destinationPrograms = await getOpenEntranceDestinationPrograms();
     }
 
     // Fetch user's reviews for My Reviews section

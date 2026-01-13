@@ -1,7 +1,8 @@
 import "server-only";
 import { db } from "@/db";
 import { program } from "@/db/schema";
-import { asc, eq, or, and, sql } from "drizzle-orm";
+import { asc, eq, ne, or, and, sql } from "drizzle-orm";
+import { OPEN_ENTRANCE_PROGRAM_CODE } from "@/lib/constants";
 import type { Program } from "@/lib/types";
 
 /**
@@ -88,3 +89,24 @@ export const searchMastersDegrees = async (query: string): Promise<Program[]> =>
 
     return results;
 };
+
+/**
+ * Service: Fetch valid destination programs for Open Entrance (COPEN) students.
+ * 
+ * Business Rules:
+ * - Only 300hp Civilingenjör programs (not 180hp Bachelor programs)
+ * - Excludes COPEN itself (cannot "upgrade" to the same program)
+ * - Ordered alphabetically by name for consistent UI
+ * 
+ * Used by: account/page.tsx for the upgrade form dropdown
+ */
+export const getOpenEntranceDestinationPrograms = async (): Promise<Program[]> => {
+    return await db.query.program.findMany({
+        where: and(
+            eq(program.credits, 300),
+            ne(program.code, OPEN_ENTRANCE_PROGRAM_CODE)
+        ),
+        orderBy: [asc(program.name)],
+    });
+};
+
