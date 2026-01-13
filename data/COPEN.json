@@ -1,0 +1,21 @@
+{
+  "program": {
+    "code": "COPEN",
+    "name": "Degree Programme Open Entrance",
+    "programType": "master",
+    "credits": 300,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "DD1310", "name": "Programming Techniques" },
+    { "code": "KD1000", "name": "Chemical Principles for Sustainability" },
+    { "code": "SA1007", "name": "Engineering Skills" },
+    { "code": "SF1546", "name": "Numerical Methods, Basic Course" },
+    { "code": "SF1624", "name": "Algebra and Geometry" },
+    { "code": "SF1625", "name": "Calculus in One Variable" },
+    { "code": "SF1626", "name": "Calculus in Several Variables" },
+    { "code": "SG1133", "name": "Mechanics I" },
+    { "code": "SK1115", "name": "Electromagnetism and Waves" }
+  ]
+}
