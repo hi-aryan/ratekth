@@ -169,6 +169,7 @@ export const specialization = pgTable("specialization", {
 		foreignColumns: [program.id],
 		name: "specialization_program_id_fkey"
 	}),
+	unique("unique_spec_name_program").on(table.name, table.programId),
 ]);
 
 export const courseSpecialization = pgTable("course__specialization", {
