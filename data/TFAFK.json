@@ -1,0 +1,38 @@
+{
+  "program": {
+    "code": "TFAFK",
+    "name": "Property Development and Agency",
+    "programType": "bachelor",
+    "credits": 180,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "AI1127", "name": "Fundamentals of Property Development and Agency", "specializations": [] },
+    { "code": "AI1128", "name": "Economics of the Built Environment", "specializations": [] },
+    { "code": "AI1175", "name": "Basic Statistics for Economists", "specializations": [] },
+    { "code": "AI1178", "name": "Applied Mathematics and Statistics for Economists", "specializations": [] },
+    { "code": "AI1516", "name": "Law of Real Estate for Property Development and Agency", "specializations": [] },
+    { "code": "AI1550", "name": "Introduction to Swedish law", "specializations": [] },
+    { "code": "SF1627", "name": "Mathematics for Economists", "specializations": [] },
+    { "code": "AF1007", "name": "Building Technology", "specializations": [] },
+    { "code": "AI1108", "name": "Investment Analysis", "specializations": [] },
+    { "code": "AI1144", "name": "Fundamentals of Residential Real Estate Finance", "specializations": [] },
+    { "code": "AI1147", "name": "Real Estate Valuation", "specializations": [] },
+    { "code": "AI1519", "name": "Land Law", "specializations": [] },
+    { "code": "AI1520", "name": "Planning, Building and Environmental Law in Property Development", "specializations": [] },
+    { "code": "AL1300", "name": "Earth Science and Land Use in Practice", "specializations": [] },
+    { "code": "AG1421", "name": "Real Estate Information Technology", "specializations": [] },
+    { "code": "AI1142", "name": "Financial Reporting and Analysis", "specializations": [] },
+    { "code": "AI1170", "name": "Relationship, Marketing and Market Analysis", "specializations": [] },
+    { "code": "AI1171", "name": "Management and Ethics", "specializations": [] },
+    { "code": "AI1521", "name": "Rent, Tenant Ownership and Leasehold Law", "specializations": [] },
+    { "code": "AI1180", "name": "Real Estate Agency in theory and in practice", "specializations": [] },
+    { "code": "AI106X", "name": "Degree Project in Real Estate Agency, First Cycle", "specializations": [] },
+    { "code": "AI1523", "name": "Compulsory Purchase and Compensation Law", "specializations": [] },
+    { "code": "AI1524", "name": "Land Development", "specializations": [] },
+    { "code": "AI161X", "name": "Degree Project in Property Development, First Cycle", "specializations": [] },
+    { "code": "AI1174", "name": "Taxation of Individual Persons and Housing", "specializations": [] },
+    { "code": "AI1522", "name": "Property and Urban Development", "specializations": [] }
+  ]
+}
