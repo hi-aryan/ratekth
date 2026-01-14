@@ -2,14 +2,18 @@ import Nodemailer from "next-auth/providers/nodemailer";
 import { Resend } from "resend";
 import { renderEmailTemplate } from "@/lib/email-templates";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = process.env.EMAIL_FROM || "rateKTH <noreply@ratekth.se>";
-
 const MAIL_TIMEOUT_MS = 15_000; // 15s
+const DEFAULT_FROM_EMAIL = "rateKTH <noreply@ratekth.se>";
+
+/**
+ * Get the "from" email address. Reads from env at runtime.
+ * Fallback to default if not configured (dev environment).
+ */
+const getFromEmail = (): string => process.env.EMAIL_FROM || DEFAULT_FROM_EMAIL;
 
 /**
  * Send email via Resend with timeout fallback.
- * If network issues (rare with HTTPS), logs the URL to console.
+ * Lazy-initializes Resend client to avoid build-time errors.
  */
 const sendEmailWithFallback = async (
     to: string,
@@ -18,10 +22,13 @@ const sendEmailWithFallback = async (
     html: string,
     fallbackUrl?: string
 ): Promise<void> => {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromEmail = getFromEmail();
+
     try {
         const result = await Promise.race([
             resend.emails.send({
-                from: FROM_EMAIL,
+                from: fromEmail,
                 to,
                 subject,
                 text,
@@ -54,7 +61,7 @@ const sendEmailWithFallback = async (
  */
 export const mailConfig = Nodemailer({
     server: {}, // Not used - we override sendVerificationRequest
-    from: FROM_EMAIL,
+    from: DEFAULT_FROM_EMAIL, // Static default; actual sending uses getFromEmail()
     sendVerificationRequest: async ({ identifier, url }) => {
         const { host } = new URL(url);
 
