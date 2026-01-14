@@ -819,6 +819,7 @@ async function seedFeedback(
             userId: userId ?? null,
             content: feedback.content,
             createdAt,
+            ip: userId ? null : '127.0.0.1', // Dummy IP for anonymous seed data
         });
 
         count++;

@@ -213,4 +213,9 @@ export const feedback = pgTable("feedback", {
 	userId: text("user_id").references(() => user.id), // Optional: link to user if logged in
 	content: text("content").notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+	ip: varchar("ip", { length: 45 }), // IPv4 or IPv6 for anonymous rate limiting
+}, (table) => [
+	index("ix_feedback_created_at").on(table.createdAt),
+	index("ix_feedback_user_id").on(table.userId),
+	index("ix_feedback_ip").on(table.ip),
+]);
