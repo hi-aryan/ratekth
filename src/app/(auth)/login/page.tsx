@@ -16,9 +16,11 @@ export default function LoginPage() {
                 <h1 className="text-2xl font-bold">Welcome Back</h1>
                 <p className="text-carbon/60 mt-2">Login with your rateKTH credentials.</p>
             </div>
-            <Card className="relative overflow-hidden">
+            <Card className="relative">
+                <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
+                    <BorderBeam duration={8} size={200} />
+                </div>
                 <LoginForm />
-                <BorderBeam duration={8} size={200} />
             </Card>
 
             <Card className="space-y-4">

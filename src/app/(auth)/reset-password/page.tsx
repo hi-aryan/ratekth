@@ -32,9 +32,11 @@ export default async function ResetPasswordPage({ searchParams }: ResetPasswordP
                 <h1 className="text-2xl font-bold">Reset Password</h1>
                 <p className="text-carbon/60 mt-2">Enter your new password below.</p>
             </div>
-            <Card className="relative overflow-hidden">
+            <Card className="relative">
+                <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
+                    <BorderBeam duration={8} size={200} />
+                </div>
                 <ResetPasswordForm token={token} />
-                <BorderBeam duration={8} size={200} />
             </Card>
         </>
     );
