@@ -6,6 +6,7 @@ import { getSpecializationsAction } from "@/actions/academic"
 import { FormField } from "@/components/ui/FormField"
 import { Select } from "@/components/ui/Select"
 import { ToggleButton } from "@/components/ui/ToggleButton"
+import { ProgramCombobox } from "@/components/forms/ProgramCombobox"
 
 /**
  * AcademicSelector Component
@@ -35,32 +36,35 @@ export const AcademicSelector = ({
     fieldErrors,
 }: AcademicSelectorProps) => {
     const [enrollmentType, setEnrollmentType] = useState<EnrollmentType>("base")
-    const [selectedProgramId, setSelectedProgramId] = useState<string>("")
-    const [selectedMastersDegreeId, setSelectedMastersDegreeId] = useState<string>("")
+    const [selectedProgram, setSelectedProgram] = useState<Program | null>(null)
+    const [selectedMastersDegree, setSelectedMastersDegree] = useState<Program | null>(null)
     const [selectedSpecializationId, setSelectedSpecializationId] = useState<string>("")
     const [specializations, setSpecializations] = useState<Specialization[]>([])
     const [isPending, startTransition] = useTransition()
 
-    // Handle master's degree change: fetch specializations directly
-    const handleMastersDegreeChange = (value: string) => {
-        setSelectedMastersDegreeId(value)
+    // Handle master's degree selection: fetch specializations
+    const handleMastersDegreeSelect = (program: Program) => {
+        setSelectedMastersDegree(program)
         setSelectedSpecializationId("")
 
-        if (value) {
-            startTransition(async () => {
-                const specs = await getSpecializationsAction(Number(value))
-                setSpecializations(specs)
-            })
-        } else {
-            setSpecializations([])
-        }
+        startTransition(async () => {
+            const specs = await getSpecializationsAction(program.id)
+            setSpecializations(specs)
+        })
+    }
+
+    // Handle master's degree clear
+    const handleMastersDegreeClear = () => {
+        setSelectedMastersDegree(null)
+        setSelectedSpecializationId("")
+        setSpecializations([])
     }
 
     // Reset selections when enrollment type changes
     const handleEnrollmentTypeChange = (type: EnrollmentType) => {
         setEnrollmentType(type)
-        setSelectedProgramId("")
-        setSelectedMastersDegreeId("")
+        setSelectedProgram(null)
+        setSelectedMastersDegree(null)
         setSelectedSpecializationId("")
         setSpecializations([])
     }
@@ -102,17 +106,12 @@ export const AcademicSelector = ({
                     label="Your Degree Programme"
                     error={fieldErrors?.programId?.[0]}
                 >
-                    <Select
-                        value={selectedProgramId}
-                        onChange={(e) => setSelectedProgramId(e.target.value)}
-                    >
-                        <option value="">Select your program...</option>
-                        {basePrograms.map((p) => (
-                            <option key={p.id} value={p.id}>
-                                [{p.code}] {p.name} ({p.credits}hp)
-                            </option>
-                        ))}
-                    </Select>
+                    <ProgramCombobox
+                        programs={basePrograms}
+                        selected={selectedProgram}
+                        onSelect={setSelectedProgram}
+                        onClear={() => setSelectedProgram(null)}
+                    />
                 </FormField>
             )}
 
@@ -123,18 +122,13 @@ export const AcademicSelector = ({
                         label="Your Master's Degree"
                         error={fieldErrors?.mastersDegreeId?.[0]}
                     >
-                        <Select
-                            value={selectedMastersDegreeId}
-                            onChange={(e) => handleMastersDegreeChange(e.target.value)}
+                        <ProgramCombobox
+                            programs={mastersDegrees}
+                            selected={selectedMastersDegree}
+                            onSelect={handleMastersDegreeSelect}
+                            onClear={handleMastersDegreeClear}
                             disabled={isPending}
-                        >
-                            <option value="">Select your degree...</option>
-                            {mastersDegrees.map((p) => (
-                                <option key={p.id} value={p.id}>
-                                    [{p.code}] {p.name}
-                                </option>
-                            ))}
-                        </Select>
+                        />
                     </FormField>
 
                     {/* Specialization (only if degree has specializations) */}
@@ -165,8 +159,8 @@ export const AcademicSelector = ({
             )}
 
             {/* Hidden inputs for form submission */}
-            <input type="hidden" name="programId" value={enrollmentType === "base" ? selectedProgramId : ""} />
-            <input type="hidden" name="mastersDegreeId" value={enrollmentType === "masters" ? selectedMastersDegreeId : ""} />
+            <input type="hidden" name="programId" value={enrollmentType === "base" && selectedProgram ? selectedProgram.id : ""} />
+            <input type="hidden" name="mastersDegreeId" value={enrollmentType === "masters" && selectedMastersDegree ? selectedMastersDegree.id : ""} />
             <input type="hidden" name="specializationId" value={enrollmentType === "masters" ? selectedSpecializationId : ""} />
         </div>
     )
