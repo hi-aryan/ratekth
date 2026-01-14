@@ -34,7 +34,7 @@ export const MastersCombobox = ({
     return (
         <Combobox<Program>
             onSearch={handleSearch}
-            getDisplayValue={(p) => `${p.code} — ${p.name}`}
+            getDisplayValue={(p) => `${p.code} ${p.name}`}
             getKey={(p) => p.id}
             onSelect={onSelect}
             selected={selected}
