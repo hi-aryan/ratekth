@@ -1,0 +1,33 @@
+{
+  "program": {
+    "code": "TIMEL",
+    "name": "Degree Programme in Medical Technology",
+    "programType": "bachelor",
+    "credits": 180,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "HE1026", "name": "Digital Electronics" },
+    { "code": "HE1027", "name": "Electrical Principals" },
+    { "code": "HE1041", "name": "Microcomputer Engineering, Project Course" },
+    { "code": "HF1005", "name": "Engineering and Information Skills" },
+    { "code": "HF1006", "name": "Linear Algebra and Calculus in One Variable" },
+    { "code": "HI1024", "name": "Computer Programming, Basic Course" },
+    { "code": "HL1201", "name": "Medicine and Medical Engineering, Basic Course" },
+    { "code": "CM1006", "name": "Clinical Chemistry and Microbiology" },
+    { "code": "HE1030", "name": "Analog Electronics" },
+    { "code": "HE1037", "name": "Data- and Telecommunication" },
+    { "code": "HE1201", "name": "Business Economics and Entrepreneurship" },
+    { "code": "HF1011", "name": "Signals, Systems and Transforms" },
+    { "code": "HF1012", "name": "Mathematical Statistics" },
+    { "code": "HL1014", "name": "Clinical Engineering" },
+    { "code": "HL1015", "name": "Engineering in Intensvie Care and Surgery" },
+    { "code": "HL1016", "name": "Medical Measurement and Monitoring" },
+    { "code": "CM1011", "name": "Medical Imaging" },
+    { "code": "CM2024", "name": "Technology and Health, Project Course" },
+    { "code": "HE1039", "name": "Control Engineering" },
+    { "code": "HF1201", "name": "Sustainability and Ergonomics" },
+    { "code": "HL101X", "name": "Degree Project in Medical Technology, First Cycle" }
+  ]
+}
