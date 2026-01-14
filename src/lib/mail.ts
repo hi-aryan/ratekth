@@ -12,6 +12,24 @@ const smtpConfig = {
     },
 };
 
+const MAIL_TIMEOUT_MS = 1; // 15_000 15s
+
+/**
+ * Wraps sendMail with a strict timeout. If SMTP hangs (eduroam...),
+ * this will force a rejection so fallback logic triggers.
+ */
+const sendMailWithTimeout = async (
+    transport: nodemailer.Transporter,
+    mailOptions: nodemailer.SendMailOptions
+): Promise<void> => {
+    await Promise.race([
+        transport.sendMail(mailOptions),
+        new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error("SMTP timeout")), MAIL_TIMEOUT_MS)
+        ),
+    ]);
+};
+
 export const mailConfig = Nodemailer({
     server: { ...smtpConfig },
     from: process.env.GMAIL_USER,
@@ -19,7 +37,7 @@ export const mailConfig = Nodemailer({
         const transport = nodemailer.createTransport(provider.server);
         const { host } = new URL(url);
 
-        await transport.sendMail({
+        const mailOptions = {
             to: identifier,
             from: provider.from,
             subject: `Verify your email for ${host}`,
@@ -30,9 +48,21 @@ export const mailConfig = Nodemailer({
                 ctaText: "Verify Email",
                 ctaUrl: url,
             }),
-        });
+        };
+
+        try {
+            await sendMailWithTimeout(transport, mailOptions);
+            console.log("✓ Verification email sent to", identifier);
+        } catch (error) {
+            console.error("✗ Failed to send verification email:", error);
+            console.log("\n========== [EMAIL FALLBACK] ==========");
+            console.log("To:", identifier);
+            console.log("Verification URL:", url);
+            console.log("=======================================\n");
+        }
     }
 });
+
 
 /**
  * Nodemailer transport for custom emails (password reset).
@@ -47,7 +77,7 @@ export const sendPasswordResetEmail = async (email: string, token: string): Prom
     const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
     const resetUrl = `${baseUrl}/reset-password?token=${token}`;
 
-    await transporter.sendMail({
+    const mailOptions = {
         from: process.env.GMAIL_USER,
         to: email,
         subject: "Reset your rateKTH password",
@@ -58,5 +88,17 @@ export const sendPasswordResetEmail = async (email: string, token: string): Prom
             ctaText: "Reset Password",
             ctaUrl: resetUrl,
         }),
-    });
+    };
+
+    try {
+        await sendMailWithTimeout(transporter, mailOptions);
+        console.log("✓ Password reset email sent to", email);
+    } catch (error) {
+        console.error("✗ Failed to send password reset email:", error);
+        console.log("\n========== [EMAIL FALLBACK] ==========");
+        console.log("To:", email);
+        console.log("Reset URL:", resetUrl);
+        console.log("=======================================\n");
+    }
 };
+
