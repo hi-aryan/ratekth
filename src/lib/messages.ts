@@ -16,6 +16,7 @@ export const FLASH_MESSAGES = {
     "password-reset": "Password reset successfully! You can now log in with your new password.",
     "academic-updated": "Academic selection saved! Please log in again.",
     "program-specialization-updated": "Program specialization saved! Please log in again.",
+    "program-upgraded": "Programme upgraded successfully! Please log in to see your new courses.",
 
     // Error Messages
     "verification-failed": "Invalid or expired verification link. Please request a new one.",
