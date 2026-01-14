@@ -38,7 +38,7 @@ export const CourseCombobox = ({
     return (
         <Combobox<CourseWithStats>
             items={availableCourses}
-            getDisplayValue={(c) => `${c.code} — ${c.name}`}
+            getDisplayValue={(c) => `${c.code} ${c.name}`}
             getSearchValue={(c) => `${c.code} ${c.name}`}
             getKey={(c) => c.id}
             onSelect={onSelect}
@@ -55,7 +55,7 @@ export const CourseCombobox = ({
                 >
                     <div className="flex items-center gap-2">
                         <span className="font-medium text-carbon">{course.code}</span>
-                        <span className="text-carbon/60">— {course.name}</span>
+                        <span className="text-carbon/60">{course.name}</span>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                         <span className="text-xs text-carbon/40">
