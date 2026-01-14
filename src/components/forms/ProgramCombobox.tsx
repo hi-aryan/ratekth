@@ -15,6 +15,7 @@ interface ProgramComboboxProps {
     onSelect: (program: Program) => void
     onClear: () => void
     disabled?: boolean
+    showCredits?: boolean
 }
 
 export const ProgramCombobox = ({
@@ -23,10 +24,14 @@ export const ProgramCombobox = ({
     onSelect,
     onClear,
     disabled = false,
+    showCredits = true,
 }: ProgramComboboxProps) => (
     <Combobox<Program>
         items={programs}
-        getDisplayValue={(p) => `[${p.code}] ${p.name} (${p.credits}hp)`}
+        getDisplayValue={(p) => showCredits 
+            ? `[${p.code}] ${p.name} (${p.credits}hp)` 
+            : `[${p.code}] ${p.name}`
+        }
         getSearchValue={(p) => `${p.code} ${p.name}`}
         getKey={(p) => p.id}
         onSelect={onSelect}
@@ -37,3 +42,4 @@ export const ProgramCombobox = ({
         emptyMessage="No programs found"
     />
 )
+

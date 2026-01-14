@@ -128,6 +128,7 @@ export const AcademicSelector = ({
                             onSelect={handleMastersDegreeSelect}
                             onClear={handleMastersDegreeClear}
                             disabled={isPending}
+                            showCredits={false}
                         />
                     </FormField>
 

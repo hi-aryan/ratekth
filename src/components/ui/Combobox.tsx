@@ -244,7 +244,7 @@ export const Combobox = <T,>({
     // If selected, render selected state
     if (selected) {
         return (
-            <div className="flex items-center gap-3 p-3 bg-blue/5 border border-blue/20 rounded-lg">
+            <div className="flex items-center gap-3 py-2 px-3 bg-blue/5 border border-blue/20 rounded-lg">
                 <div className="flex-1 text-sm">
                     {getDisplayValue(selected)}
                 </div>
@@ -256,7 +256,7 @@ export const Combobox = <T,>({
                         className="p-1.5 text-carbon/40 hover:text-coral hover:bg-coral/10 rounded-md transition-colors disabled:opacity-50"
                         aria-label="Clear selection"
                     >
-                        <X className="w-4 h-4" />
+                        <X className="w-4 h-4 text-carbon opacity-40" />
                     </button>
                 )}
             </div>
