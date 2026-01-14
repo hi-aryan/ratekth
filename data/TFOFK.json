@@ -1,0 +1,35 @@
+{
+  "program": {
+    "code": "TFOFK",
+    "name": "Real Estate and Finance",
+    "programType": "bachelor",
+    "credits": 180,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "AI1125", "name": "Organization and Management", "specializations": [] },
+    { "code": "AI1126", "name": "Introduction to the Planning and Building Process in Real Estate and Finance", "specializations": [] },
+    { "code": "AI1128", "name": "Economics of the Built Environment", "specializations": [] },
+    { "code": "AI1175", "name": "Basic Statistics for Economists", "specializations": [] },
+    { "code": "AI1550", "name": "Introduction to Swedish law", "specializations": [] },
+    { "code": "SF1627", "name": "Mathematics for Economists", "specializations": [] },
+    { "code": "AI1178", "name": "Applied Mathematics and Statistics for Economists", "specializations": [] },
+    { "code": "AI1509", "name": "Law of Real Estate", "specializations": [] },
+    { "code": "AI1108", "name": "Investment Analysis", "specializations": [] },
+    { "code": "AI1144", "name": "Fundamentals of Residential Real Estate Finance", "specializations": [] },
+    { "code": "AI1179", "name": "Corporate and Real Estate Taxation", "specializations": [] },
+    { "code": "AI1581", "name": "Credit and Insolvency Law", "specializations": [] },
+    { "code": "AI1142", "name": "Financial Reporting and Analysis", "specializations": [] },
+    { "code": "AI1177", "name": "Financial Econometrics", "specializations": [] },
+    { "code": "AG1421", "name": "Real Estate Information Technology", "specializations": [] },
+    { "code": "AI1141", "name": "Credit Risk Assessment", "specializations": [] },
+    { "code": "AI1134", "name": "Capital Markets and Financial Instruments", "specializations": [] },
+    { "code": "AI1145", "name": "Property Management with a Financial Perspective", "specializations": [] },
+    { "code": "AI1147", "name": "Real Estate Valuation", "specializations": [] },
+    { "code": "AI1170", "name": "Relationship, Marketing and Market Analysis", "specializations": [] },
+    { "code": "AI1171", "name": "Management and Ethics", "specializations": [] },
+    { "code": "AI105X", "name": "Degree Project in Finance, First Cycle", "specializations": [] },
+    { "code": "AI107X", "name": "Degree Project in Real Estate Economics, First Cycle", "specializations": [] }
+  ]
+}
