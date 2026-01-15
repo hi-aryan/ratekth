@@ -316,7 +316,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
                     {...form.register("content")}
                     rows={4}
                     maxLength={2000}
-                    placeholder="Share your experience..."
+                    placeholder="Share your thoughts..."
                     className="w-full px-4 py-3 bg-white border border-carbon/20 transition-all duration-200 ease-in-out hover:border-carbon/40 rounded-lg focus:outline-none focus:border-carbon text-sm resize-none"
                 />
             </FormField>

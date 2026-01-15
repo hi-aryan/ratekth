@@ -17,8 +17,8 @@ const TAGS = [
     { name: "Professor & TAs are Accessible Outside Class", sentiment: "positive" as const },
     { name: "Recorded Lectures", sentiment: "positive" as const },
     { name: "Industry Relevant", sentiment: "positive" as const },
-    { name: "Can Skip the Literature", sentiment: "positive" as const },
     { name: "Group Projects", sentiment: "positive" as const },
+    { name: "Fun Assignments/Labs", sentiment: "positive" as const },
 
     { name: "Lots of Reading", sentiment: "negative" as const },
     { name: "Textbook Required", sentiment: "negative" as const },
