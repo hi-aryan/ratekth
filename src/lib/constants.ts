@@ -5,6 +5,11 @@
 
 export const FEED_PAGE_SIZE = 10 as const
 
+/**
+ * Max characters shown in feed cards before truncation with "..."
+ */
+export const FEED_CONTENT_PREVIEW_LENGTH = 80 as const
+
 export const SORT_OPTIONS = ['newest', 'top-rated', 'professor', 'material', 'peers'] as const
 export type FeedSortOption = typeof SORT_OPTIONS[number]
 

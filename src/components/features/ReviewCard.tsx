@@ -5,6 +5,8 @@ import { StarRating } from "@/components/ui/StarRating"
 import { RatingsBreakdown } from "@/components/ui/RatingsBreakdown"
 import { DeleteReviewButton } from "@/components/ui/DeleteReviewButton"
 import { formatReviewDate } from "@/lib/reviewHelpers"
+import { truncateText } from "@/lib/utils"
+import { FEED_CONTENT_PREVIEW_LENGTH } from "@/lib/constants"
 import type { ReviewForDisplay } from "@/lib/types"
 import { Calendar, GraduationCap, User, Pencil } from "lucide-react"
 
@@ -69,7 +71,7 @@ export const ReviewCard = ({
             {/* Content */}
             {review.content && (
                 <p className={`${contentClass} text-carbon/80 ${sectionMargin} leading-relaxed ${isFeed ? '' : 'whitespace-pre-wrap'}`}>
-                    {review.content}
+                    {isFeed ? truncateText(review.content, FEED_CONTENT_PREVIEW_LENGTH) : review.content}
                 </p>
             )}
 
