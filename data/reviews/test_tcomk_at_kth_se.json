@@ -1,0 +1,34 @@
+{
+  "userEmail": "test.tcomk@kth.se",
+  "exportedAt": "2026-01-15T11:20:30.891Z",
+  "reviews": [
+    {
+      "courseCode": "AK1204",
+      "yearTaken": 2026,
+      "datePosted": "2026-01-15T09:39:02.813Z",
+      "ratingProfessor": 4,
+      "ratingMaterial": 4,
+      "ratingPeers": 3,
+      "ratingWorkload": "light",
+      "content": "Easy grade and OK course overall. Depends on your interests though cuz it's kinda niche",
+      "tags": [
+        "Clear Grading Criteria",
+        "Entertaining Lectures"
+      ]
+    },
+    {
+      "courseCode": "ID1018",
+      "yearTaken": 2025,
+      "datePosted": "2026-01-15T11:16:25.793Z",
+      "ratingProfessor": 5,
+      "ratingMaterial": 4,
+      "ratingPeers": 4,
+      "ratingWorkload": "medium",
+      "content": "LONG LIVE FADIL. OK intro to programming but probably better next year with python instead of java",
+      "tags": [
+        "Professor & TAs are Accessible Outside Class",
+        "Clear Grading Criteria"
+      ]
+    }
+  ]
+}

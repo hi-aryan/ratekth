@@ -309,7 +309,7 @@ export const ReviewForm = ({ courses, tags, defaultCourseId, initialData, review
 
             {/* Content */}
             <FormField
-                label="Your Review (optional)"
+                label="Your Review"
                 error={form.formState.errors.content?.message}
             >
                 <textarea

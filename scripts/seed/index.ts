@@ -20,6 +20,7 @@ import { count } from 'drizzle-orm';
 import { seedProgramsFromJSON } from './programs';
 import { seedTags } from './tags';
 import { seedDummyUsers } from './dummyUsers';
+import { seedReviewsFromJSON } from './reviews';
 
 // ==========================================
 // VERIFICATION
@@ -29,7 +30,7 @@ import { seedDummyUsers } from './dummyUsers';
  * Helper to count rows in a table.
  */
 const countTable = async (
-    table: typeof schema.program | typeof schema.course | typeof schema.specialization | typeof schema.courseProgram | typeof schema.courseSpecialization | typeof schema.tag | typeof schema.user
+    table: typeof schema.program | typeof schema.course | typeof schema.specialization | typeof schema.courseProgram | typeof schema.courseSpecialization | typeof schema.tag | typeof schema.user | typeof schema.post
 ) => {
     const result = await db.select({ count: count() }).from(table);
     return result[0]?.count ?? 0;
@@ -47,6 +48,7 @@ const logDatabaseCounts = async () => {
         courseSpecializations: await countTable(schema.courseSpecialization),
         tags: await countTable(schema.tag),
         users: await countTable(schema.user),
+        reviews: await countTable(schema.post),
     };
 
     console.log('\n📊 Database counts:');
@@ -57,6 +59,7 @@ const logDatabaseCounts = async () => {
     console.log(`   Course-Specialization links: ${counts.courseSpecializations}`);
     console.log(`   Tags: ${counts.tags}`);
     console.log(`   Users: ${counts.users}`);
+    console.log(`   Reviews: ${counts.reviews}`);
 };
 
 // ==========================================
@@ -82,6 +85,10 @@ async function main() {
             // Phase 3: Dummy Users
             console.log('\n👤 Phase 3: Dummy Users');
             await seedDummyUsers(tx, programs);
+
+            // Phase 4: Reviews (from exported JSON files, if any)
+            console.log('\n📝 Phase 4: Reviews');
+            await seedReviewsFromJSON(tx);
         });
 
         // Verification (outside transaction)
