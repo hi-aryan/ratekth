@@ -82,7 +82,7 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                         <Card className="text-center py-12">
                             <MessageSquare className="w-12 h-12 mx-auto mb-4 text-carbon opacity-20" />
                             <p className="text-carbon/60 mb-4">
-                                No reviews for this course yet.
+                                No reviews for this course yet..
                             </p>
                             {session && !userReviewId && isCourseInCurriculum && (
                                 <Link href={`/review/new?course_id=${course.id}`}>

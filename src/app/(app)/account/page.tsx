@@ -198,7 +198,7 @@ export default async function AccountPage() {
                             <div className="bg-green/5 rounded-lg p-6 md:p-8">
                                 <h3 className="text-xl font-bold text-carbon mb-2">Program Specialization</h3>
                                 <p className="text-carbon/60 leading-relaxed">
-                                    Select your year-3 specialization track. This will tailor your course feed to show additional courses for your specialization.
+                                    Select your year-3 specialization track. This will tailor your course feed and reviewable courses.
                                 </p>
                             </div>
                             <div className="p-6 md:p-8">
@@ -218,7 +218,7 @@ export default async function AccountPage() {
                             <div className="bg-blue/3 rounded-lg p-6 md:p-8">
                                 <h3 className="text-xl font-bold text-carbon mb-2">Master&apos;s Degree Selection</h3>
                                 <p className="text-carbon/60 leading-relaxed">
-                                    Please select your Master&apos;s degree track. This will tailor your course feed to show only relevant courses.
+                                    Select your Master&apos;s degree track, if relevant yet. This will tailor your course feed and reviewable courses.
                                 </p>
                             </div>
                             <div className="p-6 md:p-8">

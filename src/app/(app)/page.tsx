@@ -77,7 +77,7 @@ export default async function Home({ searchParams }: PageProps) {
                     : isMyProgramFilter
                       ? "No reviews for your program's courses yet."
                       : "No reviews yet. Be the first to review a course!"
-                  : "No reviews yet. Sign in to see reviews for your program!"}
+                  : "No reviews yet. Sign in to leave a review!"}
               </p>
               {!session && (
                 <Link href="/login">
