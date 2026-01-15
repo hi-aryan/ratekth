@@ -1,0 +1,33 @@
+{
+  "program": {
+    "code": "TARKM",
+    "name": "Architecture",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "A42A13", "name": "Studio Project, Advanced Level" },
+    { "code": "A42B13", "name": "Studio Project, Advanced Level" },
+    { "code": "A42C14", "name": "Studio Project, Advanced Level" },
+    { "code": "A42D14", "name": "Studio Project, Advanced Level" },
+    { "code": "A42O1A", "name": "Orientation; History, Theory and Technology of Architecture 4:1" },
+    { "code": "A42O2A", "name": "Orientation; History, Theory and Technology of Architecture 4:2" },
+    { "code": "A42SEH", "name": "Seminar Course, Advanced Level 4HT" },
+    { "code": "A42SEV", "name": "Seminar Course, Advanced Level 4VT" },
+    { "code": "A52O2A", "name": "Orientation; History, Theory and Technology of Architecture 5:2" },
+    { "code": "A52SEV", "name": "Seminar Course, Advanced Level 5VT" },
+    { "code": "A52O1A", "name": "Orientation; History, Theory and Technology of Architecture 5" },
+    { "code": "A52SEH", "name": "Seminar Course, Advanced Level 5HT" },
+    { "code": "A52DH6", "name": "Studio Project 6, Technology and theory" },
+    { "code": "A52DI6", "name": "Studio project 6, Culture and Environment" },
+    { "code": "A52DJ6", "name": "Studio project 6, Landscape and Cities" },
+    { "code": "A52DHX", "name": "Degree Project in Architecture, Technology and Theory" },
+    { "code": "A52DIX", "name": "Degree Project in Architecture, Culture and Environment" },
+    { "code": "A52DJX", "name": "Degree Project in Architecture, Landscape and Cities" },
+    { "code": "A52DH5", "name": "Studio Project 5, Technology and Theory" },
+    { "code": "A52DI5", "name": "Studio project 5, Culture and Environment" },
+    { "code": "A52DJ5", "name": "Studio project 5, Landscape and Cities" }
+  ]
+}
