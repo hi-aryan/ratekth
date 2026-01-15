@@ -1,0 +1,112 @@
+{
+  "program": {
+    "code": "TKEMM",
+    "name": "Chemical Engineering for Energy and Environment",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    {
+      "code": "CK2030",
+      "name": "Scientific Methodology and Research Horizons"
+    },
+    {
+      "code": "AL2181",
+      "name": "Environmental System Analysis and Decision making"
+    },
+    {
+      "code": "KE2010",
+      "name": "Industrial Energy Processes"
+    },
+    {
+      "code": "KE2070",
+      "name": "Transport Phenomena, Advanced Course"
+    },
+    {
+      "code": "KE2045",
+      "name": "Chemical Reaction Engineering"
+    },
+    {
+      "code": "KE2185",
+      "name": "Separation Processes"
+    },
+    {
+      "code": "AL2143",
+      "name": "Cleaner Production and Industrial Environmental Technology"
+    },
+    {
+      "code": "AL2160",
+      "name": "Environmental Management"
+    },
+    {
+      "code": "CE2010",
+      "name": "Nuclear Chemistry"
+    },
+    {
+      "code": "CK2010",
+      "name": "Carbon dioxide neutral energy and transport system"
+    },
+    {
+      "code": "CK2130",
+      "name": "Sustainable production of fuels and materials"
+    },
+    {
+      "code": "CK2300",
+      "name": "Batteries"
+    },
+    {
+      "code": "CK2320",
+      "name": "Hydrogen"
+    },
+    {
+      "code": "KE2051",
+      "name": "Environmental Catalysis"
+    },
+    {
+      "code": "KE2060",
+      "name": "Computational Project in Chemical Engineering"
+    },
+    {
+      "code": "KE2110",
+      "name": "Applied Electrochemistry"
+    },
+    {
+      "code": "KE2351",
+      "name": "Risk Analysis and Management for Chemical Engineers"
+    },
+    {
+      "code": "KE2355",
+      "name": "Resource recovery from waste"
+    },
+    {
+      "code": "ME2814",
+      "name": "Ideation- Creating Your Own Company"
+    },
+    {
+      "code": "KE200X",
+      "name": "Degree Project in Chemical Engineering, Second Cycle"
+    },
+    {
+      "code": "KE2325",
+      "name": "Process Design for Industry and Society"
+    },
+    {
+      "code": "KD2380",
+      "name": "Corrosion and Surface Protection"
+    },
+    {
+      "code": "KE2195",
+      "name": "Experimental Process Design"
+    },
+    {
+      "code": "KE2331",
+      "name": "Pharmaceutical Technology"
+    },
+    {
+      "code": "KF2470",
+      "name": "Pulp and Paper Processes"
+    }
+  ]
+}

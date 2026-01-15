@@ -14,7 +14,7 @@ export const FeedFilterToggle = () => {
     const router = useRouter()
     const pathname = usePathname()
 
-    const currentFilter = searchParams.get("filter") ?? "all"
+    const currentFilter = searchParams.get("filter") ?? "my-program"
 
     const handleFilterChange = (filter: FeedFilterOption) => {
         const params = new URLSearchParams(searchParams.toString())
