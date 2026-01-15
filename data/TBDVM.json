@@ -1,0 +1,25 @@
+{
+  "program": {
+    "code": "TBDVM",
+    "name": "Biostatistics and Data Science",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "SF2940", "name": "Probability Theory" },
+    { "code": "SF2955", "name": "Computer Intensive Methods in Mathematical Statistics" },
+    { "code": "DD2401", "name": "Neuroscience" },
+    { "code": "SF2526", "name": "Numerical algorithms for data-intensive science" },
+    { "code": "SF2930", "name": "Regression Analysis" },
+    { "code": "SF2943", "name": "Time Series Analysis" },
+    { "code": "DD2421", "name": "Machine Learning" },
+    { "code": "DD2434", "name": "Machine Learning, Advanced Course" },
+    { "code": "SF2935", "name": "Modern Methods of Statistical Learning" },
+    { "code": "SF2956", "name": "Topological Data Analysis" },
+    { "code": "SF2957", "name": "Statistical Machine Learning" },
+    { "code": "DD2610", "name": "Deep Learning, advanced course" },
+    { "code": "DD2424", "name": "Deep Learning in Data Science" }
+  ]
+}
