@@ -1,0 +1,17 @@
+{
+  "userEmail": "test.cdate@kth.se",
+  "exportedAt": "2026-01-16T18:59:00.000Z",
+  "reviews": [
+    {
+      "courseCode": "SF1625",
+      "yearTaken": 2021,
+      "datePosted": "2026-01-16T00:00:00.000Z",
+      "ratingProfessor": 5,
+      "ratingMaterial": 5,
+      "ratingPeers": 5,
+      "ratingWorkload": "heavy",
+      "content": "We had already gone over some of the stuff in highschool, so passing the exam was relatively easy, but the more complex topics were a bit difficult to wrap my head around.",
+      "tags": []
+    }
+  ]
+}
