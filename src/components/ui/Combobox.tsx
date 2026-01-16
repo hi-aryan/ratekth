@@ -245,7 +245,7 @@ export const Combobox = <T,>({
     if (selected) {
         return (
             <div className="flex items-center gap-3 py-2 px-3 bg-blue/5 border border-blue/20 rounded-lg">
-                <div className="flex-1 text-sm">
+                <div className="flex-1 text-sm text-carbon">
                     {getDisplayValue(selected)}
                 </div>
                 {onClear && (
@@ -352,7 +352,7 @@ export const Combobox = <T,>({
                                             aria-selected={isSelected || false}
                                             onClick={() => handleSelect(item)}
                                             className={cn(
-                                                "w-full px-4 py-3 text-left text-sm transition-all flex items-center justify-between",
+                                                "w-full px-4 py-3 text-left text-sm text-carbon transition-all flex items-center justify-between",
                                                 isHighlighted && "bg-carbon/5",
                                                 !isHighlighted && "hover:translate-x-[3px]"
                                             )}

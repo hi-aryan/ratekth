@@ -72,7 +72,7 @@ export const AcademicSelector = ({
     return (
         <div className="space-y-4">
             {/* Enrollment Type Toggle */}
-            <FormField label="I am enrolling in a...">
+            <FormField label="I am enrolled in a...">
                 {/* Toggle buttons */}
                 <div className="flex gap-2">
                     <ToggleButton
@@ -85,7 +85,7 @@ export const AcademicSelector = ({
                         isActive={enrollmentType === "masters"}
                         onClick={() => handleEnrollmentTypeChange("masters")}
                     >
-                        Master&apos;s Degree
+                        Master&apos;s Only
                     </ToggleButton>
                 </div>
                 {/* Clarification - collapses to 0 height when not selected */}
@@ -94,7 +94,7 @@ export const AcademicSelector = ({
                         ? "grid-rows-[1fr] opacity-100 mt-2" 
                         : "grid-rows-[0fr] opacity-0 mt-0"
                 }`}>
-                    <p className="overflow-hidden text-xs text-carbon/50 text-right">
+                    <p className="overflow-hidden text-sm text-carbon/70 text-right">
                         Only for standalone master&apos;s (120hp)
                     </p>
                 </div>
