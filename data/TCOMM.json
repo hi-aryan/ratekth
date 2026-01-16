@@ -1,0 +1,282 @@
+{
+  "program": {
+    "code": "TCOMM",
+    "name": "Communication Systems",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [
+    "Internetworking",
+    "Security and Mobile Computing",
+    "Wireless networking"
+  ],
+  "courses": [
+    {
+      "code": "II2202",
+      "name": "Research Methodology and Scientific Writing"
+    },
+    {
+      "code": "IK2206",
+      "name": "Internet Security and Privacy"
+    },
+    {
+      "code": "IK2215",
+      "name": "Advanced Internetworking"
+    },
+    {
+      "code": "IK2560",
+      "name": "Mobile Networks and Services"
+    },
+    {
+      "code": "IK2221",
+      "name": "Networked Systems for Machine Learning",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IK2227",
+      "name": "Network Systems with Edge or Cloud Datacenters",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "DD2421",
+      "name": "Machine Learning",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "DD2460",
+      "name": "Software Safety and Security",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "DD2525",
+      "name": "Language-Based Security",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EI2400",
+      "name": "Applied Antenna Theory",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EP2520",
+      "name": "Building Networked Systems Security",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "ID2216",
+      "name": "Developing Mobile Applications",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "ID2218",
+      "name": "Design of Fault-tolerant Systems",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IK1332",
+      "name": "Internet of Things",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IK2507",
+      "name": "Wireless Communication Systems",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IK2508",
+      "name": "Wireless Transmission Techniques",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IL1333",
+      "name": "Hardware Security",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "ME2062",
+      "name": "Technology-based Entrepreneurship",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "II2206",
+      "name": "Stochastic Simulation",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "DA246X",
+      "name": "Degree Project in Computer Science and Engineering, specialising in Communication Systems, Second Cycle",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EA246X",
+      "name": "Degree Project in Electrical Engineering, specializing in Communication Systems, Second Cycle",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IK2200",
+      "name": "Communication System Design",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EN2720",
+      "name": "Ethical Hacking",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "ID2221",
+      "name": "Data-Intensive Computing",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "IK2510",
+      "name": "Wireless Networks",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EP2420",
+      "name": "Network Analytics",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EP2500",
+      "name": "Networked Systems Security",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EP2510",
+      "name": "Advanced Networked Systems Security",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "ID2223",
+      "name": "Scalable Machine Learning and Deep Learning",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "ME2817",
+      "name": "Growth- Managing Your Firm",
+      "specializations": [
+        "Internetworking",
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EQ2855",
+      "name": "Emerging Information Technologies for Industrial Digitalization",
+      "specializations": [
+        "Internetworking",
+        "Wireless networking"
+      ]
+    },
+    {
+      "code": "EP2791",
+      "name": "Cybersecurity Threat Modelling and Risk Analysis",
+      "specializations": [
+        "Security and Mobile Computing",
+        "Wireless networking"
+      ]
+    }
+  ]
+}
