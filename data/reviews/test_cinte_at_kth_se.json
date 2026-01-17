@@ -1,0 +1,65 @@
+{
+  "userEmail": "test.cinte@kth.se",
+  "exportedAt": "2026-01-17T16:21:45.492Z",
+  "reviews": [
+    {
+      "courseCode": "SF1610",
+      "yearTaken": 2025,
+      "datePosted": "2026-01-17T15:19:03.879Z",
+      "ratingProfessor": 3,
+      "ratingMaterial": 4,
+      "ratingPeers": 4,
+      "ratingWorkload": "heavy",
+      "content": "mid course but material was very useful and showed up in many other places. also course literature was useless",
+      "tags": [
+        "Lecture Heavy",
+        "Bad Course Layout",
+        "Industry Relevant"
+      ]
+    },
+    {
+      "courseCode": "IV1350",
+      "yearTaken": 2025,
+      "datePosted": "2026-01-16T15:54:03.686Z",
+      "ratingProfessor": 4,
+      "ratingMaterial": 5,
+      "ratingPeers": 3,
+      "ratingWorkload": "medium",
+      "content": "lectures were recorded but boring ASF (watch 3x speed or something). also pretty tedious project tasks but OK course",
+      "tags": [
+        "Industry Relevant",
+        "Recorded Lectures"
+      ]
+    },
+    {
+      "courseCode": "ID1021",
+      "yearTaken": 2025,
+      "datePosted": "2026-01-16T16:14:28.984Z",
+      "ratingProfessor": 5,
+      "ratingMaterial": 4,
+      "ratingPeers": 4,
+      "ratingWorkload": "light",
+      "content": "banger professor and super easy assignments lol",
+      "tags": [
+        "Entertaining Lectures",
+        "No Need for Textbook",
+        "Industry Relevant"
+      ]
+    },
+    {
+      "courseCode": "SF1625",
+      "yearTaken": 2025,
+      "datePosted": "2026-01-16T16:21:31.591Z",
+      "ratingProfessor": 4,
+      "ratingMaterial": 3,
+      "ratingPeers": 4,
+      "ratingWorkload": "heavy",
+      "content": "material and workload was a lot",
+      "tags": [
+        "Bamboozling Exams",
+        "Lecture Heavy",
+        "Group Projects"
+      ]
+    }
+  ]
+}

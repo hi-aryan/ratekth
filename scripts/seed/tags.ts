@@ -19,11 +19,13 @@ const TAGS = [
     { name: "Industry Relevant", sentiment: "positive" as const },
     { name: "Group Projects", sentiment: "positive" as const },
     { name: "Fun Assignments/Labs", sentiment: "positive" as const },
+    { name: "No Need for Textbook", sentiment: "positive" as const },
 
     { name: "Lots of Reading", sentiment: "negative" as const },
     { name: "Textbook Required", sentiment: "negative" as const },
     { name: "Tough Grading", sentiment: "negative" as const },
     { name: "Bamboozling Exams", sentiment: "negative" as const },
+    { name: "Boring Course", sentiment: "negative" as const },
     { name: "LOTS of Assignments", sentiment: "negative" as const },
     { name: "Bad Course Layout", sentiment: "negative" as const },
     { name: "Lecture Heavy", sentiment: "negative" as const },
