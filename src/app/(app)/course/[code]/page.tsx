@@ -81,12 +81,12 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                     ) : (
                         <Card className="text-center py-12">
                             <MessageSquare className="w-12 h-12 mx-auto mb-4 text-carbon opacity-20" />
-                            <p className="text-carbon/60 mb-4">
-                                No reviews for this course yet..
+                            <p className="text-lg font-bold text-carbon mb-4">
+                                Be the first to review!
                             </p>
                             {session && !userReviewId && isCourseInCurriculum && (
                                 <Link href={`/review/new?course_id=${course.id}`}>
-                                    <Button variant="secondary">Be the first to review</Button>
+                                    <Button variant="secondary">Write the First Review</Button>
                                 </Link>
                             )}
                             {session && !userReviewId && !isCourseInCurriculum && (
@@ -142,7 +142,7 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                                 </div>
 
                                 {/* Action */}
-                                {session && (
+                                {session && reviewsResult.items.length > 0 && (
                                     <div className="pt-4 border-t border-carbon/10">
                                         {userReviewId ? (
                                             <Link href={`/review/${userReviewId}/edit`} className="block">
