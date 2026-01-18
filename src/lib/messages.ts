@@ -33,3 +33,11 @@ export type FlashMessageKey = keyof typeof FLASH_MESSAGES;
 export const getFlashMessage = (key: string): string | undefined => {
     return FLASH_MESSAGES[key as FlashMessageKey];
 };
+
+/**
+ * Custom options for specific flash messages.
+ * Only define entries for messages that need non-default behavior.
+ */
+export const FLASH_MESSAGE_OPTIONS: Partial<Record<FlashMessageKey, { duration?: number }>> = {
+    "account-created": { duration: 12000 }
+};

@@ -18,7 +18,7 @@
 
 /* Animation for AnimatedShinyText shimmer effect (from Magic UI) */
 @theme inline {
-  --animate-gradient: gradient 14s linear infinite;
+  --animate-gradient: gradient 10s linear infinite;
 
   @keyframes gradient {
     from {

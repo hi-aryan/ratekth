@@ -3,7 +3,7 @@
 import { useEffect, Suspense } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { toast } from "sonner";
-import { getFlashMessage } from "@/lib/messages";
+import { getFlashMessage, FLASH_MESSAGE_OPTIONS, FlashMessageKey } from "@/lib/messages";
 
 /**
  * NotificationListener
@@ -32,16 +32,18 @@ function Listener() {
 
         if (successKey) {
             const message = getFlashMessage(successKey);
+            const options = FLASH_MESSAGE_OPTIONS[successKey as FlashMessageKey];
             if (message) {
-                toast.success(message);
+                toast.success(message, options);
                 cleanUrl("success");
             }
         }
 
         if (errorKey) {
             const message = getFlashMessage(errorKey);
+            const options = FLASH_MESSAGE_OPTIONS[errorKey as FlashMessageKey];
             if (message) {
-                toast.error(message);
+                toast.error(message, options);
                 cleanUrl("error");
             }
         }
