@@ -2,6 +2,7 @@ import { auth } from "@/services/auth";
 import { Button } from "@/components/ui/Button";
 import { WriteReviewButton } from "@/components/ui/WriteReviewButton";
 import { MobileSidebar } from "@/components/features/MobileSidebar";
+import { MobileReviewFab } from "@/components/ui/MobileReviewFab";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -48,6 +49,9 @@ export default async function AppLayout({
       </header>
 
       {children}
+
+      {/* Mobile FAB for writing reviews */}
+      <MobileReviewFab isAuthenticated={!!session} />
     </main>
   );
 }

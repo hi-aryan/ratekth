@@ -1,48 +1,23 @@
 "use client";
 
-import { useState, useActionState } from "react";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { MessageCircle, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { submitFeedbackAction } from "@/actions/feedback";
-import { ActionState } from "@/lib/types";
-
-const MIN_CHARS = 10;
-const MAX_CHARS = 2000;
+import { FeedbackForm } from "@/components/forms/FeedbackForm";
 
 /**
- * FeedbackWidget: Fixed floating button with animated popup.
+ * FeedbackWidget: Fixed floating button with animated popup (desktop only).
  * Lives in bottom-left corner, opens feedback form on click.
- * Uses toast for success feedback instead of in-place state.
  */
 export const FeedbackWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [charCount, setCharCount] = useState(0);
 
-    const isTooShort = charCount > 0 && charCount < MIN_CHARS;
-
-    // Close popup and reset
-    const handleClose = () => {
-        setIsOpen(false);
-        setCharCount(0);
-    };
-
-    // Wrap action to handle success with toast (no useEffect needed)
-    const handleSubmit = async (prevState: ActionState, formData: FormData): Promise<ActionState> => {
-        const result = await submitFeedbackAction(prevState, formData);
-        if (result?.success) {
-            toast.success("Thanks for your feedback!");
-            handleClose();
-        }
-        return result;
-    };
-
-    const [state, formAction, isPending] = useActionState(handleSubmit, null);
+    const handleClose = () => setIsOpen(false);
 
     return (
         <>
-            {/* Floating Button - always rendered, animated via motion */}
+            {/* Floating Button - desktop only */}
             <motion.button
                 initial={false}
                 animate={{ 
@@ -55,9 +30,10 @@ export const FeedbackWidget = () => {
                 onClick={() => setIsOpen(true)}
                 className={cn(
                     "fixed bottom-6 left-6 z-50",
+                    "hidden md:flex", // Hide on mobile, show on desktop
                     "w-11 h-11 rounded-full shadow-lg",
                     "bg-carbon text-white",
-                    "flex items-center justify-center",
+                    "items-center justify-center",
                     isOpen && "pointer-events-none"
                 )}
                 aria-label="Send feedback"
@@ -75,6 +51,7 @@ export const FeedbackWidget = () => {
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         className={cn(
                             "fixed bottom-6 left-6 z-50",
+                            "hidden md:block", // Desktop only
                             "w-72 bg-white rounded-xl shadow-xl",
                             "border border-carbon/10",
                             "overflow-hidden"
@@ -91,64 +68,9 @@ export const FeedbackWidget = () => {
                             </button>
                         </div>
 
-                        {/* Content */}
+                        {/* Form */}
                         <div className="p-4">
-                            <form action={formAction} className="space-y-3">
-                                <textarea
-                                    name="content"
-                                    placeholder="Suggestions, bugs, ideas..."
-                                    rows={4}
-                                    maxLength={MAX_CHARS}
-                                    onChange={(e) => setCharCount(e.target.value.length)}
-                                    className={cn(
-                                        "w-full text-sm text-carbon placeholder:text-carbon/40",
-                                        "bg-carbon/5 rounded-lg px-3 py-2.5 resize-none",
-                                        "border border-transparent",
-                                        "focus:border-carbon/20 focus:outline-none",
-                                        "transition-colors"
-                                    )}
-                                    disabled={isPending}
-                                    autoFocus
-                                />
-
-                                {/* Character count & hint */}
-                                <div className="flex items-center justify-between text-xs">
-                                    <span className={cn(
-                                        "transition-colors",
-                                        isTooShort ? "text-coral" : "text-carbon/30"
-                                    )}>
-                                        {isTooShort
-                                            ? `${MIN_CHARS - charCount} more characters needed`
-                                            : `${charCount}/${MAX_CHARS}`
-                                        }
-                                    </span>
-                                    <button
-                                        type="submit"
-                                        disabled={isPending || charCount < MIN_CHARS}
-                                        className={cn(
-                                            "group flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all duration-200 ease-in-out",
-                                            "bg-carbon text-white",
-                                            "active:scale-95",
-                                            "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
-                                        )}
-                                    >
-                                        {isPending ? (
-                                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                        ) : (
-                                            <Send className="w-3.5 h-3.5 transition-transform duration-200 ease-in-out group-hover:scale-115" />
-                                        )}
-                                        Send
-                                    </button>
-                                </div>
-
-                                {/* Error messages */}
-                                {state?.error && (
-                                    <p className="text-xs text-coral">{state.error}</p>
-                                )}
-                                {state?.fieldErrors?.content && (
-                                    <p className="text-xs text-coral">{state.fieldErrors.content[0]}</p>
-                                )}
-                            </form>
+                            <FeedbackForm onSuccess={handleClose} />
                         </div>
                     </motion.div>
                 )}
