@@ -1,7 +1,7 @@
 {
   "program": {
     "code": "COPEN",
-    "name": "Degree Programme Open Entrance",
+    "name": "Open Entrance",
     "programType": "master",
     "credits": 300,
     "hasIntegratedMasters": false
