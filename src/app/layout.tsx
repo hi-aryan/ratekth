@@ -49,8 +49,8 @@ export default function RootLayout({
               boxShadow: '0 0 10px rgba(0,0,0,0.10)',
             },
             classNames: {
-              success: '!bg-[#68BF431A] !text-[#68BF43] !border-[#68BF4333]',
-              error: '!bg-[#F76C5E1A] !text-[#F76C5E] !border-[#F76C5E33]',
+              success: '!bg-[#68BF4333] !text-[#4A9A2D] !border-[#68BF4366]',
+              error: '!bg-[#F76C5E33] !text-[#D94A3D] !border-[#F76C5E66]',
             }
           }}
         />
