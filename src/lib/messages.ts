@@ -7,7 +7,7 @@
 
 export const FLASH_MESSAGES = {
     // Success Messages
-    "account-created": "Account created! Please check your KTH inbox to verify your email.",
+    "account-created": "Account created! Please check your KTH inbox to activate your account.",
     "verified": "Email verified successfully!",
     "logged-out": "Successfully logged out.",
     "review-posted": "Your review has been published!",
