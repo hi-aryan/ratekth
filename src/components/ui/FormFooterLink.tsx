@@ -10,7 +10,7 @@ export const FormFooterLink = ({ text, linkText, href }: FormFooterLinkProps) =>
     return (
         <p className="text-center text-xs text-carbon/60">
             {text}{" "}
-            <Link href={href} className="text-carbon font-semibold hover:underline">
+            <Link href={href} className="text-carbon font-bold hover:underline">
                 {linkText}
             </Link>
         </p>
