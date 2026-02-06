@@ -1,0 +1,41 @@
+{
+  "program": {
+    "code": "TTMVM",
+    "name": "Engineering Materials Science",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "MH1033", "name": "Gender Equality, Egalitarism, Diversity and Inclusiveness" },
+    { "code": "MH2054", "name": "Materials Processes I" },
+    { "code": "MH2055", "name": "Materials Structures I" },
+    { "code": "MH2056", "name": "Materials Properties I" },
+    { "code": "MH2057", "name": "Computational Thermodynamics" },
+    { "code": "AK2036", "name": "Theory and Methodology of Science with Applications (Natural and Technological Science)" },
+    { "code": "MH2058", "name": "Materials Processes II" },
+    { "code": "MH2059", "name": "Materials Structures II" },
+    { "code": "MH2060", "name": "Materials Properties II" },
+    { "code": "MH201X", "name": "Degree Project in Materials and Process Design, Second Cycle" },
+    { "code": "MH202X", "name": "Degree Project in Materials and Process Design, Second Cycle" },
+    { "code": "AL2181", "name": "Environmental System Analysis and Decision making" },
+    { "code": "KD2380", "name": "Corrosion and Surface Protection" },
+    { "code": "ME2016", "name": "Project Management: Leadership and Control" },
+    { "code": "MF2046", "name": "Product Innovation" },
+    { "code": "MH2000", "name": "Experimental Methods" },
+    { "code": "MH2042", "name": "Simulation and Modeling Toolbox" },
+    { "code": "MH2045", "name": "Energy and Materials Sustainability" },
+    { "code": "MH2046", "name": "Quantum Metallurgy" },
+    { "code": "MH2051", "name": "Circular Economy for Materials Processing" },
+    { "code": "MH2100", "name": "Powder Metallurgy" },
+    { "code": "MH2101", "name": "Metal Powder: Production, Handling and Characterisation" },
+    { "code": "MH2252", "name": "Casting Processing" },
+    { "code": "MH2281", "name": "Metal Forming" },
+    { "code": "MH2300", "name": "Functional Materials" },
+    { "code": "MH2450", "name": "International Seminar in Material Processes" },
+    { "code": "MH2501", "name": "Economical Process Analysis and Strategy" },
+    { "code": "MH2504", "name": "Industrial Metallurgical Processes" },
+    { "code": "MH2601", "name": "Combustion in Industrial Processes" }
+  ]
+}
