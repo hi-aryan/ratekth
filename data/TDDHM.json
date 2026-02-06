@@ -1,0 +1,30 @@
+{
+  "program": {
+    "code": "TDDHM",
+    "name": "Data-driven Health",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "CM2018", "name": "Statistics for Medical Engineering" },
+    { "code": "CM2011", "name": "Applied Machine Learning and Artificial Intelligence" },
+    { "code": "CM2010", "name": "Sociocultural Perspectives to Innovative Technologies" },
+    { "code": "CM2026", "name": "Advanced Machine Learning for Data-driven-Health" },
+    { "code": "CM2027", "name": "Databases and Data Models" },
+    { "code": "CM2029", "name": "Healthcare Ethics, Legal and Social Impact" },
+    { "code": "CM2030", "name": "Health Systems: Production and Logistics" },
+    { "code": "CM2031", "name": "Introduction to Health Data" },
+    { "code": "CM2032", "name": "Project in Data-driven-Health" },
+    { "code": "CM2028", "name": "Federated Computing Privacy and Security for Health Data" },
+    { "code": "CM2035", "name": "Research Methodology in Technology and Health" },
+    { "code": "CH2010", "name": "Cognitive Interaction Design" },
+    { "code": "CM2003", "name": "Deep Learning Methods for Medical Image Analysis: a hands-on course" },
+    { "code": "CM2033", "name": "Project in Data-driven Health, advanced course" },
+    { "code": "CM2034", "name": "Project in Data-driven Health, continuation course" },
+    { "code": "DD2360", "name": "Applied GPU Programming" },
+    { "code": "EQ2415", "name": "Machine Learning and Data Science" },
+    { "code": "ID2223", "name": "Scalable Machine Learning and Deep Learning" }
+  ]
+}
