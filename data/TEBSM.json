@@ -1,0 +1,205 @@
+{
+  "program": {
+    "code": "TEBSM",
+    "name": "Embedded Systems",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [
+    "Embedded Electronics",
+    "Embedded Systems Design"
+  ],
+  "courses": [
+    {
+      "code": "IL2225",
+      "name": "Embedded Hardware Design in ASIC and FPGA",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "IL2234",
+      "name": "Digital Systems Design and Verification using Hardware Description Languages",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "IL2241",
+      "name": "Introduction to Integrated Circuits",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "IL2242",
+      "name": "Analog Integrated Circuits",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "IL2244",
+      "name": "Project Course in Application Specific Integrated Circuits",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "ID2218",
+      "name": "Design of Fault-tolerant Systems",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "EK2390",
+      "name": "Project Course in Integrated Circuits for RF and Microwave Technology",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "IL2243",
+      "name": "Design of radio frequency integrated circuits",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "IS2202",
+      "name": "Computer Systems Architecture",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "IL1333",
+      "name": "Hardware Security",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "DA248X",
+      "name": "Degree Project in Computer Science and Engineering, specialising in Embedded Systems, Second Cycle",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "EA248X",
+      "name": "Degree Project in Electrical Engineering, specialising in Embedded Systems, Second Cycle",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "II2211",
+      "name": "Research Methodology and Scientific Writing for Embedded Systems",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "IL2206",
+      "name": "Embedded Systems",
+      "specializations": ["Embedded Electronics", "Embedded Systems Design"]
+    },
+    {
+      "code": "IL2237",
+      "name": "Electronic Systems Design",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "EQ2310",
+      "name": "Digital Communications",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "IH2659",
+      "name": "Nanofabrication Technologies",
+      "specializations": ["Embedded Electronics"]
+    },
+    {
+      "code": "IL2212",
+      "name": "Embedded Software",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "IL2235",
+      "name": "Real-Time Systems",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "DD2459",
+      "name": "Software Reliability",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "DD2421",
+      "name": "Machine Learning",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "DD2424",
+      "name": "Deep Learning in Data Science",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "DD2443",
+      "name": "Parallel and Distributed Computing",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "DT2140",
+      "name": "Multimodal Interaction and Interfaces",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "EL2450",
+      "name": "Hybrid and Embedded Control Systems",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "EL2805",
+      "name": "Reinforcement Learning",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "EP2500",
+      "name": "Networked Systems Security",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "EQ2341",
+      "name": "Pattern Recognition and Machine Learning",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "ID1217",
+      "name": "Concurrent Programming",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "ID2201",
+      "name": "Distributed Systems, Basic Course",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "ID2203",
+      "name": "Distributed Systems, Advanced Course",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "ID2216",
+      "name": "Developing Mobile Applications",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "ID2223", 
+      "name": "Scalable Machine Learning and Deep Learning",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "SF2943", 
+      "name": "Time Series Analysis", 
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "ID2202",
+      "name": "Compilers and Execution Environments",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "IL2232",
+      "name": "Embedded Systems Design Project",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "EP2510",
+      "name": "Advanced Networked Systems Security",
+      "specializations": ["Embedded Systems Design"]
+    },
+    {
+      "code": "EQ2415",
+      "name": "Machine Learning and Data Science",
+      "specializations": ["Embedded Systems Design"]
+    }
+  ]
+}
