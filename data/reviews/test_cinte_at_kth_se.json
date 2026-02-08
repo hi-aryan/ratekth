@@ -1,6 +1,6 @@
 {
   "userEmail": "test.cinte@kth.se",
-  "exportedAt": "2026-01-17T16:21:45.492Z",
+  "exportedAt": "2026-02-08T12:36:09.784Z",
   "reviews": [
     {
       "courseCode": "SF1610",
@@ -20,7 +20,7 @@
     {
       "courseCode": "ID1021",
       "yearTaken": 2025,
-      "datePosted": "2026-01-16T16:14:28.984Z",
+      "datePosted": "2026-01-17T16:14:28.984Z",
       "ratingProfessor": 5,
       "ratingMaterial": 4,
       "ratingPeers": 4,
@@ -35,7 +35,7 @@
     {
       "courseCode": "SF1625",
       "yearTaken": 2025,
-      "datePosted": "2026-01-16T16:21:31.591Z",
+      "datePosted": "2026-01-17T16:21:31.591Z",
       "ratingProfessor": 4,
       "ratingMaterial": 3,
       "ratingPeers": 4,

@@ -1,6 +1,6 @@
 {
   "userEmail": "test.tcomk@kth.se",
-  "exportedAt": "2026-01-15T11:20:30.891Z",
+  "exportedAt": "2026-02-08T12:36:09.784Z",
   "reviews": [
     {
       "courseCode": "AK1204",
@@ -24,10 +24,55 @@
       "ratingMaterial": 4,
       "ratingPeers": 4,
       "ratingWorkload": "medium",
-      "content": "Long live Fadil! OK intro to programming but probably better next year with python instead of java",
+      "content": "LONG LIVE FADIL. OK intro to programming but probably better next year with python instead of java",
       "tags": [
         "Professor & TAs are Accessible Outside Class",
         "Clear Grading Criteria"
+      ]
+    },
+    {
+      "courseCode": "IV1351",
+      "yearTaken": 2025,
+      "datePosted": "2026-01-22T19:29:10.135Z",
+      "ratingProfessor": 4,
+      "ratingMaterial": 5,
+      "ratingPeers": 4,
+      "ratingWorkload": "medium",
+      "content": "paris is such a good professor but the other ones ruined the course. it’s also one of the few courses that are modern enough to encourage using ai for studying. i enjoyed it",
+      "tags": [
+        "Bad Course Layout",
+        "Recorded Lectures",
+        "Industry Relevant"
+      ]
+    },
+    {
+      "courseCode": "IS1200",
+      "yearTaken": 2026,
+      "datePosted": "2026-01-29T18:21:30.180Z",
+      "ratingProfessor": 5,
+      "ratingMaterial": 4,
+      "ratingPeers": 3,
+      "ratingWorkload": "heavy",
+      "content": "grading was tough as HELL. but it was actually a very good course in retrospect and i learned a lot. marco is super nice also. best tip i have is use gemini through ai.studio for reading docs!! dont even bother opening those 200 page pdfs",
+      "tags": [
+        "Industry Relevant",
+        "No Need for Textbook",
+        "Tough Grading"
+      ]
+    },
+    {
+      "courseCode": "IE1204",
+      "yearTaken": 2024,
+      "datePosted": "2026-02-04T17:01:53.110Z",
+      "ratingProfessor": 5,
+      "ratingMaterial": 4,
+      "ratingPeers": 5,
+      "ratingWorkload": "medium",
+      "content": "great professor he was super nice and helpful and even provided extra material for those who wanted it. also nice hands-on labs with circuit boards in the course. recommend!",
+      "tags": [
+        "Professor & TAs are Accessible Outside Class",
+        "Fun Assignments/Labs",
+        "No Need for Textbook"
       ]
     }
   ]
