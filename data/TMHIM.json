@@ -1,0 +1,38 @@
+{
+  "program": {
+    "code": "TMHIM",
+    "name": "Environmental Engineering and Sustainable Infrastructure",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "AK2036", "name": "Theory and Methodology of Science with Applications (Natural and Technological Science)" },
+    { "code": "AE2104", "name": "Environmental Measuring and Monitoring" },
+    { "code": "AE2304", "name": "Water and Wastewater Handling" },
+    { "code": "AE2507", "name": "Strategic Environmental Assessment" },
+    { "code": "AE2610", "name": "Applied Hydrology" },
+    { "code": "AE2612", "name": "Hydraulic Engineering" },
+    { "code": "AG2141", "name": "Urban Infrastructure" },
+    { "code": "AG2148", "name": "Governance of Land and Water" },
+    { "code": "AL2300", "name": "Natural Resources Management Tools" },
+    { "code": "AE2201", "name": "Environmental Dynamics/Physical Processes" },
+    { "code": "AE2501", "name": "Environmental Impact Assessment" },
+    { "code": "AE2503", "name": "Environmental Data" },
+    { "code": "AE2801", "name": "Environmental Chemistry and Risk Assessment" },
+    { "code": "AG2142", "name": "Political Economy for Environmental Planners" },
+    { "code": "AG2143", "name": "Sustainable Rural and Urban Development" },
+    { "code": "AE2107", "name": "Modelling of Water Systems" },
+    { "code": "AE2302", "name": "Water Treatment Processes and Technology" },
+    { "code": "AE2401", "name": "Engineering Geology" },
+    { "code": "AL2121", "name": "Global Development and Political Ecology" },
+    { "code": "AL2301", "name": "Applied Hydrogeology" },
+    { "code": "AL2511", "name": "Resilience Thinking in Sustainable Planning" },
+    { "code": "AL2608", "name": "Life Cycle Assessment" },
+    { "code": "AF283X", "name": "Degree Project in Hydraulic Engineering, Second Cycle" },
+    { "code": "AG212X", "name": "Degree Project in Urban and Regional Planning, Second Cycle" },
+    { "code": "AL230X", "name": "Degree Project in Environmental Engineering and Sustainable Infrastructure, Second Cycle" },
+    { "code": "AL250X", "name": "Degree Project in Strategies for Sustainable Development, Second Cycle" }
+  ]
+}
