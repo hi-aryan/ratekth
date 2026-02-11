@@ -1,0 +1,37 @@
+{
+    "program": {
+        "code": "TMESM",
+        "name": "Environomical Pathways for Sustainable Energy Systems",
+        "programType": "master",
+        "credits": 120,
+        "hasIntegratedMasters": false
+    },
+    "specializations": [],
+    "courses": [
+        { "code": "MJ1405", "name": "Introduction to Energy Conversion in Energy Technology" },
+        { "code": "MJ2416", "name": "Microeconomics and Energy Markets" },
+        { "code": "MJ2498", "name": "Energy Resources" },
+        { "code": "MJ2526", "name": "Renewable Energy Technology" },
+        { "code": "MJ2527", "name": "Project in Sustainable Energy Systems" },
+        { "code": "MJ2528", "name": "AI applications in Sustainable Energy Engineering" },
+        { "code": "MJ2418", "name": "Sustainable Energy and Environment" },
+        { "code": "MJ2525", "name": "Heating, Cooling and Indoor Climate" },
+        { "code": "MJ2530", "name": "Thermal Conversion and Industrial Energy Systems Analysis" },
+        { "code": "MJ2531", "name": "Transformation in Energy Policy and Climate Agenda" },
+        { "code": "MJ2532", "name": "Energy Storage - Systems and Applications" },
+        { "code": "MJ218X", "name": "Degree Project in Energy Technology, Second Cycle" },
+        { "code": "MJ2503", "name": "Small Scale Polygeneration" },
+        { "code": "MJ2504", "name": "Integrated Project of the Year in Sustainable Energy" },
+        { "code": "MJ2505", "name": "Practical Optimization of Energy Networks" },
+        { "code": "ME2086", "name": "Global Energy Markets and Systems in Transition" },
+        { "code": "MJ2383", "name": "Energy System Economics, Modelling and Indicators for Sustainable Energy Development" },
+        { "code": "MJ2460", "name": "Green Building - Concept, Design, Construction and Operation" },
+        { "code": "MJ2462", "name": "Achieving Energy Efficiency in Existing Buildings" },
+        { "code": "MJ2500", "name": "Large Scale Solar Power" },
+        { "code": "MJ2506", "name": "Energy Technologies for Sustainable Transportation" },
+        { "code": "MJ2507", "name": "AI applications in Sustainable Energy Engineering" },
+        { "code": "MJ2508", "name": "Energy Systems for Sustainable Development" },
+        { "code": "MJ2513", "name": "Circular Economy and Energy System" },
+        { "code": "MJ2521", "name": "Integrated Energy Systems for Buildings" }
+    ]
+}
