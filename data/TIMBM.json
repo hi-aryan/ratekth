@@ -1,0 +1,45 @@
+{
+  "program": {
+    "code": "TIMBM",
+    "name": "INDUSTRIAL AND ENVIRONMENTAL BIOTECHNOLOGY",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [
+    "Cell Based Process Biotechnology",
+    "Enzyme Technology",
+    "Environmental Biotechnology"
+  ],
+  "courses": [
+    { "code": "BB2165", "name": "Biomolecular Structure and Function" },
+    { "code": "CB2130", "name": "Teori, metodik och hållbarhet inom bioteknik" },
+    { "code": "BB1030", "name": "Microbiology" },
+    { "code": "BB1300", "name": "Cultivation Technology" },
+    { "code": "CB1000", "name": "Sustainable development and project management" },
+    { "code": "BB200X", "name": "Degree Project in Biotechnology, Second Cycle" },
+    { "code": "BB2520", "name": "Bioprocess Design" },
+    { "code": "BB2450", "name": "The Cell Factory", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2485", "name": "Metabolic Engineering", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2140", "name": "Enzymology and Biocatalysis", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2010", "name": "Downstream processing of biological products", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2255", "name": "Applied Gene Technology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2570", "name": "System Analysis and Life Cycle Assessment", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2442", "name": "Bioinformatics", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CK2000", "name": "Food chemistry and technology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2015", "name": "Environmental Toxicology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2290", "name": "Molecular Biomedicine", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2425", "name": "Glycobiotechnology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2446", "name": "Immunology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "BB2560", "name": "Advanced Microbiology and Metagenomics", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2080", "name": "Proteomics", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "KD1270", "name": "Organic Chemistry, Basic Concepts and Practice 2", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2120", "name": "Bioprocessing for the production of advanced biologics using mammalian cells", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2020", "name": "Clinical applications of biotechnology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2030", "name": "Systems biology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2090", "name": "Drug Development", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CB2100", "name": "Environmental Bioprocess Technology", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "CK2310", "name": "Advanced Organic Chemistry", "specializations": ["Cell Based Process Biotechnology", "Enzyme Technology", "Environmental Biotechnology"] },
+    { "code": "SK2534", "name": "Molecular Biophysics", "specializations": ["Enzyme Technology"] }
+  ]
+}
