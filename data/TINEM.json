@@ -1,0 +1,23 @@
+{
+  "program": {
+    "code": "TINEM",
+    "name": "Industrial Management",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    { "code": "ME2064", "name": "Finance and Control in Industrial Organizations" },
+    { "code": "ME2016", "name": "Project Management: Leadership and Control" },
+    { "code": "ME2065", "name": "Operations and Supply Chain Strategy" },
+    { "code": "ME2501", "name": "Perspectives on Industrial Management" },
+    { "code": "ME2066", "name": "Strategy and Industrial Marketing" },
+    { "code": "ME2067", "name": "Industrial Transformation and Technical Changes (ITTEC)" },
+    { "code": "ME2163", "name": "Leading People and Organizations in Different Contexts" },
+    { "code": "ME2003", "name": "Research Methods in Industrial Engineering and Management" },
+    { "code": "ME2069", "name": "Managing Research and Innovation" },
+    { "code": "ME2502", "name": "Change Project in Industrial Management" },
+    { "code": "ME210X", "name": "Degree Project in Industrial Economics and Management, Second Cycle" }
+  ]
+}
