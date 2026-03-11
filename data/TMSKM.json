@@ -1,0 +1,276 @@
+{
+  "program": {
+    "code": "TMSKM",
+    "name": "Machine Design",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    {
+      "code": "MF2010",
+      "name": "Component Design"
+    },
+    {
+      "code": "MF2018",
+      "name": "Tribology"
+    },
+    {
+      "code": "MF2024",
+      "name": "Robust and Probabilistic Design"
+    },
+    {
+      "code": "MF2068",
+      "name": "Machine Dynamics"
+    },
+    {
+      "code": "MF2511",
+      "name": "Machine Design: Fundamentals"
+    },
+    {
+      "code": "MF2521",
+      "name": "Advanced Machine Design Project, Part 1"
+    },
+    {
+      "code": "MF2522",
+      "name": "Systems Engineering"
+    },
+    {
+      "code": "MF2032",
+      "name": "Eco Design"
+    },
+    {
+      "code": "MF2512",
+      "name": "Model-based Engineering Design"
+    },
+    {
+      "code": "MF2516",
+      "name": "Machine Learning in Engineering Design"
+    },
+    {
+      "code": "MF2007",
+      "name": "Dynamics and Motion Control"
+    },
+    {
+      "code": "MG2009",
+      "name": "Advanced Manufacturing Technology"
+    },
+    {
+      "code": "MG2109",
+      "name": "Advanced Manufacturing Technology, Extended Course"
+    },
+    {
+      "code": "EJ2410",
+      "name": "Hybrid Vehicle Drives"
+    },
+    {
+      "code": "EQ2415",
+      "name": "Machine Learning and Data Science"
+    },
+    {
+      "code": "ME2072",
+      "name": "Entrepreneurship for Engineers"
+    },
+    {
+      "code": "ML2300",
+      "name": "Sustainable Production"
+    },
+    {
+      "code": "SD2222",
+      "name": "Vehicle Components"
+    },
+    {
+      "code": "SD2250",
+      "name": "Sustainable Vehicle Design"
+    },
+    {
+      "code": "SD2307",
+      "name": "Rail Vehicle Technology"
+    },
+    {
+      "code": "SD2411",
+      "name": "Lightweight Structures and FEM"
+    },
+    {
+      "code": "SD2416",
+      "name": "Structural Optimisation and Sandwich Design"
+    },
+    {
+      "code": "MF2030",
+      "name": "Mechatronics basic Course"
+    },
+    {
+      "code": "MF2087",
+      "name": "Innovation Management - Theory and Practice"
+    },
+    {
+      "code": "MF2095",
+      "name": "Programming in C for Embedded Systems"
+    },
+    {
+      "code": "MF2104",
+      "name": "Mechatronic in Product Design"
+    },
+    {
+      "code": "SD2709",
+      "name": "Underwater Technology"
+    },
+    {
+      "code": "SD2722",
+      "name": "Marine Structures"
+    },
+    {
+      "code": "SE1025",
+      "name": "FEM for Engineering Applications"
+    },
+    {
+      "code": "SE2126",
+      "name": "Material Mechanics"
+    },
+    {
+      "code": "SE2132",
+      "name": "Applied Elasticity with FEM"
+    },
+    {
+      "code": "SE2137",
+      "name": "Fatigue"
+    },
+    {
+      "code": "SE2860",
+      "name": "FEM Modelling"
+    },
+    {
+      "code": "SF2940",
+      "name": "Probability Theory"
+    },
+    {
+      "code": "SM2001",
+      "name": "Data-driven Methods in Engineering Mechanics"
+    },
+    {
+      "code": "SD2601",
+      "name": "Fundamentals of Flight"
+    },
+    {
+      "code": "SD2231",
+      "name": "Applied Vehicle Dynamics Control"
+    },
+    {
+      "code": "SD2413",
+      "name": "Fibre Composites - Analysis and Design"
+    },
+    {
+      "code": "SD2723",
+      "name": "Marine Hydromechanics"
+    },
+    {
+      "code": "SD2724",
+      "name": "Minor Marine Technology Project"
+    },
+    {
+      "code": "SD2805",
+      "name": "Flight Mechanics"
+    },
+    {
+      "code": "SE2123",
+      "name": "Testing Techniques in Solid Mechanics"
+    },
+    {
+      "code": "SE2134",
+      "name": "Dynamic Problems in Solid Mechanics"
+    },
+    {
+      "code": "SE2139",
+      "name": "Fracture Mechanics"
+    },
+    {
+      "code": "SG2212",
+      "name": "Computational Fluid Dynamics"
+    },
+    {
+      "code": "SG2224",
+      "name": "Applied Computational Fluid Dynamics"
+    },
+    {
+      "code": "DD2365",
+      "name": "Advanced Computation in Fluid Mechanics"
+    },
+    {
+      "code": "DD2421",
+      "name": "Machine Learning"
+    },
+    {
+      "code": "EL2810",
+      "name": "Machine Learning Theory"
+    },
+    {
+      "code": "EQ2341",
+      "name": "Pattern Recognition and Machine Learning"
+    },
+    {
+      "code": "MF2085",
+      "name": "Innovation- and Product Development Processes"
+    },
+    {
+      "code": "MG2036",
+      "name": "Computer Aided Manufacturing - CAM"
+    },
+    {
+      "code": "MG2044",
+      "name": "Additive Manufacturing"
+    },
+    {
+      "code": "SD2225",
+      "name": "Ground Vehicle Dynamics, Basic Course"
+    },
+    {
+      "code": "MF2072",
+      "name": "Research Methodology in Machine Design"
+    },
+    {
+      "code": "SE2870",
+      "name": "Fem for Nonlinear Problems in Solid Mechanics"
+    },
+    {
+      "code": "SD2111",
+      "name": "Engineering Acoustics"
+    },
+    {
+      "code": "MF2019",
+      "name": "CAD 3D-modelling and Visualization"
+    },
+    {
+      "code": "SD2900",
+      "name": "Fundamentals of Spaceflight"
+    },
+    {
+      "code": "SD2460",
+      "name": "Individual Project Work Lightweight Structures"
+    },
+    {
+      "code": "MF2103",
+      "name": "Embedded Systems for Mechatronics"
+    },
+    {
+      "code": "SD2414",
+      "name": "Fibre Composites - Materials and Manufacturing"
+    },
+    {
+      "code": "SD2465",
+      "name": "Indivual Project Work, Lightweight Structures"
+    },
+    {
+      "code": "MF2531",
+      "name": "Advanced Machine Design Project, Part 2"
+    },
+    {
+      "code": "MF213X",
+      "name": "Degree Project in Machine Design, Second Cycle"
+    },
+    {
+      "code": "MF223X",
+      "name": "Degree Project in Machine Design, Second Cycle"
+    }
+  ]
+}
