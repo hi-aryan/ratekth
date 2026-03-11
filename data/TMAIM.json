@@ -1,0 +1,208 @@
+{
+  "program": {
+    "code": "TMAIM",
+    "name": "Machine Learning",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    {
+      "code": "DA2205",
+      "name": "Introduction to the Philosophy of Science and Research Methodology"
+    },
+    {
+      "code": "DD1420",
+      "name": "Foundations of Machine Learning"
+    },
+    {
+      "code": "DD2301",
+      "name": "Program Integrating Course in Machine Learning"
+    },
+    {
+      "code": "DD2380",
+      "name": "Artificial Intelligence"
+    },
+    {
+      "code": "DD2434",
+      "name": "Machine Learning, Advanced Course"
+    },
+    {
+      "code": "DD2430",
+      "name": "Project Course in Data Science"
+    },
+    {
+      "code": "DD2401",
+      "name": "Neuroscience"
+    },
+    {
+      "code": "DD2402",
+      "name": "Advanced Individual Course in Computational Biology"
+    },
+    {
+      "code": "DD2411",
+      "name": "Research project in Robotics, Perception and Learning"
+    },
+    {
+      "code": "DD2417",
+      "name": "Language Engineering"
+    },
+    {
+      "code": "DD2419",
+      "name": "Project Course in Robotics and Autonomous Systems"
+    },
+    {
+      "code": "DD2420",
+      "name": "Probabilistic Graphical Models"
+    },
+    {
+      "code": "DD2424",
+      "name": "Deep Learning in Data Science"
+    },
+    {
+      "code": "DD2437",
+      "name": "Artificial Neural Networks and Deep Architectures"
+    },
+    {
+      "code": "DD2438",
+      "name": "Artificial Intelligence and Multi Agent Systems"
+    },
+    {
+      "code": "DD2477",
+      "name": "Search Engines and Information Retrieval Systems"
+    },
+    {
+      "code": "DT2112",
+      "name": "Speech Technology"
+    },
+    {
+      "code": "DT2119",
+      "name": "Speech and Speaker Recognition"
+    },
+    {
+      "code": "EL2810",
+      "name": "Machine Learning Theory"
+    },
+    {
+      "code": "EQ2341",
+      "name": "Pattern Recognition and Machine Learning"
+    },
+    {
+      "code": "SF2930",
+      "name": "Regression Analysis"
+    },
+    {
+      "code": "SF2943",
+      "name": "Time Series Analysis"
+    },
+    {
+      "code": "DD2257",
+      "name": "Visualization"
+    },
+    {
+      "code": "DD2410",
+      "name": "Introduction to Robotics"
+    },
+    {
+      "code": "DD2423",
+      "name": "Image Analysis and Computer Vision"
+    },
+    {
+      "code": "DD2435",
+      "name": "Mathematical Modelling of Biological Systems"
+    },
+    {
+      "code": "DD2447",
+      "name": "Statistical Methods in Applied Computer Science"
+    },
+    {
+      "code": "DT2470",
+      "name": "Music Informatics"
+    },
+    {
+      "code": "EL2320",
+      "name": "Applied Estimation"
+    },
+    {
+      "code": "EL2805",
+      "name": "Reinforcement Learning"
+    },
+    {
+      "code": "EQ2425",
+      "name": "Analysis and Search of Visual Data"
+    },
+    {
+      "code": "ID2222",
+      "name": "Data Mining"
+    },
+    {
+      "code": "ID2223",
+      "name": "Scalable Machine Learning and Deep Learning"
+    },
+    {
+      "code": "SF1811",
+      "name": "Optimization"
+    },
+    {
+      "code": "SF2940",
+      "name": "Probability Theory"
+    },
+    {
+      "code": "DD1388",
+      "name": "Program System Construction Using C++"
+    },
+    {
+      "code": "DD2352",
+      "name": "Algorithms and Complexity"
+    },
+    {
+      "code": "DD2448",
+      "name": "Foundations of Cryptography"
+    },
+    {
+      "code": "DH2642",
+      "name": "Interaction Programming and the Dynamic Web"
+    },
+    {
+      "code": "IK2221",
+      "name": "Networked Systems for Machine Learning"
+    },
+    {
+      "code": "IK2227",
+      "name": "Network Systems with Edge or Cloud Datacenters"
+    },
+    {
+      "code": "DD2395",
+      "name": "Computer Security"
+    },
+    {
+      "code": "ID2221",
+      "name": "Data-Intensive Computing"
+    },
+    {
+      "code": "IK2215",
+      "name": "Advanced Internetworking"
+    },
+    {
+      "code": "DD2603",
+      "name": "Geometric Robot Learning"
+    },
+    {
+      "code": "DA233X",
+      "name": "Degree Project in Computer Science and Engineering, specializing in Machine Learning, Second Cycle"
+    },
+    {
+      "code": "DD2601",
+      "name": "Deep Generative Models and Synthesis"
+    },
+    {
+      "code": "DD2610",
+      "name": "Deep Learning, advanced course"
+    },
+    {
+      "code": "SF2568",
+      "name": "Parallel Computations for Large- Scale Problems"
+    }
+  ]
+}
