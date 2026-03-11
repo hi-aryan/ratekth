@@ -1,0 +1,138 @@
+{
+  "program": {
+    "code": "TIPDM",
+    "name": "Integrated Product Design",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [
+    "Industrial Design Engineering",
+    "Innovation Management and Product Development"
+  ],
+  "courses": [
+    {
+      "code": "MF2113",
+      "name": "Advanced Industrial Design Engineering"
+    },
+    {
+      "code": "MF2072",
+      "name": "Research Methodology in Machine Design"
+    },
+    {
+      "code": "MF2104",
+      "name": "Mechatronic in Product Design",
+      "specializations": [
+        "Industrial Design Engineering",
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2039",
+      "name": "Advanced Service Design",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2102",
+      "name": "Machine Design Project Course",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2114",
+      "name": "Design for Sustainability",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2511",
+      "name": "Machine Design: Fundamentals",
+      "specializations": [
+        "Industrial Design Engineering",
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2086",
+      "name": "Research Methodology in Management and Organization",
+      "specializations": [
+        "Industrial Design Engineering",
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2112",
+      "name": "Advanced Product Design",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2032",
+      "name": "Eco Design",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2097",
+      "name": "Advanced Sketch Exercises",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2094",
+      "name": "Develop Creativity",
+      "specializations": [
+        "Industrial Design Engineering"
+      ]
+    },
+    {
+      "code": "MF2084",
+      "name": "Managing Research and Development",
+      "specializations": [
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MG2020",
+      "name": "Modularisation of Products",
+      "specializations": [
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2046",
+      "name": "Product Innovation",
+      "specializations": [
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2522",
+      "name": "Systems Engineering",
+      "specializations": [
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2085",
+      "name": "Innovation- and Product Development Processes",
+      "specializations": [
+        "Innovation Management and Product Development"
+      ]
+    },
+    {
+      "code": "MF2210",
+      "name": "Frugal Innovation and Design",
+      "specializations": [
+        "Innovation Management and Product Development"
+      ]
+    }
+  ]
+}
