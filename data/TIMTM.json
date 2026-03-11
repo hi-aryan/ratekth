@@ -1,0 +1,252 @@
+{
+  "program": {
+    "code": "TIMTM",
+    "name": "Interactive Media Technology",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    {
+      "code": "DH2322",
+      "name": "Interactive Data Visualization"
+    },
+    {
+      "code": "DH2632",
+      "name": "Human-Computer Interaction, Research Seminars"
+    },
+    {
+      "code": "DM2573",
+      "name": "Sustainability and Media Technology"
+    },
+    {
+      "code": "DM2679",
+      "name": "Program Integrating Course in Interactive Media Technology"
+    },
+    {
+      "code": "DM2350",
+      "name": "Human Perception for Information Technology"
+    },
+    {
+      "code": "DM2601",
+      "name": "Media Technology and Interaction Design"
+    },
+    {
+      "code": "DM2713",
+      "name": "Research Methods in Interactive Media Technology"
+    },
+    {
+      "code": "DD2258",
+      "name": "Introduction to Visualization, Computer Graphics and Image/Video Processing"
+    },
+    {
+      "code": "DD2480",
+      "name": "Software Engineering Fundamentals"
+    },
+    {
+      "code": "DH2310",
+      "name": "Extended Reality in Theory and Practice"
+    },
+    {
+      "code": "DH2323",
+      "name": "Computer Graphics and Interaction"
+    },
+    {
+      "code": "DH2400",
+      "name": "Physical Interaction Design and Realization"
+    },
+    {
+      "code": "DH2642",
+      "name": "Interaction Programming and the Dynamic Web"
+    },
+    {
+      "code": "DH2650",
+      "name": "Computer Game Design"
+    },
+    {
+      "code": "DH2670",
+      "name": "Haptics, Tactile and Tangible Interaction"
+    },
+    {
+      "code": "DM2556",
+      "name": "Intercultural communication"
+    },
+    {
+      "code": "DM2585",
+      "name": "Artificial Intelligence in Society"
+    },
+    {
+      "code": "DM2624",
+      "name": "Human Centered Technology for Disabilities"
+    },
+    {
+      "code": "DM2720",
+      "name": "Sustainable Information and Communication Technology (ICT) in Practice"
+    },
+    {
+      "code": "DM2731",
+      "name": "AI for Learning"
+    },
+    {
+      "code": "DT2212",
+      "name": "Music Acoustics"
+    },
+    {
+      "code": "DT2213",
+      "name": "Musical Communication and Music Technology"
+    },
+    {
+      "code": "DM2588",
+      "name": "Generative AI for Media Technology and Interaction Design"
+    },
+    {
+      "code": "DD2413",
+      "name": "Social Robotics"
+    },
+    {
+      "code": "DD2423",
+      "name": "Image Analysis and Computer Vision"
+    },
+    {
+      "code": "DH2408",
+      "name": "Evaluation Methods in Human-Computer Interaction"
+    },
+    {
+      "code": "DT2140",
+      "name": "Multimodal Interaction and Interfaces"
+    },
+    {
+      "code": "EQ2330",
+      "name": "Image and Video Processing"
+    },
+    {
+      "code": "DM2730",
+      "name": "Technology Enhanced Learning"
+    },
+    {
+      "code": "DT2300",
+      "name": "Sound in Interaction"
+    },
+    {
+      "code": "DD2470",
+      "name": "Advanced Topics in Visualization and Computer Graphics"
+    },
+    {
+      "code": "DM2904",
+      "name": "Individual Course in Media Technology"
+    },
+    {
+      "code": "DM2905",
+      "name": "Individual Course in Media Technology"
+    },
+    {
+      "code": "DT2151",
+      "name": "Project in Conversational Systems"
+    },
+    {
+      "code": "DT2215",
+      "name": "Advanced Individual Course in Music Communication"
+    },
+    {
+      "code": "DT2216",
+      "name": "Advanced Individual Course in Music Communication"
+    },
+    {
+      "code": "ID2214",
+      "name": "Programming for Data Science"
+    },
+    {
+      "code": "MF2104",
+      "name": "Mechatronic in Product Design"
+    },
+    {
+      "code": "DM2602",
+      "name": "Communicating Science Through Art and Art Through Science"
+    },
+    {
+      "code": "DM1999",
+      "name": "Engineering Training Course"
+    },
+    {
+      "code": "DT2112",
+      "name": "Speech Technology"
+    },
+    {
+      "code": "DT2119",
+      "name": "Speech and Speaker Recognition"
+    },
+    {
+      "code": "LS1464",
+      "name": "Rhetoric - the Art of Persuasion"
+    },
+    {
+      "code": "DD2364",
+      "name": "Interactive Visualisation of Virtual Urban Environments and Computational Urban Design"
+    },
+    {
+      "code": "SK2304",
+      "name": "Photography advanced course"
+    },
+    {
+      "code": "DA232X",
+      "name": "Degree Project in Computer Science and Engineering, specializing in Interactive Media Technology, Second Cycle"
+    },
+    {
+      "code": "DD2257",
+      "name": "Visualization"
+    },
+    {
+      "code": "DD2380",
+      "name": "Artificial Intelligence"
+    },
+    {
+      "code": "DH2413",
+      "name": "Advanced Graphics and Interaction"
+    },
+    {
+      "code": "DH2643",
+      "name": "Advanced Interaction Programming"
+    },
+    {
+      "code": "DH2655",
+      "name": "Cooperative IT-design"
+    },
+    {
+      "code": "DM2583",
+      "name": "Big Data in Media Technology"
+    },
+    {
+      "code": "DM2630",
+      "name": "User Experience Design and Evaluation"
+    },
+    {
+      "code": "DM2800",
+      "name": "Leading Complex Change Processes"
+    },
+    {
+      "code": "DT2470",
+      "name": "Music Informatics"
+    },
+    {
+      "code": "AK2203",
+      "name": "Media, Technology and Culture"
+    },
+    {
+      "code": "DT2410",
+      "name": "Audio Technology"
+    },
+    {
+      "code": "IL2206",
+      "name": "Embedded Systems"
+    },
+    {
+      "code": "ME2072",
+      "name": "Entrepreneurship for Engineers"
+    },
+    {
+      "code": "ME2039",
+      "name": "Knowledge Management"
+    }
+  ]
+}
