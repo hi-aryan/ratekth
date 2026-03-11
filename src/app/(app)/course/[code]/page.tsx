@@ -64,6 +64,61 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
             <div className="flex gap-4">
                 {/* Feed Column */}
                 <div className="flex-1 min-w-0">
+                    {/* Mobile course info banner — mirrors sidebar, visible below md only */}
+                    <div className="md:hidden mb-4">
+                        <Sidebar>
+                            <div className="flex items-start justify-between gap-4 mb-4">
+                                <div className="min-w-0">
+                                    <h1 className="text-lg font-bold text-carbon">{course.code}</h1>
+                                    <p className="text-sm text-carbon/60 line-clamp-2">{course.name}</p>
+                                </div>
+                                {course.averageRating !== undefined && (
+                                    <div className="flex items-center gap-1.5 shrink-0">
+                                        <StarRating value={Math.round(course.averageRating)} size="sm" />
+                                        <span className="text-sm font-medium text-carbon">
+                                            {course.averageRating.toFixed(1)}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-1.5 text-sm text-carbon/50 min-w-0">
+                                    <Users className="w-4 h-4 opacity-50 shrink-0" />
+                                    <span>
+                                        {course.reviewCount} {course.reviewCount === 1 ? "review" : "reviews"}
+                                    </span>
+                                </div>
+                                {session && reviewsResult.items.length > 0 && (
+                                    userReviewId ? (
+                                        <Link href={`/review/${userReviewId}/edit`} className="shrink-0">
+                                            <Button variant="secondary" className="text-sm">
+                                                Edit Your Review
+                                            </Button>
+                                        </Link>
+                                    ) : isCourseInCurriculum ? (
+                                        <Link href={`/review/new?course_id=${course.id}`} className="shrink-0">
+                                            <Button variant="secondary" className="text-sm">
+                                                Review this course
+                                            </Button>
+                                        </Link>
+                                    ) : (
+                                        <p className="text-sm text-carbon/40 italic shrink-0">
+                                            Not in your curriculum
+                                        </p>
+                                    )
+                                )}
+                                {!session && (
+                                    <Link href="/login" className="shrink-0">
+                                        <Button variant="secondary" className="text-sm">
+                                            Sign in to review
+                                        </Button>
+                                    </Link>
+                                )}
+                            </div>
+                        </Sidebar>
+                    </div>
+
                     {reviewsResult.items.length > 0 ? (
                         <div className="space-y-4">
                             {/* Reviews */}
