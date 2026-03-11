@@ -1,0 +1,75 @@
+{
+  "program": {
+    "code": "TIEEM",
+    "name": "Innovative Sustainable Energy Engineering",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "courses": [
+    {
+      "code": "MJ2405",
+      "name": "Sustainable Power Generation"
+    },
+    {
+      "code": "MJ2411",
+      "name": "Renewable Energy Technology"
+    },
+    {
+      "code": "MJ2508",
+      "name": "Energy Systems for Sustainable Development"
+    },
+    {
+      "code": "MJ2509",
+      "name": "Energy in the built environment"
+    },
+    {
+      "code": "MJ2426",
+      "name": "Applied Heat and Power Technology"
+    },
+    {
+      "code": "MJ2510",
+      "name": "Methods of research in sustainable energy"
+    },
+    {
+      "code": "MJ2511",
+      "name": "Energy Management"
+    },
+    {
+      "code": "MJ2516",
+      "name": "Sustainability perspectives for assessing and designing research, projects and policies"
+    },
+    {
+      "code": "MJ2381",
+      "name": "Introduction to Energy Systems Analysis and Applications - Minor Course"
+    },
+    {
+      "code": "MJ2512",
+      "name": "Transformation in Energy Policy and Climate Agenda"
+    },
+    {
+      "code": "MJ2383",
+      "name": "Energy System Economics, Modelling and Indicators for Sustainable Energy Development"
+    },
+    {
+      "code": "MJ2513",
+      "name": "Circular Economy and Energy System"
+    },
+    {
+      "code": "MJ2520",
+      "name": "Energy Systems for Smart Cities"
+    },
+    {
+      "code": "MJ2525",
+      "name": "Heating, Cooling and Indoor Climate"
+    },
+    {
+      "code": "MJ2507",
+      "name": "AI applications in Sustainable Energy Engineering"
+    },
+    {
+      "code": "MJ2505",
+      "name": "Practical Optimization of Energy Networks"
+    }
+  ]
+}
