@@ -1,0 +1,108 @@
+{
+  "program": {
+    "code": "TIHLM",
+    "name": "Innovative Technology for Healthy Living",
+    "programType": "master",
+    "credits": 120,
+    "hasIntegratedMasters": false
+  },
+  "specializations": [],
+  "courses": [
+    {
+      "code": "CM2012",
+      "name": "Medical Technologies in Digital Healthcare Transformation"
+    },
+    {
+      "code": "CM2002",
+      "name": "Artificial Intelligence within Biomedical Engineering and Health Systems"
+    },
+    {
+      "code": "AK2036",
+      "name": "Theory and Methodology of Science with Applications (Natural and Technological Science)"
+    },
+    {
+      "code": "CM2011",
+      "name": "Applied Machine Learning and Artificial Intelligence"
+    },
+    {
+      "code": "CM2010",
+      "name": "Sociocultural Perspectives to Innovative Technologies"
+    },
+    {
+      "code": "HL1007",
+      "name": "Medical Engineering, Basic Course"
+    },
+    {
+      "code": "SK2532",
+      "name": "Biomedicine for Engineers"
+    },
+    {
+      "code": "HL2014",
+      "name": "Safe Medical Devices"
+    },
+    {
+      "code": "CM1010",
+      "name": "Human Physiology"
+    },
+    {
+      "code": "CM2006",
+      "name": "Medical Image Visualization"
+    },
+    {
+      "code": "HM102V",
+      "name": "Healthcare Logistics-theory"
+    },
+    {
+      "code": "CM2013",
+      "name": "Signal Processing and Data Analytics in Biomedical Engineering"
+    },
+    {
+      "code": "SM2501",
+      "name": "Biomechanics of Human Movement"
+    },
+    {
+      "code": "CM2019",
+      "name": "Ultrasound"
+    },
+    {
+      "code": "CB2380",
+      "name": "Medical Sensors"
+    },
+    {
+      "code": "HL2029",
+      "name": "Medical Engineering, Advanced Course"
+    },
+    {
+      "code": "HL205X",
+      "name": "Degree Project in Medical Engineering, Second Cycle"
+    },
+    {
+      "code": "HL207X",
+      "name": "Degree Project in Technology and Health, Second Cycle"
+    },
+    {
+      "code": "SA2003",
+      "name": "Sustainable Development in Engineering Physics"
+    },
+    {
+      "code": "CM2008",
+      "name": "Entrepreneurship in Technology and Health"
+    },
+    {
+      "code": "CM2024",
+      "name": "Technology and Health, Project Course"
+    },
+    {
+      "code": "MF2065",
+      "name": "Innovations for the Emerging City, Openlab Multidisciplinary Project Course"
+    },
+    {
+      "code": "MF2080",
+      "name": "Challenges for the Emerging City, Interdiciplinary Project Course A:1 (OpenLab Project Course)"
+    },
+    {
+      "code": "HL2034",
+      "name": "Clinical Innovation and Design"
+    }
+  ]
+}
