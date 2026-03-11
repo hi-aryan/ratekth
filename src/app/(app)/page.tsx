@@ -6,7 +6,6 @@ import { SortDropdown } from "@/components/features/SortDropdown";
 import { FeedFilterToggle } from "@/components/features/FeedFilterToggle";
 import { Sidebar } from "@/components/features/Sidebar";
 import { SidebarStats } from "@/components/features/SidebarStats";
-import { SearchBar } from "@/components/ui/SearchBar";
 import { Pagination } from "@/components/ui/Pagination";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -103,14 +102,6 @@ export default async function Home({ searchParams }: PageProps) {
 
                 {/* Sort */}
                 <SortDropdown currentSort={currentSort} />
-
-                <div className="pt-4 border-t border-carbon/10">
-                  {/* Search */}
-                  <SearchBar />
-                  <p className="mt-2 text-xs text-carbon/40">
-                    Enter at least 2 characters to search.
-                  </p>
-                </div>
 
                 {/* User Stats - only for authenticated users */}
                 {userReviewCount !== null && (

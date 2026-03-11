@@ -68,7 +68,7 @@ export default async function CourseFeedPage({ params, searchParams }: PageProps
                         <div className="space-y-4">
                             {/* Reviews */}
                             {reviewsResult.items.map((review) => (
-                                <ReviewCard key={review.id} review={review} />
+                                <ReviewCard key={review.id} review={review} showCourseLink={false} />
                             ))}
 
                             {/* Pagination */}

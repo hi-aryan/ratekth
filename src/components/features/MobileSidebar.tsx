@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Menu, X, GraduationCap, MessageCircle, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { WriteReviewButton } from "@/components/ui/WriteReviewButton"
-import { SearchBar } from "@/components/ui/SearchBar"
 import { SortDropdown } from "@/components/features/SortDropdown"
 import { FeedFilterToggle } from "@/components/features/FeedFilterToggle"
 import { FeedbackForm } from "@/components/forms/FeedbackForm"
@@ -16,7 +15,7 @@ interface MobileSidebarProps {
 
 /**
  * MobileSidebar: Toggle button + overlay sidebar for mobile view.
- * Contains nav actions + sort + search + feedback form. Only visible on mobile.
+ * Contains nav actions + sort + feedback form. Only visible on mobile.
  */
 export const MobileSidebar = ({ isAuthenticated }: MobileSidebarProps) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -116,10 +115,6 @@ export const MobileSidebar = ({ isAuthenticated }: MobileSidebarProps) => {
                             <div className="p-4 space-y-3">
                                 {isAuthenticated && <FeedFilterToggle />}
                                 <SortDropdown />
-                            </div>
-                            <div className="w-full border-b border-carbon/10" />
-                            <div className="p-4">
-                                <SearchBar />
                             </div>
 
                             {/* Feedback link at bottom */}
