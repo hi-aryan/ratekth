@@ -53,12 +53,12 @@ export const ReviewCard = ({
                 {linkToCourse ? (
                     <Link href={`/course/${courseCode}`} className="inline-block text-carbon hover:-translate-y-[1px] transition-transform duration-150">
                         {courseCode}
-                        <span className="font-normal text-carbon/60 block sm:inline sm:ml-2">{review.course.name}</span>
+                        <span className="font-normal text-carbon/60 sm:inline sm:ml-2 max-sm:line-clamp-2">{review.course.name}</span>
                     </Link>
                 ) : (
                     <>
                         {courseCode}
-                        <span className="font-normal text-carbon/60 block sm:inline sm:ml-2">{review.course.name}</span>
+                        <span className="font-normal text-carbon/60 sm:inline sm:ml-2 max-sm:line-clamp-2">{review.course.name}</span>
                     </>
                 )}
             </h3>
@@ -124,7 +124,7 @@ export const ReviewCard = ({
                     <div className="flex items-center gap-3 px-8 pt-6 pb-4 group-hover:translate-x-[4px] transition-transform duration-200 ease-in-out">
                         <h3 className={`${titleClass} font-bold text-carbon min-w-0 flex-1`}>
                             {courseCode}
-                            <span className="font-normal text-carbon/60 block sm:inline sm:ml-2">
+                            <span className="font-normal text-carbon/60 sm:inline sm:ml-2 max-sm:line-clamp-2">
                                 {review.course.name}
                             </span>
                         </h3>
