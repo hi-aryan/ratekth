@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { validatePasswordResetToken } from "@/services/auth";
 import { ResetPasswordForm } from "@/components/forms/ResetPasswordForm";
 import { Card } from "@/components/ui/Card";
 import { BackLink } from "@/components/ui/BackLink";
 import { BorderBeam } from "@/components/ui/BorderBeam";
+
+export const metadata: Metadata = {
+    title: "Reset Password",
+    robots: { index: false, follow: false },
+};
 
 export const dynamic = "force-dynamic";
 

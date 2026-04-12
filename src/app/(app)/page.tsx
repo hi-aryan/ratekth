@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@/services/auth";
 import { getStudentFeed } from "@/services/feed";
 import { getUserReviewCount } from "@/services/reviews";
@@ -11,6 +12,12 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { SORT_OPTIONS, type FeedSortOption } from "@/lib/constants";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "KTH Course Reviews",
+  description:
+    "Student-written reviews for every KTH course. Find ratings, difficulty, and tips before you enroll.",
+};
 
 interface PageProps {
   searchParams: Promise<{ page?: string; sortBy?: string; filter?: string }>;

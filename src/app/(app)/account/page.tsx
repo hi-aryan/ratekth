@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { auth } from "@/services/auth";
 import { logoutAction } from "@/actions/auth";
 import { getUserWithProgramCredits } from "@/services/users";
@@ -16,6 +17,11 @@ import { BackLink } from "@/components/ui/BackLink";
 import { redirect } from "next/navigation";
 import { Specialization, Program } from "@/lib/types";
 import { OPEN_ENTRANCE_PROGRAM_CODE } from "@/lib/constants";
+
+export const metadata: Metadata = {
+    title: "My Account",
+    robots: { index: false, follow: false },
+};
 
 export const dynamic = "force-dynamic";
 

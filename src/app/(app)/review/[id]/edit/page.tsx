@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/services/auth";
 import { getAllTags, getReviewForEdit } from "@/services/reviews";
 import { ReviewForm } from "@/components/forms/ReviewForm";
 import { Card } from "@/components/ui/Card";
 import { BackLink } from "@/components/ui/BackLink";
+
+export const metadata: Metadata = {
+    title: "Edit Review",
+    robots: { index: false, follow: false },
+};
 
 interface PageProps {
     params: Promise<{ id: string }>;

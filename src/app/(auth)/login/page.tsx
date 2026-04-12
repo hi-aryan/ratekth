@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { LoginForm } from "@/components/forms/LoginForm";
 import { ResendVerificationForm } from "@/components/forms/ResendVerificationForm";
 import { ForgotPasswordForm } from "@/components/forms/ForgotPasswordForm";
 import { Card } from "@/components/ui/Card";
 import { BackLink } from "@/components/ui/BackLink";
 import { BorderBeam } from "@/components/ui/BorderBeam";
+
+export const metadata: Metadata = {
+    title: "Log In",
+    description: "Sign in to rateKTH with your KTH email and password.",
+    robots: { index: false, follow: false },
+};
 
 /** force-dynamic: Ensures fresh session check on each request */
 export const dynamic = "force-dynamic";

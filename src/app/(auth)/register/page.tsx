@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { RegisterForm } from "@/components/forms/RegisterForm";
 import { getBasePrograms, getMastersDegrees } from "@/services/programs";
 import { Card } from "@/components/ui/Card";
 import { BackLink } from "@/components/ui/BackLink";
 import { BorderBeam } from "@/components/ui/BorderBeam";
+
+export const metadata: Metadata = {
+    title: "Create Account",
+    description: "Create a rateKTH account with your KTH email to read and write course reviews.",
+    robots: { index: false, follow: false },
+};
 
 export const dynamic = "force-dynamic";
 export default async function RegisterPage() {

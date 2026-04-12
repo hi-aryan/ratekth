@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/services/auth";
@@ -15,6 +16,34 @@ import { MessageSquare, Users } from "lucide-react";
 interface PageProps {
     params: Promise<{ code: string }>;
     searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { code } = await params;
+    const course = await getCourseByCode(code.toUpperCase());
+
+    if (!course) return { title: "Course Not Found" };
+
+    const ratingText = course.averageRating
+        ? ` Avg rating ${course.averageRating.toFixed(1)}/5.`
+        : "";
+    const description =
+        `Student reviews for KTH course ${course.code} (${course.name}). ` +
+        `${course.reviewCount} review${course.reviewCount !== 1 ? "s" : ""}.${ratingText} See ratings, workload, and tips.`;
+
+    return {
+        title: `${course.code} Reviews`,
+        description,
+        openGraph: {
+            title: `${course.code} Reviews — rateKTH`,
+            description,
+            url: `/course/${course.code}`,
+            images: [
+                { url: "/ratekth-new-logo.png", width: 1200, height: 630, alt: "rateKTH" },
+            ],
+        },
+        alternates: { canonical: `/course/${course.code}` },
+    };
 }
 
 export default async function CourseFeedPage({ params, searchParams }: PageProps) {

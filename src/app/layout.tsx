@@ -5,10 +5,14 @@ import { FeedbackWidget } from "@/components/features/FeedbackWidget";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "rateKTH",
+  metadataBase: new URL("https://ratekth.se"),
+  title: {
+    default: "rateKTH- KTH Course Reviews",
+    template: "%s — rateKTH",
+  },
   description: "Course reviews for KTH Royal Institute of Technology students",
   openGraph: {
-    title: "rateKTH",
+    title: "rateKTH- KTH Course Reviews",
     description: "Course reviews for KTH Royal Institute of Technology students",
     url: "https://ratekth.se",
     siteName: "rateKTH",
@@ -25,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "rateKTH",
+    title: "rateKTH- KTH Course Reviews",
     description: "Course reviews for KTH Royal Institute of Technology students",
     images: ["/ratekth-new-logo.png"],
   },
