@@ -505,6 +505,17 @@ export const deleteReview = async (reviewId: number, userId: string): Promise<vo
 };
 
 /**
+ * Service: Get all review IDs and post dates for sitemap generation.
+ * Returns only the fields needed — no joins required.
+ */
+export const getAllReviewsForSitemap = async (): Promise<{ id: number; datePosted: Date }[]> => {
+    return db
+        .select({ id: post.id, datePosted: post.datePosted })
+        .from(post)
+        .orderBy(desc(post.datePosted));
+};
+
+/**
  * Service: Get the total number of reviews a user has written.
  * Efficient COUNT(*) query for sidebar display.
  */

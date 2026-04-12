@@ -1,7 +1,7 @@
 import "server-only";
 import { db } from "@/db";
 import { course, courseProgram, courseSpecialization, post } from "@/db/schema";
-import { eq, sql, inArray, count, avg } from "drizzle-orm";
+import { eq, sql, inArray, count, avg, asc } from "drizzle-orm";
 import type { CourseWithStats } from "@/lib/types";
 
 /**
@@ -218,4 +218,12 @@ export const getAvailableCourses = async (
         reviewCount: Number(row.reviewCount),
         averageRating: row.averageRating ? Number(row.averageRating) : undefined,
     }));
+};
+
+/**
+ * Service: Get all course codes for sitemap generation.
+ * Returns only the code — no stats needed.
+ */
+export const getAllCoursesForSitemap = async (): Promise<{ code: string }[]> => {
+    return db.select({ code: course.code }).from(course).orderBy(asc(course.code));
 };
