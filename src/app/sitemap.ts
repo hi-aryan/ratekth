@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 import { getAllCoursesForSitemap } from "@/services/courses";
 import { getAllReviewsForSitemap } from "@/services/reviews";
 
-// Regenerate at most once per hour so Googlebot always gets fresh URLs
-// without hitting the DB on every crawl.
-export const revalidate = 3600;
+// `postgres.railway.internal` only resolves at runtime inside Railway's network,
+// not during `next build`. Force-dynamic so the DB queries run at request time.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [courses, reviews] = await Promise.all([
