@@ -62,6 +62,7 @@ export const RegisterForm = ({ basePrograms, mastersDegrees }: RegisterFormProps
         <form ref={formRef} onSubmit={onSubmit} className="space-y-6">
             <FormField
                 label="KTH Email"
+                tooltip="Your email is used to verify you're a real KTH student. This project is run by ONE student. It's not affiliated with KTH, and your email will never be shared with KTH staff. Reviews are anonymous."
                 error={form.formState.errors.email?.message}
             >
                 <Input

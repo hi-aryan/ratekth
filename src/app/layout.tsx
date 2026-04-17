@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased font-sans">
+      <body className="antialiased font-sans flex flex-col min-h-screen">
         <Toaster 
           duration={5000} 
           position="top-center" 
@@ -59,7 +59,9 @@ export default function RootLayout({
           }}
         />
         <NotificationListener />
-        {children}
+        <main className="flex-grow flex flex-col">
+          {children}
+        </main>
         <FeedbackWidget />
       </body>
     </html>
