@@ -92,6 +92,11 @@ export const FeedbackForm = ({ onSuccess }: FeedbackFormProps) => {
             {state?.fieldErrors?.content && (
                 <p className="text-xs text-coral">{state.fieldErrors.content[0]}</p>
             )}
+
+            {/* Reply note - shown to all users */}
+            <p className="text-[11px] leading-snug text-carbon/40">
+                note: i will only be able to reply to feedback sent while signed in
+            </p>
         </form>
     );
 };
